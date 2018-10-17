@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutParent"
+    android:background="@color/colorBackgroundPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?attr/actionBarSize"
+    tools:context=".activity.auth.SignInActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/padding_bottom_frame"
+        android:background="@drawable/background_primary"
+        app:layout_insetEdge="top"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:focusable="true"
+            style="@style/AppTheme.Layout.Parent"
+            android:focusableInTouchMode="true">
+
+            <requestFocus />
+
+            <LinearLayout
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmEdit="@id/textEmail"
+                    app:AmFont="M"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_email_address" />
+
+                <com.ismealdi.dactiv.components.AmEditText
+                    style="@style/AppTheme.TextInput"
+                    app:AmFont="R"
+                    android:id="@+id/textEmail"
+                    android:hint="@string/text_email_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmEdit="@id/textPassword"
+                    app:AmFont="M"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_password" />
+
+                <com.ismealdi.dactiv.components.AmEditText
+                    style="@style/AppTheme.TextInput"
+                    app:AmFont="R"
+                    android:id="@+id/textPassword"
+                    android:hint="@string/text_password_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+                    android:imeActionLabel="@string/text_sign_in"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <com.ismealdi.dactiv.components.AmButton
+                app:AmFont="S"
+                android:id="@+id/buttonSignIn"
+                android:layout_marginTop="@dimen/component_super"
+                style="@style/AppTheme.ButtonInput.Round"
+                android:text="@string/text_sign_in"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_big"/>
+
+            <com.ismealdi.dactiv.components.AmTextView
+                app:AmFont="R"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_or"
+                android:layout_marginBottom="@dimen/component_medium"/>
+
+            <com.ismealdi.dactiv.components.AmButton
+                app:AmFont="S"
+                android:id="@+id/buttonSignUp"
+                style="@style/AppTheme.ButtonInput.Text"
+                android:text="@string/text_register"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

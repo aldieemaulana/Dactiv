@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+android {
+    compileSdkVersion rootProject.ext.compilesdk_version
+
+    defaultConfig {
+        applicationId "com.ismealdi.dactiv"
+        minSdkVersion rootProject.ext.minsdk_version
+        targetSdkVersion rootProject.ext.targetsdk_version
+        versionCode 1
+        versionName "0.0.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            useProguard false
+            // applicationIdSuffix '.debug'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:multidex:$multidex_version"
+
+    //noinspection GradleCompatible
+    implementation "com.android.support:appcompat-v7:$androidsupport_version"
+    implementation "com.android.support:design:$androidsupport_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraintlayout_version"
+    implementation "com.google.android.gms:play-services-auth:$googleandroid_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.picasso:picasso:$picasso_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxjava_version"
+    implementation "com.kaopiz:kprogresshud:$kaopizkprogress_version"
+    implementation "com.google.firebase:firebase-core:$firebasecore_version"
+    implementation "com.google.firebase:firebase-auth:$firebaseauth_version"
+    implementation "com.google.firebase:firebase-firestore:$firebasefirestore_version"
+    implementation "com.google.firebase:firebase-storage:$firebasestorage_version"
+    implementation "com.google.firebase:firebase-messaging:$firebasemessage_version"
+    implementation "com.crashlytics.sdk.android:crashlytics:$crashlytics_version"
+
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "com.android.support.test:runner:$testrunner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+}
+
+apply plugin: 'com.google.gms.google-services'

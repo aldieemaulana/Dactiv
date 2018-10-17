@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Dactiv</string>
+    <string name="default_channel">DactiverMember</string>
+
+    <string name="title_profile">Profile</string>
+    <string name="title_satker">Satker</string>
+    <string name="title_meeting">Meeting</string>
+    <string name="title_event">Event</string>
+    <string name="title_home">Home</string>
+    <string name="title_sign_in">Sign In</string>
+    <string name="text_no_internet">No Internet</string>
+    <string name="text_sign_in">Sign In</string>
+    <string name="text_email_hint">youremail@mail.com</string>
+    <string name="text_email_address">Email Address</string>
+    <string name="text_password">Password</string>
+    <string name="text_password_hint">special key</string>
+    <string name="text_or">Or</string>
+    <string name="text_register">Register</string>
+    <string name="text_edit_profile">Edit Profile</string>
+    <string name="text_jabatan">Jabatan</string>
+    <string name="text_golongan">Golongan</string>
+    <string name="text_status">Status</string>
+    <string name="text_sign_out">Sign Out</string>
+    <string name="text_full_name">Full Name</string>
+    <string name="text_full_name_hint">John Doe</string>
+    <string name="text_select_photo">Select a Picture</string>
+    <string name="title_profile_edit">Profile Edit</string>
+    <string name="text_save">Save Changes</string>
+    <string name="text_change_photo">Change Photo</string>
+    <string name="text_mobile_number">Phone Number</string>
+    <string name="text_mobile_number_hint">08xxx</string>
+    <string name="text_nip">NIP</string>
+    <string name="text_nip_hint">Nomor Induk Pegawai</string>
+    <string name="text_close">Close</string>
+    <string name="text_no_satker_data">You dont have any up coming Event or Meeting</string>
+    <string name="text_ooh">Ouuuh!</string>
+    <string name="text_automatic_data">or</string>
+    <string name="text_add">Add Record</string>
+    <string name="text_nama_satker">Nama Satker</string>
+    <string name="title_add_satker">Add Satker</string>
+    <string name="text_deskripsi_hint">Deskripsi Singkat</string>
+    <string name="text_deskripsi">Deskripsi</string>
+    <string name="text_kepala">Kepala</string>
+    <string name="text_admin">Admin</string>
+    <string name="text_eselon">Eselon</string>
+    <string name="text_admin_hint">Pilih admin atas data ini</string>
+    <string name="text_kepala_hint">Kepala Satuan Kerja</string>
+    <string name="text_eselon_hint">Dapat memilih lebih dari satu</string>
+    <string name="text_nama_satker_hint">Satuan Kerja</string>
+    <string name="text_waiting">Waiting</string>
+
+</resources>

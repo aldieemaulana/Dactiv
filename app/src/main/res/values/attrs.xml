@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AmView">
+        <attr name="AmFont" format="string"/>
+        <attr name="AmEdit" format="reference"/>
+        <attr name="AmDialog" format="boolean"/>
+        <attr name="AmLayout" format="reference"/>
+    </declare-styleable>
+</resources>

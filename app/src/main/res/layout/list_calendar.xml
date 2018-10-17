@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout android:id="@+id/layoutFrame"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/button_calendar"
+    android:layout_height="@dimen/button_calendar"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginTop="@dimen/component_small"
+    android:layout_marginBottom="@dimen/component_small"
+    android:layout_marginRight="@dimen/activity_horizontal_margin_small"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin_small"
+    style="@style/AppTheme.Layout.Parent.Small"
+    android:background="@drawable/shape_calendar">
+
+    <com.ismealdi.dactiv.components.AmTextView
+        app:AmFont="R"
+        android:id="@+id/textDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@drawable/shape_calendar"
+        android:textSize="@dimen/text_medium"
+        android:text="12"/>
+
+    <com.ismealdi.dactiv.components.AmTextView
+        app:AmFont="M"
+        android:id="@+id/textName"
+        app:layout_constraintTop_toBottomOf="@id/textDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@drawable/shape_calendar"
+        android:textSize="@dimen/text_tiny"
+        android:text="Sat"/>
+
+</android.support.constraint.ConstraintLayout>

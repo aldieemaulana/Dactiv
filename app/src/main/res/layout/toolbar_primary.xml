@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme.NoActionBar"
+    app:liftOnScroll="true"
+    tools:targetApi="lollipop">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"
+        style="@style/AppTheme.Toolbar"
+        android:background="@color/colorWhite"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:weightSum="1"
+        tools:ignore="RtlSymmetry">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:visibility="gone"
+                android:id="@+id/buttonBackToolbar"
+                android:layout_width="@dimen/button_toolbar"
+                android:layout_height="@dimen/button_toolbar"
+                android:padding="@dimen/button_toolbar_padding"
+                android:scaleType="centerInside"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/button_toolbar"
+                android:src="@drawable/ic_backward"
+                android:layout_centerVertical="true"/>
+
+            <com.ismealdi.dactiv.components.AmTextView
+                app:AmFont="S"
+                android:id="@+id/textTitleToolbar"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:layout_marginLeft="@dimen/component_extra"
+                android:layout_marginStart="@dimen/component_extra"
+                android:layout_marginRight="@dimen/component_extra"
+                android:layout_marginEnd="@dimen/component_extra"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/text_nav_bar_title"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:visibility="gone"
+                android:id="@+id/buttonMenuToolbar"
+                android:layout_width="@dimen/button_toolbar"
+                android:layout_height="@dimen/button_toolbar"
+                android:padding="@dimen/button_toolbar_padding"
+                android:src="@drawable/ic_checked"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/button_toolbar"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+</android.support.design.widget.AppBarLayout>

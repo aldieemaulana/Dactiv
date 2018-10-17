@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/AppTheme.Layout.Parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:background="@color/colorTransparent">
+
+    <LinearLayout
+        android:layout_width="@dimen/dialog_min_width"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shape_card"
+        android:paddingTop="@dimen/component_super"
+        android:paddingBottom="@dimen/component_super"
+        style="@style/AppTheme.Layout.Parent">
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textNotification"
+            app:AmFont="S"
+            android:gravity="center"
+            android:textSize="@dimen/text_big"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/text_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/component_big"/>
+
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textDescription"
+            app:AmFont="R"
+            android:gravity="center"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextNormal"
+            android:text="@string/text_status"
+            android:layout_width="match_parent"
+            style="@style/AppTheme.Layout.Parent.Small"
+            android:paddingLeft="@dimen/component_small"
+            android:paddingRight="@dimen/component_small"
+            android:layout_marginBottom="@dimen/component_super"
+            android:layout_height="wrap_content"/>
+
+        <View  android:layout_gravity="center" android:layout_width="80dp" android:layout_height="@dimen/divider_half" android:background="@drawable/divider"
+            android:layout_marginBottom="@dimen/component_big"/>
+
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textDate"
+            app:AmFont="R"
+            android:gravity="center"
+            android:textSize="@dimen/text_tiny"
+            android:textColor="@color/colorTextHint"
+            android:text="@string/text_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/component_super"/>
+
+        <com.ismealdi.dactiv.components.AmButton
+            app:AmFont="S"
+            android:id="@+id/buttonCancel"
+            style="@style/AppTheme.ButtonInput.Round"
+            android:text="@string/text_close"
+            android:layout_gravity="center|bottom"
+            android:gravity="center"
+            android:textSize="@dimen/text_small"
+            android:layout_width="110dp"
+            android:layout_height="40dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

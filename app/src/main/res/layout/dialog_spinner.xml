@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme.Layout.Horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:background="@color/colorTransparent">
+
+    <LinearLayout
+        android:layout_width="@dimen/dialog_min_width"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shape_card">
+
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:AmFont="M"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textColor="@color/colorTextNormal"
+            android:textSize="@dimen/text_medium"
+            android:layout_marginBottom="@dimen/component_extra_big"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            style="@style/AppTheme.Layout.Horizontal"/>
+
+        <android.support.v7.widget.RecyclerView
+            style="@style/AppTheme.Layout.Horizontal"
+            android:paddingTop="@dimen/component_super"
+            android:paddingBottom="@dimen/component_super"
+            android:id="@+id/listViewDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTransparent"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            android:orientation="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:reverseLayout="false"
+            android:nestedScrollingEnabled="false"
+            android:isScrollContainer="false"
+            tools:listitem="@layout/list_dialog"
+            tools:targetApi="lollipop" />
+    </LinearLayout>
+
+</LinearLayout>

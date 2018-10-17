@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentLayout"
+    android:layout_marginBottom="0dp"
+    style="@style/AppTheme.Margin.Horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+
+    <com.ismealdi.dactiv.components.AmTextView
+        app:AmFont="R"
+        style="@style/AppTheme.DialogItem"
+        android:id="@+id/textValue"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:minWidth="@dimen/dialog_min_width"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -1,0 +1,56 @@
+package com.ismealdi.dactiv.util
+
+open class Constants {
+
+    object INTENT {
+
+        object LOGIN {
+
+            object PUSH {
+                const val NAME = "intentLoginPushName"
+                const val DESCRIPTION = "intentLoginPushDescription"
+                const val DATE = "intentLoginPushDate"
+                const val ID = "intentLoginPushId"
+
+            }
+
+            const val FIRST_LOGIN = "intentLoginFirstLogin"
+        }
+
+        object ACTIVITY {
+            const val EDIT_PROFILE = 1011
+            const val REQUEST_TAKE_PHOTO = 1012
+            const val REQUEST_SELECT_IMAGE_IN_ALBUM = 1013
+            const val ADD_SATKER = 1014
+        }
+
+        const val NOTIFICATION = "intentNotification"
+        const val SELECTED_DATE = "intentSatkerSelectedDate"
+
+        const val SUCCESS = 101
+        const val FAILED = 102
+    }
+
+    object FRAGMENT {
+
+        object MAIN {
+            const val NAME = "fragmentMAIN"
+        }
+        object MEETING {
+            const val NAME = "fragmentMeeting"
+        }
+        object EVENT {
+            const val NAME = "fragmentEvent"
+        }
+        object SATKER {
+            const val NAME = "fragmentSatker"
+        }
+        object PROFILE {
+            const val NAME = "fragmentProfile"
+        }
+    }
+
+    object PATH {
+        const val PROFILE_PHOTO = "profiles/"
+    }
+}

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "974992331780",
+    "firebase_url": "https://ismealdi-dactiv.firebaseio.com",
+    "project_id": "ismealdi-dactiv",
+    "storage_bucket": "ismealdi-dactiv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974992331780:android:e47cec001f861541",
+        "android_client_info": {
+          "package_name": "com.ismealdi.dactiv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974992331780-06nrrias2ebuig6cr6iu651j27ui6c6c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ismealdi.dactiv",
+            "certificate_hash": "b2bad39e698db830835a2919113e356ca2a3c335"
+          }
+        },
+        {
+          "client_id": "974992331780-ujld3bkn9egpc4dqisv2ic9v2s3eu59e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe61r17rRLRYu8jJBLAhl8fp9rtDNvL3U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974992331780-ujld3bkn9egpc4dqisv2ic9v2s3eu59e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

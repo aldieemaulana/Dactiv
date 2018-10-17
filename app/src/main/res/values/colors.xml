@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF4E5D</color>
+    <color name="colorPrimaryDark">#e23746</color>
+    <color name="colorAccent">#ECE9D8</color>
+
+    <color name="colorTextNormal">#FF101010</color>
+    <color name="colorTextLight">#8e8e8e</color>
+    <color name="colorTextDark">#FF000000</color>
+    <color name="colorTextHint">#a4a4a4</color>
+    <color name="colorTextError">#d32f2f</color>
+
+    <color name="colorList">#c4c4c4</color>
+    <color name="colorListPressed">#acacac</color>
+    <color name="colorDivider">#f2dedede</color>
+
+    <color name="colorBackgroundPrimary">#f5f5f5</color>
+    <color name="colorBackgroundSecondary">#FFDADADA</color>
+    <color name="colorBackgroundAccent">#f4f4f4</color>
+
+    <color name="colorWhite">#FFFFFFFF</color>
+    <color name="colorWhiteSmoke">#F2F2F2</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorTransparent">#00ffffff</color>
+
+    <color name="colorPassed">#3fd27b</color>
+    <color name="colorPassedPressed">#00b96e</color>
+    <color name="colorWaiting">#545454</color>
+    <color name="colorWaitingPressed">#454545</color>
+    <color name="colorCancelled">#ff535d</color>
+    <color name="colorCancelledPressed">#f54a54</color>
+    <color name="colorRescheduled">#656bfb</color>
+    <color name="colorRescheduledPressed">#5459d9</color>
+    <color name="colorWhiteLoading">#c4ffffff</color>
+
+    <color name="colorButtonDanger">#ff535d</color>
+    <color name="colorButtonDangerPressed">#f54a54</color>
+    <color name="colorButtonDisablePrimary">#c2c2c2</color>
+    <color name="colorButtonDisableToolbar">#cb363636</color>
+
+</resources>

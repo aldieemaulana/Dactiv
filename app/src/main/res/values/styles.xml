@@ -1,0 +1,215 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.Black">
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.Margin" />
+
+    <style name="AppTheme.Margin.Horizontal">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="AppTheme.Margin.Horizontal.Padding">
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin_small</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin_small</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin_small</item>
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin_small</item>
+    </style>
+
+    <style name="AppTheme.Layout" />
+
+    <style name="AppTheme.Layout.Parent.Small">
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin_small</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin_small</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin_small</item>
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin_small</item>
+    </style>
+
+    <style name="AppTheme.Layout.Parent">
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
+    </style>
+
+    <style name="AppTheme.Layout.Horizontal">
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="AppTheme.Layout.Vertical">
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
+        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
+    </style>
+
+    <style name="AppTheme.Toolbar">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/colorTransparent</item>
+    </style>
+
+    <style name="AppTheme.Toolbar.Transparent">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/colorTransparent</item>
+        <item name="colorPrimary">@color/colorTransparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.ButtonInput" parent="Base.Widget.AppCompat.Button">
+        <item name="android:minHeight">@dimen/button_min_height</item>
+        <item name="android:background">@color/colorTransparent</item>
+        <item name="android:paddingTop">@dimen/component_small</item>
+        <item name="android:paddingBottom">@dimen/component_small</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="AppTheme.ButtonInput.Text" parent="AppTheme.ButtonInput">
+        <item name="android:paddingTop">@dimen/component_medium</item>
+        <item name="android:paddingBottom">@dimen/component_medium</item>
+        <item name="android:minHeight">@null</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@drawable/button_primary</item>
+    </style>
+
+    <style name="AppTheme.ButtonInput.Round" parent="AppTheme.ButtonInput">
+        <item name="android:background">@drawable/button_primary</item>
+    </style>
+
+    <style name="AppTheme.ButtonInput.Flat" parent="AppTheme.ButtonInput">
+        <item name="android:background">@drawable/button_primary_flat</item>
+    </style>
+
+    <style name="AppTheme.ButtonInput.Round.Secondary" parent="AppTheme.ButtonInput">
+        <item name="android:background">@drawable/button_secondary</item>
+    </style>
+
+    <style name="AppTheme.WrappingInput">
+        <item name="android:layout_marginBottom">@dimen/component_big</item>
+    </style>
+
+    <style name="AppTheme.TextInput" parent="Base.V7.Widget.AppCompat.EditText">
+        <item name="android:background">@color/colorTransparent</item>
+        <item name="android:descendantFocusability">beforeDescendants</item><item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:paddingLeft">@dimen/component_big</item>
+        <item name="android:paddingRight">@dimen/component_big</item>
+        <item name="android:paddingTop">@dimen/component_small</item>
+        <item name="android:paddingBottom">@dimen/component_big</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/colorTextHint</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <style name="AppTheme.TextLabelInput">
+        <item name="android:paddingLeft">@dimen/component_big</item>
+        <item name="android:paddingRight">@dimen/component_big</item>
+        <item name="android:paddingTop">@dimen/component_big</item>
+        <item name="android:paddingBottom">@dimen/component_tiny</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorTextNormal</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme.TextLabelError">
+        <item name="android:paddingLeft">@dimen/component_big</item>
+        <item name="android:paddingRight">@dimen/component_big</item>
+        <item name="android:paddingTop">@dimen/component_small</item>
+        <item name="android:paddingBottom">@dimen/component_big</item>
+        <item name="android:textSize">@dimen/text_tiny</item>
+        <item name="android:textColor">@color/colorTextError</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme.TextLabelDescription">
+        <item name="android:layout_marginBottom">@dimen/component_big</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorTextNormal</item>
+    </style>
+
+
+    <style name="AppTheme.SpinnerInputItem" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="AppTheme.SpinnerInputDropDownItem" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:paddingLeft">@dimen/component_big</item>
+        <item name="android:paddingRight">@dimen/component_big</item>
+        <item name="android:paddingTop">@dimen/component_small</item>
+        <item name="android:paddingBottom">@dimen/component_small</item>
+        <item name="android:layout_marginBottom">@dimen/component_medium</item>
+        <item name="android:background">@drawable/spinner_primary</item>
+        <item name="android:textColor">@drawable/spinner_primary</item>
+    </style>
+
+    <style name="AppTheme.SpinnerInput" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@color/colorTransparent</item>
+        <item name="android:descendantFocusability">beforeDescendants</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:paddingLeft">@dimen/component_big</item>
+        <item name="android:paddingRight">@dimen/component_big</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:textColorHint">@color/colorTextHint</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowAnimationStyle">@style/AppTheme.Dialog.Window</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
+    <style name="AppTheme.Dialog.Window" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/anim_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_out</item>
+    </style>
+
+    <style name="AppTheme.DialogItem" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:paddingLeft">@dimen/component_big</item>
+        <item name="android:paddingRight">@dimen/component_big</item>
+        <item name="android:paddingTop">@dimen/component_big</item>
+        <item name="android:paddingBottom">@dimen/component_big</item>
+        <item name="android:layout_marginBottom">@dimen/component_medium</item>
+        <item name="android:background">@drawable/dialog_primary</item>
+        <item name="android:textColor">@drawable/dialog_primary</item>
+    </style>
+
+</resources>
