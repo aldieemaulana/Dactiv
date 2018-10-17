@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.MenuItem
+import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.NotificationDialog
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.auth.SignInActivity
@@ -114,24 +115,11 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
         }else{
             getRealTimeProfile()
             getRealTimeSatker()
-            handleOnNotified()
         }
     }
 
     private fun listener() {
         bottomNavigation.setOnNavigationItemSelectedListener(this)
-    }
-
-    private fun handleOnNotified() {
-        val mIntent = Intent(context, NotificationDialog::class.java)
-
-        if(!intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME).isNullOrEmpty()) {
-            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.NAME, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME))
-            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION))
-            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DATE, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.DATE))
-            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.ID, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.ID))
-            Handler().postDelayed({startActivity(mIntent)}, 1500)
-        }
     }
 
     fun onSignOut() {
@@ -200,7 +188,7 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
     private fun getRealTimeSatker() {
         showProgress()
 
-        val userDocument = db?.satker()
+        val userDocument = db?.satker()?.orderBy(satkerFields.createdOn, Query.Direction.DESCENDING)
         val mSatkers : MutableList<Satker> = mutableListOf()
 
         userDocument!!.addSnapshotListener { documentSnapshot, _ ->
@@ -212,16 +200,20 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
                     val mSatker = it.toObject(Satker::class.java)
 
                     if (mSatker != null) {
-                        if(mSatker.eselon.contains(user?.uid) ||
-                            mSatker.admin == user?.uid || mSatker.kepala == user?.uid) {
+                        var eselon = 0
+                        val id = user?.uid
+                        mSatker.eselon.forEach {
+                            ++eselon
+                        }
+
+                        if(eselon > 0 || mSatker.kepala == id) {
                             mSatkers.add(mSatker)
                         }
                     }
                 }
 
                 if(mSatkers.isNotEmpty()) {
-                    mainFragment.resetList(mSatkers)
-
+                    satkerFragment.updateList(mSatkers)
                 }
             }
 
@@ -235,6 +227,10 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
             bottomNavigation.selectedItemId = R.id.profile
 
             getRealTimeProfile()
+        }else if(requestCode == Constants.INTENT.ACTIVITY.ADD_SATKER && resultCode == Constants.INTENT.SUCCESS) {
+            bottomNavigation.selectedItemId = R.id.satker
+
+            getRealTimeSatker()
         }
     }
 

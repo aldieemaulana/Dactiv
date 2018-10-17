@@ -48,5 +48,9 @@
     <string name="text_eselon_hint">Dapat memilih lebih dari satu</string>
     <string name="text_nama_satker_hint">Satuan Kerja</string>
     <string name="text_waiting">Waiting</string>
+    <string name="text_add_event">Event</string>
+    <string name="text_description_dummy">Event dan Meeting deskripsi yang menjelaskan isi satuan kerja terkait</string>
+    <string name="text_plus">+</string>
+    <string name="text_sign_up">Sign Up</string>
 
 </resources>

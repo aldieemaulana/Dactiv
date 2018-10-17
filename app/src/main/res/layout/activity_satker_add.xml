@@ -149,40 +149,6 @@
                     android:singleLine="true"/>
             </com.ismealdi.dactiv.components.AmLinearLayout>
 
-            <com.ismealdi.dactiv.components.AmLinearLayout
-                android:id="@+id/layoutAdmin"
-                app:AmDialog="true"
-                app:AmEdit="@id/textAdmin"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
-                android:background="@drawable/input_primary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/component_medium"
-                android:orientation="vertical">
-                <com.ismealdi.dactiv.components.AmTextView
-                    style="@style/AppTheme.TextLabelInput"
-                    app:AmFont="M"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_admin" />
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="R"
-                    app:AmLayout="@id/layoutAdmin"
-                    android:id="@+id/textAdmin"
-                    style="@style/AppTheme.TextInput"
-                    android:hint="@string/text_admin_hint"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:inputType="textPersonName"
-                    android:singleLine="true"/>
-            </com.ismealdi.dactiv.components.AmLinearLayout>
-
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

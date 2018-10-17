@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/component_small"
+    android:layout_marginRight="@dimen/component_small"
+    android:layout_marginBottom="@dimen/component_medium">
+
+    <LinearLayout
+        android:id="@+id/layoutFrame"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        style="@style/AppTheme.Layout.Parent"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_card">
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textName"
+            app:AmFont="B"
+            android:layout_marginTop="@dimen/component_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/title_satker"
+            android:textColor="@color/colorTextDark"
+            android:textSize="@dimen/text_normal"/>
+
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textDescription"
+            app:AmFont="R"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="top|center_horizontal"
+            android:maxLines="3"
+            android:text="@string/text_description_dummy"
+            android:layout_marginTop="@dimen/component_big"
+            android:layout_marginBottom="@dimen/component_extra"
+            android:textColor="@color/colorTextDark"
+            android:textSize="@dimen/text_small"/>
+
+        <View  android:layout_gravity="center" android:layout_width="80dp" android:layout_height="@dimen/divider_half" android:background="@drawable/divider"
+            android:layout_marginBottom="@dimen/component_medium"/>
+
+        <com.ismealdi.dactiv.components.AmButton
+            app:AmFont="S"
+            android:id="@+id/buttonMore"
+            style="@style/AppTheme.ButtonInput.Text"
+            android:text="@string/text_add_event"
+            android:layout_gravity="center|bottom"
+            android:gravity="center"
+            android:textSize="@dimen/text_tiny"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutAddMore"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        style="@style/AppTheme.Layout.Parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/shape_card_black_transparent">
+
+        <com.ismealdi.dactiv.components.AmButton
+            app:AmFont="S"
+            android:id="@+id/buttonAdd"
+            style="@style/AppTheme.ButtonInput.Round"
+            android:text="@string/text_plus"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:layout_width="@dimen/button_radius_circle"
+            android:layout_height="@dimen/button_radius_circle"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

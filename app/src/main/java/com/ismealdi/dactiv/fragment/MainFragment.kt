@@ -29,9 +29,10 @@ class MainFragment : AmFragment() {
     private lateinit var mAdapter : MeetingAdapter
     private lateinit var mAdapterCalendar : CalendarAdapter
 
+    private var mSatkers : MutableList<Satker> = mutableListOf()
+    private var mSatkersFiltered : MutableList<Satker> = mutableListOf()
+
     internal var currentDay = 0
-    internal var mSatkers : MutableList<Satker> = mutableListOf()
-    internal var mSatkersFiltered : MutableList<Satker> = mutableListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,12 +45,6 @@ class MainFragment : AmFragment() {
     private fun listener() {
         textDate.setOnClickListener {
             setToCurrentDay()
-        }
-
-        buttonAdd.setOnClickListener {
-            val intent = Intent(context, AddSatkerActivity::class.java)
-            intent.putExtra(SELECTED_DATE, currentDay)
-            startActivityForResult(intent, ADD_SATKER)
         }
     }
 
@@ -134,7 +129,7 @@ class MainFragment : AmFragment() {
         if(textWelcome != null) textWelcome.setTextFade("Hai $name!")
     }
 
-    private fun updateList(mSatkers: MutableList<Satker>) {
+    /*private fun updateList(mSatkers: MutableList<Satker>) {
         mAdapter.updateData(mSatkers)
         showEmpty((mSatkers.size == 0))
     }
@@ -165,5 +160,5 @@ class MainFragment : AmFragment() {
         this.mSatkers = mSatkers
 
         filterList(currentDay)
-    }
+    }*/
 }

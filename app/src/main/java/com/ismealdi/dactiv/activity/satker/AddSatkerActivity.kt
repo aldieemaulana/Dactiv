@@ -47,20 +47,19 @@ class AddSatkerActivity : AmActivity() {
     }
 
     private fun validateInput() {
-        val adminId = textAdmin.getSelectedId()
         val kepalaId = textKepala.getSelectedId()
         val eselons = textEselon.getSelectedId()
         val nama = textNamaSatker.text.toString()
         val description = textDeskripsi.text.toString()
 
-        if (adminId != null && kepalaId != null && eselons != null &&
+        if (kepalaId != null && eselons != null &&
                 nama.isNotEmpty() && description.isNotEmpty()) {
 
             val data = Satker()
 
-            data.admin = mDataUsers[adminId].uid
+            data.admin = user?.uid.toString()
             data.kepala = mDataUsers[kepalaId].uid
-            data.eselon = ("${mDataUsers[eselons].uid},${data.admin},${data.kepala}").split(",")
+            data.eselon = ("${mDataUsers[eselons].uid},${data.kepala}").split(",")
             data.name = nama
             data.description = description
 
@@ -74,16 +73,25 @@ class AddSatkerActivity : AmActivity() {
     private fun addSatker(data: Satker) {
         showProgress()
         db!!.satker().add(data).addOnSuccessListener {
+            hideProgress()
             showSnackBar(layoutParent, "Success data saved!", Snackbar.LENGTH_LONG)
-
+            clearData()
             Handler().postDelayed({
                 setResult(Constants.INTENT.SUCCESS)
                 finish()
-            }, 1500)
+            }, 750)
 
         }.addOnFailureListener {
+            hideProgress()
             showSnackBar(layoutParent, it.message.toString(), Snackbar.LENGTH_LONG)
         }
+    }
+
+    private fun clearData() {
+        textKepala.text = ""
+        textEselon.text = ""
+        textNamaSatker.setText("")
+        textDeskripsi.setText("")
     }
 
     private fun init() {
@@ -119,7 +127,6 @@ class AddSatkerActivity : AmActivity() {
                 }
 
                 if(mDataAdmin.isNotEmpty()) {
-                    layoutAdmin.setDialogList(mDataAdmin)
                     layoutEselon.setDialogList(mDataAdmin)
                     layoutKepala.setDialogList(mDataAdmin)
                 }

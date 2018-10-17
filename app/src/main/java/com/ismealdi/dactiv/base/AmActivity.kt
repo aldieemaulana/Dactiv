@@ -2,6 +2,7 @@ package com.ismealdi.dactiv.base
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Rect
 import android.graphics.Typeface
@@ -20,15 +21,18 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.ismealdi.dactiv.App
+import com.ismealdi.dactiv.NotificationDialog
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.interfaces.AmConnectionInterface
-import com.ismealdi.dactiv.util.ConnectionReceiver
-import com.ismealdi.dactiv.util.Dialogs
-import com.ismealdi.dactiv.util.Logs
-import com.ismealdi.dactiv.util.NoSwipeBehavior
+import com.ismealdi.dactiv.util.*
 import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
+
+import com.ismealdi.dactiv.listener.Golongan.Path.Fields as GolonganFields
+import com.ismealdi.dactiv.listener.Jabatan.Path.Fields as JabatanFields
+import com.ismealdi.dactiv.listener.User.Path.Fields as UserFields
+import com.ismealdi.dactiv.listener.Satker.Path.Fields as SatkerFields
 
 /**
  * Created by Al on 10/10/2018
@@ -36,6 +40,13 @@ import kotlinx.android.synthetic.main.toolbar_primary.*
 
 @SuppressLint("Registered")
 open class AmActivity : AppCompatActivity(), AmConnectionInterface {
+
+    companion object {
+        val golonganFields = GolonganFields
+        val jabatanFields = JabatanFields
+        val userFields = UserFields
+        val satkerFields = SatkerFields
+    }
 
     open var user : FirebaseUser? = null
 
@@ -69,6 +80,8 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
             db = App.fireStoreBase
             user = App.fireBaseAuth.currentUser
             storage = App.fireStorage
+
+            handleOnNotified()
         }
 
         if(amConnectionInterface != null) {
@@ -159,5 +172,19 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
     override fun onConnectionChange(message: String) {
         showSnackBar(layoutParent, message, if(message.contains(getString(R.string.text_no_internet))) Snackbar.LENGTH_INDEFINITE else Snackbar.LENGTH_SHORT, 850)
         Logs.e(message)
+    }
+
+
+
+    private fun handleOnNotified() {
+        val mIntent = Intent(context, NotificationDialog::class.java)
+
+        if(!intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME).isNullOrEmpty()) {
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.NAME, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME))
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION))
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DATE, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.DATE))
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.ID, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.ID))
+            Handler().postDelayed({startActivity(mIntent)}, 1500)
+        }
     }
 }

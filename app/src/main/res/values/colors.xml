@@ -37,5 +37,6 @@
     <color name="colorButtonDangerPressed">#f54a54</color>
     <color name="colorButtonDisablePrimary">#c2c2c2</color>
     <color name="colorButtonDisableToolbar">#cb363636</color>
+    <color name="colorBlackTransparent">#eed7d7d7</color>
 
 </resources>
