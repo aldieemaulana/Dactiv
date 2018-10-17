@@ -4,6 +4,7 @@ import com.google.firebase.Timestamp
 
 open class Satker(
     var id: String = "",
+    var kodeSatker: String = "",
     var name: String = "",
     var description: String = "",
     var kepala: String = "",

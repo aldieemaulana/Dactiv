@@ -15,7 +15,7 @@ import com.ismealdi.dactiv.model.Satker
 import kotlinx.android.synthetic.main.fragment_satker.*
 import kotlinx.android.synthetic.main.list_satker.view.*
 
-class SatkerAdapter(private var satkers: MutableList<Satker>, private val context: SatkerFragment) : RecyclerView.Adapter<SatkerAdapter.ViewHolder>() {
+class SatkerAdapter(private var satkers: MutableList<Satker>, private val context: SatkerFragment, private var category: Int = 0) : RecyclerView.Adapter<SatkerAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val description: AmTextView = itemView.textDescription
@@ -44,6 +44,8 @@ class SatkerAdapter(private var satkers: MutableList<Satker>, private val contex
             }
 
         }else{
+            holder.name.setTextFade("")
+            holder.description.setTextFade("")
             holder.more.visibility = View.VISIBLE
             holder.buttonAdd.setOnClickListener {
                 context.buttonAdd.performClick()
@@ -58,9 +60,27 @@ class SatkerAdapter(private var satkers: MutableList<Satker>, private val contex
 
     fun updateData(mSatkers: MutableList<Satker>) {
         this.satkers.clear()
-        this.satkers.add(Satker("0"))
+
+        if(this.category > 0 && this.category == 1) {
+            this.satkers.add(Satker("0"))
+        }
+
         this.satkers.addAll(mSatkers)
 
         notifyDataSetChanged()
+    }
+
+    fun updateUser(category: Int) {
+        this.category = category
+
+        if(itemCount > 0) {
+            if(this.category > 0 && this.category == 1 && this.satkers[0].id != "0") {
+                this.satkers.add(0, Satker("0", ""))
+                notifyDataSetChanged()
+            }else if(this.satkers[0].id == "0") {
+                this.satkers.removeAt(0)
+                notifyDataSetChanged()
+            }
+        }
     }
 }

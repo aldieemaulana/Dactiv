@@ -1,6 +1,5 @@
 package com.ismealdi.dactiv.listener
 
-
 /**
  * Created by Al on 15/10/2018
  */
@@ -12,6 +11,7 @@ object Satker {
 
         object Fields {
             const val id = "id"
+            const val kodeSatker = "kodeSatker"
             const val name = "name"
             const val description = "description"
             const val kepala = "kepala"

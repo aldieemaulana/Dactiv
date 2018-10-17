@@ -48,9 +48,11 @@ class SatkerFragment : AmFragment() {
     }
 
     private fun initGrid() {
+        val mCategory = if(mActivity.mUser != null) mActivity.mUser!!.category else 0
+
         mActivity.showProgress()
 
-        mAdapter = SatkerAdapter(mSatkers, this)
+        mAdapter = SatkerAdapter(mSatkers, this, mCategory)
 
         recyclerView.layoutManager = GridLayoutManager(context, 2)
         recyclerView.adapter = mAdapter
@@ -58,6 +60,8 @@ class SatkerFragment : AmFragment() {
         mActivity.hideProgress()
 
         showEmpty((mAdapter.itemCount == 0))
+
+        updateStateOfUser(mCategory)
     }
 
     private fun showEmpty(b: Boolean) {
@@ -75,6 +79,12 @@ class SatkerFragment : AmFragment() {
         mSatkers.addAll(mSatkersNew)
         mAdapter.updateData(mSatkersNew)
         showEmpty((mSatkers.size == 0))
+    }
+
+    fun updateStateOfUser(category: Int) {
+        mAdapter.updateUser(category)
+
+        if(buttonAdd != null) buttonAdd.visibility = if(category == 1) View.VISIBLE else View.GONE
     }
 
 }

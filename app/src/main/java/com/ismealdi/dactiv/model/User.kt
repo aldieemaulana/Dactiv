@@ -16,7 +16,7 @@ open class User(
     var email: String = "",
     var phoneNumber: String = "",
     var emailVerified: Boolean = false,
-    var category: Int = 1,
+    var category: Int = 2,
     var golongan: Int = 0,
     var bagian: Int = 0,
     var nip: String = "",

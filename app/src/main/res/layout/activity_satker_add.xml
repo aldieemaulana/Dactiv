@@ -36,6 +36,33 @@
                 android:orientation="vertical">
                 <com.ismealdi.dactiv.components.AmTextView
                     style="@style/AppTheme.TextLabelInput"
+                    app:AmEdit="@id/textKodeKegiatan"
+                    app:AmFont="M"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_kode_kegiatan" />
+
+                <com.ismealdi.dactiv.components.AmEditText
+                    style="@style/AppTheme.TextInput"
+                    app:AmFont="R"
+                    android:id="@+id/textKodeKegiatan"
+                    android:hint="@string/text_kode_kegiatan_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxLength="15"
+                    android:digits="1234567890."
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
                     app:AmEdit="@id/textNamaSatker"
                     app:AmFont="M"
                     android:layout_width="match_parent"
@@ -96,6 +123,8 @@
                 <com.ismealdi.dactiv.components.AmTextView
                     style="@style/AppTheme.TextLabelInput"
                     app:AmFont="M"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/text_kepala" />
@@ -130,6 +159,8 @@
                 <com.ismealdi.dactiv.components.AmTextView
                     style="@style/AppTheme.TextLabelInput"
                     app:AmFont="M"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/text_eselon" />

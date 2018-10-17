@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FF4E5D</color>
     <color name="colorPrimaryDark">#e23746</color>
-    <color name="colorAccent">#ECE9D8</color>
+    <color name="colorAccent">#121212</color>
 
     <color name="colorTextNormal">#FF101010</color>
     <color name="colorTextLight">#8e8e8e</color>
@@ -37,6 +37,6 @@
     <color name="colorButtonDangerPressed">#f54a54</color>
     <color name="colorButtonDisablePrimary">#c2c2c2</color>
     <color name="colorButtonDisableToolbar">#cb363636</color>
-    <color name="colorBlackTransparent">#eed7d7d7</color>
+    <color name="colorBlackTransparent">#e5ececec</color>
 
 </resources>

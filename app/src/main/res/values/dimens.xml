@@ -31,6 +31,7 @@
     <dimen name="button_radius_medium">6dp</dimen>
     <dimen name="button_radius_big">9dp</dimen>
     <dimen name="button_radius_circle">55dp</dimen>
+    <dimen name="button_radius_circle_small">35dp</dimen>
     <dimen name="button_min_height">50dp</dimen>
     <dimen name="button_calendar">50dp</dimen>
 

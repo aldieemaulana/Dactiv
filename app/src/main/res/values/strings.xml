@@ -32,7 +32,7 @@
     <string name="text_nip">NIP</string>
     <string name="text_nip_hint">Nomor Induk Pegawai</string>
     <string name="text_close">Close</string>
-    <string name="text_no_satker_data">You dont have any up coming Event or Meeting</string>
+    <string name="text_no_satker_data">We are not able to show any data for you because there is nothing to show</string>
     <string name="text_ooh">Ouuuh!</string>
     <string name="text_automatic_data">or</string>
     <string name="text_add">Add Record</string>
@@ -52,5 +52,24 @@
     <string name="text_description_dummy">Event dan Meeting deskripsi yang menjelaskan isi satuan kerja terkait</string>
     <string name="text_plus">+</string>
     <string name="text_sign_up">Sign Up</string>
+    <string name="text_kode_kegiatan">Kode Kegiatan</string>
+    <string name="text_kode_kegiatan_hint">1000.0000.xxxx</string>
+    <string name="text_bagian">Bagian</string>
+    <string name="text_bagian_hint">Bagian / Jabatan</string>
+    <string name="text_penanggung">Penanggung Jawab</string>
+    <string name="text_penanggung_hint">Pelaksana</string>
+    <string name="text_satker">Satker</string>
+    <string name="text_satker_hint">Satuan Kerja</string>
+    <string name="title_add_kegiatan">Kegiatan</string>
+    <string name="text_anggaran_hint">100xxx</string>
+    <string name="text_anggaran">Anggaran</string>
+    <string name="text_jadwal_pelaksana">Jadwal Pelaksana</string>
+    <string name="text_jadwal_pelaksana_hint">Tanggal</string>
+    <string name="text_durasi">Durasi</string>
+    <string name="text_durasi_hint">Jumlah Hari</string>
+    <string name="text_nama_kegiatan">Nama Kegiatan</string>
+    <string name="text_nama_kegiatan_hint">Kegiatan</string>
+    <string name="text_currency">Rp</string>
+    <string name="text_create_new_data">Hei press that button if you want to add more data!</string>
 
 </resources>

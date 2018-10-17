@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.iid.FirebaseInstanceId
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
 import com.ismealdi.dactiv.activity.auth.SignInActivity.Companion.INTERVAL.RESET_ATTEMPT
@@ -17,6 +18,7 @@ import com.ismealdi.dactiv.activity.auth.SignInActivity.Companion.VALIDATE.EMAIL
 import com.ismealdi.dactiv.base.AmActivity
 import com.ismealdi.dactiv.listener.User.addFromRegister
 import com.ismealdi.dactiv.listener.User.verifiedUser
+import com.ismealdi.dactiv.services.AmMessagingService
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Logs
 import com.ismealdi.dactiv.util.RevealAnimation
@@ -99,7 +101,7 @@ class SignInActivity : AmActivity() {
 
         auth?.createUserWithEmailAndPassword(email, password)!!.addOnCompleteListener {
             if (it.isSuccessful) {
-                addFromRegister(auth?.currentUser)
+                addFromRegister(auth?.currentUser, FirebaseInstanceId.getInstance().token)
                 sendEmailVerification(auth?.currentUser)
             } else {
                 Logs.e("createUserWithEmail:failure:" + it.exception?.message.toString())
@@ -165,6 +167,7 @@ class SignInActivity : AmActivity() {
     }
 
     private fun startAnActivity(v: View) {
+        AmMessagingService().sendRegistrationToServer(FirebaseInstanceId.getInstance().token.toString())
         registerFireBase()
 
         val bounds = Rect()

@@ -37,6 +37,49 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/layoutAddMore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/shape_card_black_transparent"
+            style="@style/AppTheme.Layout.Parent">
+
+            <com.ismealdi.dactiv.components.AmTextView
+                app:AmFont="R"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/buttonAdd"
+                android:paddingRight="@dimen/component_medium"
+                android:textColor="@color/colorTextDark"
+                android:textSize="@dimen/text_tiny"
+                android:text="@string/text_create_new_data"/>
+
+            <com.ismealdi.dactiv.components.AmButton
+                app:AmFont="S"
+                android:id="@+id/buttonAdd"
+                style="@style/AppTheme.ButtonInput.Round"
+                android:text="@string/text_plus"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center"
+                android:textSize="@dimen/text_medium"
+                android:layout_width="@dimen/button_radius_circle_small"
+                android:layout_height="@dimen/button_radius_circle_small"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/layoutView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.ismealdi.dactiv.components.AmTextView

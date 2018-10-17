@@ -18,3 +18,9 @@ fun FirebaseFirestore.satker(id: String) = collection(Satker.Path.Name).document
 
 fun FirebaseFirestore.user() = collection(User.Path.Name)
 fun FirebaseFirestore.user(uid: String) = collection(User.Path.Name).document(uid)
+
+fun FirebaseFirestore.rapat() = collection(Rapat.Path.Name)
+fun FirebaseFirestore.rapat(uid: String) = collection(Rapat.Path.Name).document(uid)
+
+fun FirebaseFirestore.kegiatan() = collection(Kegiatan.Path.Name)
+fun FirebaseFirestore.kegiatan(uid: String) = collection(Kegiatan.Path.Name).document(uid)

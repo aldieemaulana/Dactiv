@@ -20,6 +20,7 @@ import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.*
 import com.ismealdi.dactiv.util.Constants.INTENT.ACTIVITY.REQUEST_SELECT_IMAGE_IN_ALBUM
 import com.ismealdi.dactiv.util.Constants.INTENT.ACTIVITY.REQUEST_TAKE_PHOTO
+import com.ismealdi.dactiv.watcher.AmFourDigitWatcher
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile_edit.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
@@ -92,35 +93,33 @@ class EditProfileActivity : AmActivity() {
     private fun validateInput() {
         val email = textEmail.text.toString()
         val fullName = textDisplayName.text.toString()
-        val nip = textNip.text.toString()
+        val nip = textNip.text.toString().toNumber()
         val phoneNumber = textPhoneNumber.text.toString()
         val golongan = textGolongan.selectedItemPosition
         val jabatan = textJabatan.selectedItemPosition
 
         if(email.isNotBlank() && fullName.isNotBlank() && nip.isNotBlank() && phoneNumber.isNotBlank() ) {
-            if(mUser != null) {
-                if(email != mUser!!.email  ||
-                        fullName != mUser!!.displayName ||
-                        nip != mUser!!.nip ||
-                        phoneNumber != mUser!!.phoneNumber || uriPhoto != null ||
-                        golongan != (mUser!!.golongan) || jabatan != mUser!!.bagian) {
-                    val data = User()
+            if(email != mUser.email  ||
+                    fullName != mUser.displayName ||
+                    nip != mUser.nip ||
+                    phoneNumber != mUser.phoneNumber || uriPhoto != null ||
+                    golongan != (mUser.golongan) || jabatan != mUser.bagian) {
+                val data = mUser
 
-                    data.email = email
-                    data.displayName = fullName
-                    data.nip = nip
-                    data.phoneNumber = phoneNumber
-                    data.golongan = golongan
-                    data.bagian = jabatan
+                data.email = email
+                data.displayName = fullName
+                data.nip = nip
+                data.phoneNumber = phoneNumber
+                data.golongan = golongan
+                data.bagian = jabatan
 
-                    if(uriPhoto != null) {
-                        uploadImage(data)
-                    }else{
-                        onUpdate(data)
-                    }
+                if(uriPhoto != null) {
+                    uploadImage(data)
                 }else{
-                    showSnackBar(layoutParent, VALIDATE.INPUT_NO_DATA_CHANGE, Snackbar.LENGTH_LONG, 100)
+                    onUpdate(data)
                 }
+            }else{
+                showSnackBar(layoutParent, VALIDATE.INPUT_NO_DATA_CHANGE, Snackbar.LENGTH_LONG, 100)
             }
         } else {
             showSnackBar(layoutParent, VALIDATE.INPUT_EMPTY, Snackbar.LENGTH_LONG, 100)
@@ -153,10 +152,15 @@ class EditProfileActivity : AmActivity() {
         initSpinner()
         getProfile()
         listener()
+        watcher()
 
         setTitle(getString(R.string.title_profile_edit))
         buttonBackToolbar.visibility = View.VISIBLE
         buttonMenuToolbar.visibility = View.VISIBLE
+    }
+
+    private fun watcher() {
+        textNip.addTextChangedListener(AmFourDigitWatcher())
     }
 
     private fun getProfile() {
@@ -173,7 +177,7 @@ class EditProfileActivity : AmActivity() {
                 if(it.data != null) {
                     mUser = it.toObject(User::class.java)!!
 
-                    if (mUser.displayName != "") {
+                    if (mUser.email != "") {
                         textDisplayName.setText(mUser.displayName)
                         textEmail.setText(mUser.email)
                         textNip.setText(mUser.nip)

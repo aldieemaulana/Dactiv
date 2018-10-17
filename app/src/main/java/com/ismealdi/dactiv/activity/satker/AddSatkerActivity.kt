@@ -13,6 +13,7 @@ import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.satker
 import com.ismealdi.dactiv.util.user
+import com.ismealdi.dactiv.watcher.AmFourDigitWatcher
 import kotlinx.android.synthetic.main.activity_satker_add.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
 import java.util.*
@@ -25,7 +26,7 @@ class AddSatkerActivity : AmActivity() {
         }
     }
 
-    private var mDataUsers : MutableList<User> = mutableListOf()
+    private var mUsers : MutableList<User> = mutableListOf()
     private var mDataAdmin : HashMap<String, String> = hashMapOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,17 +52,19 @@ class AddSatkerActivity : AmActivity() {
         val eselons = textEselon.getSelectedId()
         val nama = textNamaSatker.text.toString()
         val description = textDeskripsi.text.toString()
+        val kodeKegiatan = textKodeKegiatan.text.toString()
 
         if (kepalaId != null && eselons != null &&
-                nama.isNotEmpty() && description.isNotEmpty()) {
+                kodeKegiatan.isNotEmpty() && nama.isNotEmpty() && description.isNotEmpty()) {
 
             val data = Satker()
 
             data.admin = user?.uid.toString()
-            data.kepala = mDataUsers[kepalaId].uid
-            data.eselon = ("${mDataUsers[eselons].uid},${data.kepala}").split(",")
+            data.kepala = mUsers[kepalaId].uid
+            data.eselon = ("${mUsers[eselons].uid},${data.kepala}").split(",")
             data.name = nama
             data.description = description
+            data.kodeSatker = kodeKegiatan.toNumber()
 
             addSatker(data)
 
@@ -72,7 +75,11 @@ class AddSatkerActivity : AmActivity() {
 
     private fun addSatker(data: Satker) {
         showProgress()
-        db!!.satker().add(data).addOnSuccessListener {
+        val document = db!!.satker().document()
+
+        data.id = document.id
+
+        document.set(data).addOnSuccessListener {
             hideProgress()
             showSnackBar(layoutParent, "Success data saved!", Snackbar.LENGTH_LONG)
             clearData()
@@ -96,12 +103,17 @@ class AddSatkerActivity : AmActivity() {
 
     private fun init() {
         listener()
+        watcher()
 
         setTitle(getString(R.string.title_add_satker))
         buttonBackToolbar.visibility = View.VISIBLE
         buttonMenuToolbar.visibility = View.VISIBLE
 
         initView()
+    }
+
+    private fun watcher() {
+        textKodeKegiatan.addTextChangedListener(AmFourDigitWatcher())
     }
 
     private fun initView() {
@@ -121,7 +133,7 @@ class AddSatkerActivity : AmActivity() {
                         val mUser = document.toObject(User::class.java)
                         if(mUser != null) {
                             mDataAdmin[mUser.uid] = mUser.displayName
-                            mDataUsers.add(mUser)
+                            mUsers.add(mUser)
                         }
                     }
                 }

@@ -92,9 +92,9 @@
                     android:hint="@string/text_nip_hint"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:maxLength="20"
-                    android:digits="1234567890"
-                    android:inputType="textFilter|number"
+                    android:maxLength="15"
+                    android:digits="1234567890."
+                    android:inputType="numberDecimal"
                     android:singleLine="true"/>
             </LinearLayout>
 

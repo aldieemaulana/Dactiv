@@ -9,14 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.ismealdi.dactiv.R
-import com.ismealdi.dactiv.activity.satker.AddSatkerActivity
 import com.ismealdi.dactiv.activity.MainActivity
+import com.ismealdi.dactiv.activity.kegiatan.AddKegiatanActivity
 import com.ismealdi.dactiv.adapter.CalendarAdapter
-import com.ismealdi.dactiv.adapter.MeetingAdapter
+import com.ismealdi.dactiv.adapter.KegiatanAdapter
 import com.ismealdi.dactiv.base.AmFragment
-import com.ismealdi.dactiv.model.Satker
+import com.ismealdi.dactiv.model.Kegiatan
 import com.ismealdi.dactiv.util.Constants
-import com.ismealdi.dactiv.util.Constants.INTENT.ACTIVITY.ADD_SATKER
 import com.ismealdi.dactiv.util.Constants.INTENT.SELECTED_DATE
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.text.SimpleDateFormat
@@ -26,11 +25,11 @@ import java.util.*
 class MainFragment : AmFragment() {
 
     private lateinit var mActivity : MainActivity
-    private lateinit var mAdapter : MeetingAdapter
+    private lateinit var mAdapter : KegiatanAdapter
     private lateinit var mAdapterCalendar : CalendarAdapter
 
-    private var mSatkers : MutableList<Satker> = mutableListOf()
-    private var mSatkersFiltered : MutableList<Satker> = mutableListOf()
+    private var mKegiatans : MutableList<Kegiatan> = mutableListOf()
+    private var mKegiatansFiltered : MutableList<Kegiatan> = mutableListOf()
 
     internal var currentDay = 0
 
@@ -45,6 +44,12 @@ class MainFragment : AmFragment() {
     private fun listener() {
         textDate.setOnClickListener {
             setToCurrentDay()
+        }
+
+        buttonAdd.setOnClickListener {
+            val intent = Intent(context, AddKegiatanActivity::class.java)
+            intent.putExtra(SELECTED_DATE, currentDay)
+            startActivityForResult(intent, Constants.INTENT.ACTIVITY.ADD_KEGIATAN)
         }
     }
 
@@ -95,7 +100,7 @@ class MainFragment : AmFragment() {
     private fun initList() {
         mActivity.showProgress()
 
-        mAdapter = MeetingAdapter(mSatkersFiltered, mActivity)
+        mAdapter = KegiatanAdapter(mKegiatansFiltered, this)
 
         recyclerView.layoutManager = LinearLayoutManager(context,
                 LinearLayout.VERTICAL, false)
@@ -108,11 +113,11 @@ class MainFragment : AmFragment() {
 
     private fun showEmpty(b: Boolean) {
         if(b) {
-            layoutEmpty.visibility = View.VISIBLE
-            recyclerView.visibility = View.GONE
+            if(layoutEmpty != null) layoutEmpty.visibility = View.VISIBLE
+            if(recyclerView != null) recyclerView.visibility = View.GONE
         }else{
-            layoutEmpty.visibility = View.GONE
-            recyclerView.visibility = View.VISIBLE
+            if(layoutEmpty != null) layoutEmpty.visibility = View.GONE
+            if(recyclerView != null) recyclerView.visibility = View.VISIBLE
         }
     }
 
@@ -129,36 +134,34 @@ class MainFragment : AmFragment() {
         if(textWelcome != null) textWelcome.setTextFade("Hai $name!")
     }
 
-    /*private fun updateList(mSatkers: MutableList<Satker>) {
-        mAdapter.updateData(mSatkers)
-        showEmpty((mSatkers.size == 0))
+    private fun updateList(mKegiatans: MutableList<Kegiatan>) {
+        mAdapter.updateData(mKegiatans)
+        showEmpty((mKegiatans.size == 0))
     }
 
     internal fun filterList(currentDay: Int) {
-        mActivity.showProgress()
 
         val date = Date()
         date.date = currentDay
 
         val mDateFormat = SimpleDateFormat("d/M/yyyy")
-        val mSatkersFiltered : MutableList<Satker> = mutableListOf()
+        val mKegiatansFiltered : MutableList<Kegiatan> = mutableListOf()
 
-        mSatkers.forEach {
-            if (mDateFormat.format(it.createdOn.toDate()) == mDateFormat.format(date)) {
-                mSatkersFiltered.add(it)
+        mKegiatans.forEach {
+            if (mDateFormat.format(it.jadwal) == mDateFormat.format(date)) {
+                mKegiatansFiltered.add(it)
             }
         }
 
-        this.mSatkersFiltered.clear()
-        this.mSatkersFiltered = mSatkersFiltered
-        updateList(mSatkersFiltered)
-        mActivity.hideProgress()
+        this.mKegiatansFiltered.clear()
+        this.mKegiatansFiltered = mKegiatansFiltered
+        updateList(mKegiatansFiltered)
     }
 
-    internal fun resetList(mSatkers: MutableList<Satker>) {
-        this.mSatkers.clear()
-        this.mSatkers = mSatkers
+    internal fun resetList(mKegiatans: MutableList<Kegiatan>) {
+        this.mKegiatans.clear()
+        this.mKegiatans = mKegiatans
 
         filterList(currentDay)
-    }*/
+    }
 }

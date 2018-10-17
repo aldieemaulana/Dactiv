@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/title_satker"
+            android:singleLine="true"
             android:textColor="@color/colorTextDark"
             android:textSize="@dimen/text_normal"/>
 

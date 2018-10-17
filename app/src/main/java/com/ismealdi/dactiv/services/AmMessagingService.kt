@@ -52,7 +52,7 @@ class AmMessagingService : FirebaseMessagingService() {
         sendRegistrationToServer(token)
     }
 
-    private fun sendRegistrationToServer(token: String) {
+    fun sendRegistrationToServer(token: String) {
         if(!token.isEmpty()){
             val data : MutableMap<String, Any> = mutableMapOf()
 

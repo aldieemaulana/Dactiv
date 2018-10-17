@@ -17,10 +17,7 @@ import com.ismealdi.dactiv.base.AmActivity
 import com.ismealdi.dactiv.fragment.MainFragment
 import com.ismealdi.dactiv.fragment.ProfileFragment
 import com.ismealdi.dactiv.fragment.SatkerFragment
-import com.ismealdi.dactiv.model.Golongan
-import com.ismealdi.dactiv.model.Jabatan
-import com.ismealdi.dactiv.model.Satker
-import com.ismealdi.dactiv.model.User
+import com.ismealdi.dactiv.model.*
 import com.ismealdi.dactiv.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -38,6 +35,7 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
     private var activeFragment : Fragment = mainFragment
     private var mRevealAnimation : RevealAnimation? = null
 
+    internal var mUser : User? = null
     internal val mFragmentManager = supportFragmentManager
 
     override fun onConnectionChange(message: String) {
@@ -115,6 +113,7 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
         }else{
             getRealTimeProfile()
             getRealTimeSatker()
+            getRealTimeKegiatan()
         }
     }
 
@@ -142,8 +141,14 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
             if (documentSnapshot != null && documentSnapshot.exists()) {
                 val user = documentSnapshot.toObject(User::class.java)
                 if(user != null) {
+                    if(user.category != mUser?.category) {
+                        getRealTimeKegiatan()
+                    }
+
+                    mUser = user
                     mainFragment.setName(user.displayName)
                     profileFragment.setData(user)
+                    satkerFragment.updateStateOfUser(user.category)
 
                     getRealTimeGolongan(user.golongan.toString())
                     getRealTimeJabatan(user.bagian.toString())
@@ -212,9 +217,34 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
                     }
                 }
 
-                if(mSatkers.isNotEmpty()) {
-                    satkerFragment.updateList(mSatkers)
+                satkerFragment.updateList(mSatkers)
+            }
+
+        }
+    }
+
+    private fun getRealTimeKegiatan() {
+        showProgress()
+
+        val userDocument = db?.kegiatan()?.orderBy(satkerFields.createdOn, Query.Direction.DESCENDING)
+        val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
+
+        userDocument!!.addSnapshotListener { documentSnapshot, _ ->
+
+            if (documentSnapshot != null) {
+                mKegiatans.clear()
+
+                documentSnapshot.documents.forEach {
+                    val mKegiatan = it.toObject(Kegiatan::class.java)
+
+                    if (mKegiatan != null) {
+                        if(mKegiatan.bagian == mUser?.bagian.toString() || mKegiatan.admin == mUser?.uid) {
+                            mKegiatans.add(mKegiatan)
+                        }
+                    }
                 }
+
+                mainFragment.resetList(mKegiatans)
             }
 
         }

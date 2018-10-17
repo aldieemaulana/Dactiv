@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutParent"
+    android:background="@color/colorBackgroundPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?attr/actionBarSize"
+    tools:context=".activity.satker.AddSatkerActivity">
+
+    <include layout="@layout/toolbar_primary"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_primary"
+        app:layout_insetEdge="top"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:focusable="true"
+            style="@style/AppTheme.Layout.Parent"
+            android:focusableInTouchMode="true">
+
+            <requestFocus />
+
+            <com.ismealdi.dactiv.components.AmLinearLayout
+                android:id="@+id/layoutSatker"
+                app:AmDialog="true"
+                app:AmEdit="@id/textSatker"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmFont="M"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_satker" />
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    app:AmLayout="@id/layoutSatker"
+                    android:id="@+id/textSatker"
+                    style="@style/AppTheme.TextInput"
+                    android:hint="@string/text_satker_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"/>
+            </com.ismealdi.dactiv.components.AmLinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmEdit="@id/textName"
+                    app:AmFont="M"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_nama_kegiatan" />
+
+                <com.ismealdi.dactiv.components.AmEditText
+                    style="@style/AppTheme.TextInput"
+                    app:AmFont="R"
+                    android:id="@+id/textName"
+                    android:hint="@string/text_nama_kegiatan_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxLength="35"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmEdit="@id/textKodeKegiatan"
+                    app:AmFont="M"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_kode_kegiatan" />
+
+                <com.ismealdi.dactiv.components.AmEditText
+                    style="@style/AppTheme.TextInput"
+                    app:AmFont="R"
+                    android:id="@+id/textKodeKegiatan"
+                    android:hint="@string/text_kode_kegiatan_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxLength="15"
+                    android:digits="1234567890."
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmEdit="@id/textAnggaran"
+                    app:AmFont="M"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_anggaran" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.ismealdi.dactiv.components.AmTextView
+                        android:id="@+id/textCurrencyAnggaran"
+                        style="@style/AppTheme.TextInput"
+                        android:paddingRight="0dp"
+                        app:AmFont="R"
+                        app:AmEdit="@id/textAnggaran"
+                        android:text="@string/text_currency"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:singleLine="true"/>
+
+                    <com.ismealdi.dactiv.components.AmEditText
+                        style="@style/AppTheme.TextInput"
+                        app:AmFont="R"
+                        android:id="@+id/textAnggaran"
+                        android:paddingLeft="@dimen/component_small"
+                        android:hint="@string/text_anggaran_hint"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/textCurrencyAnggaran"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_height="0dp"
+                        android:layout_width="0dp"
+                        android:maxLength="25"
+                        android:digits="Rp1234567890,."
+                        android:inputType="number"
+                        android:singleLine="true"/>
+                </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/component_medium">
+                <LinearLayout
+                    android:id="@+id/layoutJadwalPelaksana"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/input_primary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:layout_marginRight="@dimen/component_small"
+                    android:orientation="vertical">
+                    <com.ismealdi.dactiv.components.AmTextView
+                        style="@style/AppTheme.TextLabelInput"
+                        app:AmFont="M"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_jadwal_pelaksana" />
+
+                    <com.ismealdi.dactiv.components.AmTextView
+                        style="@style/AppTheme.TextInput"
+                        app:AmFont="R"
+                        android:id="@+id/textJadwalPelaksana"
+                        android:hint="@string/text_jadwal_pelaksana_hint"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:maxLength="20"
+                        android:singleLine="true"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/input_primary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:layout_marginLeft="@dimen/component_small"
+                    android:orientation="vertical">
+                    <com.ismealdi.dactiv.components.AmTextView
+                        style="@style/AppTheme.TextLabelInput"
+                        app:AmEdit="@id/textDurasi"
+                        app:AmFont="M"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_durasi" />
+
+                    <com.ismealdi.dactiv.components.AmEditText
+                        style="@style/AppTheme.TextInput"
+                        app:AmFont="R"
+                        android:id="@+id/textDurasi"
+                        android:hint="@string/text_durasi_hint"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:maxLength="4"
+                        android:digits="1234567890"
+                        android:inputType="textFilter|number"
+                        android:singleLine="true"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.ismealdi.dactiv.components.AmLinearLayout
+                android:id="@+id/layoutPenanggung"
+                app:AmDialog="true"
+                app:AmEdit="@id/textPenanggung"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmFont="M"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_penanggung" />
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    app:AmLayout="@id/layoutPenanggung"
+                    android:id="@+id/textPenanggung"
+                    style="@style/AppTheme.TextInput"
+                    android:hint="@string/text_penanggung_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"/>
+            </com.ismealdi.dactiv.components.AmLinearLayout>
+
+            <com.ismealdi.dactiv.components.AmLinearLayout
+                android:id="@+id/layoutBagian"
+                app:AmDialog="true"
+                app:AmEdit="@id/textBagian"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmFont="M"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_bagian" />
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    app:AmLayout="@id/layoutBagian"
+                    android:id="@+id/textBagian"
+                    style="@style/AppTheme.TextInput"
+                    android:hint="@string/text_bagian_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"/>
+            </com.ismealdi.dactiv.components.AmLinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

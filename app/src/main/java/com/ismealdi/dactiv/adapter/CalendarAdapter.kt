@@ -48,7 +48,7 @@ class CalendarAdapter(private var dates: List<String>, private val context: Cont
             mainFragment.textDate.setTextFade(date)
             mainFragment.textDay.setTextFade(day)
             mainFragment.currentDay = date.toInt()
-            // mainFragment.filterList(date.toInt())
+            mainFragment.filterList(date.toInt())
         }
 
     }

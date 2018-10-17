@@ -33,6 +33,8 @@ import com.ismealdi.dactiv.listener.Golongan.Path.Fields as GolonganFields
 import com.ismealdi.dactiv.listener.Jabatan.Path.Fields as JabatanFields
 import com.ismealdi.dactiv.listener.User.Path.Fields as UserFields
 import com.ismealdi.dactiv.listener.Satker.Path.Fields as SatkerFields
+import com.ismealdi.dactiv.listener.Kegiatan.Path.Fields as KegiatanFields
+import com.ismealdi.dactiv.listener.Rapat.Path.Fields as RapatFields
 
 /**
  * Created by Al on 10/10/2018
@@ -46,6 +48,8 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
         val jabatanFields = JabatanFields
         val userFields = UserFields
         val satkerFields = SatkerFields
+        val kegiatanFields = KegiatanFields
+        val rapatFields = RapatFields
     }
 
     open var user : FirebaseUser? = null
@@ -186,5 +190,9 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
             mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.ID, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.ID))
             Handler().postDelayed({startActivity(mIntent)}, 1500)
         }
+    }
+
+    fun String.toNumber(): String {
+        return replace(Regex("""[.,Rp ]"""), "")
     }
 }
