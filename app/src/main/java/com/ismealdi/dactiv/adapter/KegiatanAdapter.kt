@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
-import com.ismealdi.dactiv.components.AmButton
 import com.ismealdi.dactiv.components.AmTextView
 import com.ismealdi.dactiv.model.Kegiatan
 import kotlinx.android.synthetic.main.list_kegiatan.view.*

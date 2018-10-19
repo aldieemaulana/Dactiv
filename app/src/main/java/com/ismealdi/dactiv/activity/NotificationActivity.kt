@@ -4,12 +4,12 @@ import android.media.RingtoneManager
 import android.os.Bundle
 import com.google.firebase.messaging.RemoteMessage
 import com.ismealdi.dactiv.R
-import com.ismealdi.dactiv.base.AmActivity
+import com.ismealdi.dactiv.base.AmDraftActivity
 import com.ismealdi.dactiv.util.Constants
 import kotlinx.android.synthetic.main.dialog_notification.*
 
 
-class NotificationActivity : AmActivity() {
+class NotificationActivity : AmDraftActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

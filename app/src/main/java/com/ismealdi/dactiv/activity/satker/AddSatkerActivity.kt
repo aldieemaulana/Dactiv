@@ -1,13 +1,12 @@
 package com.ismealdi.dactiv.activity.satker
 
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.view.View
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.satker.AddSatkerActivity.Companion.VALIDATE.INPUT_EMPTY
-import com.ismealdi.dactiv.base.AmActivity
+import com.ismealdi.dactiv.base.AmDraftActivity
 import com.ismealdi.dactiv.model.Satker
 import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.Constants
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_satker_add.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
 import java.util.*
 
-class AddSatkerActivity : AmActivity() {
+class AddSatkerActivity : AmDraftActivity() {
 
     companion object {
         object VALIDATE {

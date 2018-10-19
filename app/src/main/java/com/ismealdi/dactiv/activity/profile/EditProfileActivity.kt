@@ -13,7 +13,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
-import com.ismealdi.dactiv.base.AmActivity
+import com.ismealdi.dactiv.base.AmDraftActivity
 import com.ismealdi.dactiv.model.Golongan
 import com.ismealdi.dactiv.model.Jabatan
 import com.ismealdi.dactiv.model.User
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.toolbar_primary.*
  * Created by Al on 15/10/2018
  */
 
-class EditProfileActivity : AmActivity() {
+class EditProfileActivity : AmDraftActivity() {
 
     object VALIDATE {
         const val  UPDATE_DATA_FIRST = "Please fill all data for first registered user."
@@ -132,7 +132,7 @@ class EditProfileActivity : AmActivity() {
         data.lastUpdated = Timestamp.now()
 
         App.fireStoreBase.user(user!!.uid).set(data)
-                .addOnCompleteListener {
+                .addOnSuccessListener {
                     updateFireBase(data)
                     mCanBack = true
                     showSnackBar(layoutParent, "Success updated", Snackbar.LENGTH_LONG, 0)

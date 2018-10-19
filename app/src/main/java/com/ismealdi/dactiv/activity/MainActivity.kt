@@ -10,9 +10,9 @@ import android.view.MenuItem
 import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.R
-import com.ismealdi.dactiv.activity.auth.SignInActivity
+import com.ismealdi.dactiv.activity.auth.signin.SignInActivity
 import com.ismealdi.dactiv.activity.profile.EditProfileActivity
-import com.ismealdi.dactiv.base.AmActivity
+import com.ismealdi.dactiv.base.AmDraftActivity
 import com.ismealdi.dactiv.fragment.KegiatanFragment
 import com.ismealdi.dactiv.fragment.MainFragment
 import com.ismealdi.dactiv.fragment.ProfileFragment
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * Created by Al on 10/10/2018
  */
 
-class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private val mainFragment = MainFragment()
     private val kegiatanFragment = KegiatanFragment()

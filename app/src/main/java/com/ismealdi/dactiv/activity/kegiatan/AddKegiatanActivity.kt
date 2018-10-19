@@ -4,13 +4,12 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.view.View
 import com.google.firebase.firestore.DocumentSnapshot
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.kegiatan.AddKegiatanActivity.Companion.VALIDATE.INPUT_EMPTY
-import com.ismealdi.dactiv.base.AmActivity
+import com.ismealdi.dactiv.base.AmDraftActivity
 import com.ismealdi.dactiv.model.Jabatan
 import com.ismealdi.dactiv.model.Kegiatan
 import com.ismealdi.dactiv.model.Satker
@@ -23,7 +22,7 @@ import kotlinx.android.synthetic.main.toolbar_primary.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddKegiatanActivity : AmActivity() {
+class AddKegiatanActivity : AmDraftActivity() {
 
     companion object {
         object VALIDATE {

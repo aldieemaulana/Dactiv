@@ -8,10 +8,9 @@ import android.support.v4.app.ActivityCompat
 import android.view.View
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
-import com.ismealdi.dactiv.activity.auth.SignInActivity
-import com.ismealdi.dactiv.base.AmActivity
+import com.ismealdi.dactiv.activity.auth.signin.SignInActivity
+import com.ismealdi.dactiv.base.AmDraftActivity
 import com.ismealdi.dactiv.util.Constants
-import com.ismealdi.dactiv.util.Logs
 import com.ismealdi.dactiv.util.RevealAnimation
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -20,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
  * Created by Al on 10/10/2018
  */
 
-class SplashActivity : AmActivity() {
+class SplashActivity : AmDraftActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initData()

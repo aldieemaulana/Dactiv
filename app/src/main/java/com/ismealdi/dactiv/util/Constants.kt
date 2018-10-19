@@ -55,4 +55,14 @@ open class Constants {
     object PATH {
         const val PROFILE_PHOTO = "profiles/"
     }
+
+    object STRING {
+        object ACTION {
+            const val VERIFY = "Verify"
+        }
+    }
+
+    object SHARED {
+        const val pushToken = "SHARED_PUSH_TOKEN"
+    }
 }

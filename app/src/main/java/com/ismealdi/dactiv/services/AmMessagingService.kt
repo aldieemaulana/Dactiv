@@ -17,6 +17,8 @@ import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Logs
+import com.ismealdi.dactiv.util.Preferences
+import com.ismealdi.dactiv.util.user
 import com.ismealdi.dactiv.structure.User.Path.Fields as UserFields
 import com.ismealdi.dactiv.structure.User.Path.Name as UserTableName
 
@@ -45,18 +47,20 @@ class AmMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String?) {
         Logs.d("Refreshed token: " + token!!)
-        sendRegistrationToServer(token)
+        storeToken(token)
+        Preferences(this).storeToken(token)
     }
 
-    fun sendRegistrationToServer(token: String) {
+    fun storeToken(token: String) {
         if(!token.isEmpty()){
+
             val data : MutableMap<String, Any> = mutableMapOf()
 
             data[UserFields.pushId] = token
             data[UserFields.lastUpdated] = Timestamp.now()
 
             if(App.fireBaseAuth.currentUser != null) {
-                App.fireStoreBase.collection(UserTableName).document(App.fireBaseAuth.currentUser!!.uid).update(data.toMap())
+                App.fireStoreBase.user(App.fireBaseAuth.currentUser!!.uid).update(data.toMap())
                     .addOnFailureListener {
                         Logs.d("Failed update token: " + it.message!!)
                     }

@@ -34,16 +34,15 @@ object User {
     }
 
 
-    fun addFromRegister(currentUser: FirebaseUser?, token: String?) {
+    fun addFromRegister(currentUser: FirebaseUser) {
         val user = User()
 
-        user.uid = currentUser?.uid!!
+        user.uid = currentUser.uid
         user.email = currentUser.email!!
         user.providerId = currentUser.providerId
         user.emailVerified = currentUser.isEmailVerified
         user.bagian = 0
         user.golongan = 0
-        user.pushId = token.toString()
 
         App.fireStoreBase.user(user.uid).set(user).addOnSuccessListener {
             Logs.db("Saved user with name, ${user.uid}")
@@ -52,10 +51,10 @@ object User {
         }
     }
 
-    fun verifiedUser(uid: String, verified: Boolean = false) {
+    fun verifiedUser(uid: String) {
         val data : MutableMap<String, Any> = mutableMapOf()
 
-        data[Path.Fields.emailVerified] = verified
+        data[Path.Fields.emailVerified] = true
         data[Path.Fields.lastUpdated] = Timestamp.now()
 
         App.fireStoreBase.user(uid).update(data.toMap())
