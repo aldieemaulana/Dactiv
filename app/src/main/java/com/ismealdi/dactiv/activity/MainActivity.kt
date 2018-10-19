@@ -3,23 +3,24 @@ package com.ismealdi.dactiv.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.MenuItem
+import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
-import com.ismealdi.dactiv.NotificationDialog
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.auth.SignInActivity
 import com.ismealdi.dactiv.activity.profile.EditProfileActivity
 import com.ismealdi.dactiv.base.AmActivity
+import com.ismealdi.dactiv.fragment.KegiatanFragment
 import com.ismealdi.dactiv.fragment.MainFragment
 import com.ismealdi.dactiv.fragment.ProfileFragment
 import com.ismealdi.dactiv.fragment.SatkerFragment
 import com.ismealdi.dactiv.model.*
 import com.ismealdi.dactiv.util.*
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 /**
  * Created by Al on 10/10/2018
@@ -28,18 +29,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private val mainFragment = MainFragment()
-    private val meetingFragment = Fragment()
+    private val kegiatanFragment = KegiatanFragment()
     private val eventFragment = Fragment()
     private val satkerFragment = SatkerFragment()
     private val profileFragment = ProfileFragment()
-    private var activeFragment : Fragment = mainFragment
     private var mRevealAnimation : RevealAnimation? = null
 
     internal var mUser : User? = null
+    internal var activeFragment : Fragment = mainFragment
     internal val mFragmentManager = supportFragmentManager
 
     override fun onConnectionChange(message: String) {
-        showSnackBar(layoutSnackBar, message, if(message.contains(getString(R.string.text_no_internet))) Snackbar.LENGTH_INDEFINITE else Snackbar.LENGTH_SHORT, 850)
+        showSnackBar(layoutSnackBar, message, Snackbar.LENGTH_SHORT, 850)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -52,9 +53,9 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
                 return true
             }
             R.id.meeting -> {
-                setTitle(getString(R.string.title_meeting))
-                mFragmentManager.beginTransaction().hide(activeFragment).show(meetingFragment).commit()
-                activeFragment = meetingFragment
+                setTitle(getString(R.string.title_kegiatan))
+                mFragmentManager.beginTransaction().hide(activeFragment).show(kegiatanFragment).commit()
+                activeFragment = kegiatanFragment
 
                 return true
             }
@@ -88,7 +89,7 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
         mFragmentManager.beginTransaction().add(R.id.frameLayout, profileFragment, Constants.FRAGMENT.PROFILE.NAME).hide(profileFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, satkerFragment, Constants.FRAGMENT.SATKER.NAME).hide(satkerFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, eventFragment, Constants.FRAGMENT.EVENT.NAME).hide(eventFragment).commit()
-        mFragmentManager.beginTransaction().add(R.id.frameLayout, meetingFragment, Constants.FRAGMENT.MEETING.NAME).hide(meetingFragment).commit()
+        mFragmentManager.beginTransaction().add(R.id.frameLayout, kegiatanFragment, Constants.FRAGMENT.MEETING.NAME).hide(kegiatanFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, mainFragment, Constants.FRAGMENT.MAIN.NAME).commit()
 
         setTitle(getString(R.string.title_home))
@@ -196,7 +197,7 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
         val userDocument = db?.satker()?.orderBy(satkerFields.createdOn, Query.Direction.DESCENDING)
         val mSatkers : MutableList<Satker> = mutableListOf()
 
-        userDocument!!.addSnapshotListener { documentSnapshot, _ ->
+        userDocument!!.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, _ ->
 
             if (documentSnapshot != null) {
                 mSatkers.clear()
@@ -212,6 +213,7 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
                         }
 
                         if(eselon > 0 || mSatker.kepala == id) {
+                            mSatker.admin = if(it.metadata.hasPendingWrites()) "-1" else mSatker.admin
                             mSatkers.add(mSatker)
                         }
                     }
@@ -229,7 +231,7 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
         val userDocument = db?.kegiatan()?.orderBy(satkerFields.createdOn, Query.Direction.DESCENDING)
         val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
 
-        userDocument!!.addSnapshotListener { documentSnapshot, _ ->
+        userDocument!!.addSnapshotListener(MetadataChanges.INCLUDE) { documentSnapshot, _ ->
 
             if (documentSnapshot != null) {
                 mKegiatans.clear()
@@ -239,12 +241,14 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
 
                     if (mKegiatan != null) {
                         if(mKegiatan.bagian == mUser?.bagian.toString() || mKegiatan.admin == mUser?.uid) {
+                            mKegiatan.status = if(it.metadata.hasPendingWrites()) -1 else mKegiatan.status
                             mKegiatans.add(mKegiatan)
                         }
                     }
                 }
 
                 mainFragment.resetList(mKegiatans)
+                kegiatanFragment.updateList(mKegiatans)
             }
 
         }
@@ -255,12 +259,12 @@ class MainActivity : AmActivity(), BottomNavigationView.OnNavigationItemSelected
 
         if(requestCode == Constants.INTENT.ACTIVITY.EDIT_PROFILE && resultCode == Constants.INTENT.SUCCESS) {
             bottomNavigation.selectedItemId = R.id.profile
-
-            getRealTimeProfile()
         }else if(requestCode == Constants.INTENT.ACTIVITY.ADD_SATKER && resultCode == Constants.INTENT.SUCCESS) {
             bottomNavigation.selectedItemId = R.id.satker
-
-            getRealTimeSatker()
+        }else if(requestCode == Constants.INTENT.ACTIVITY.ADD_KEGIATAN && resultCode == Constants.INTENT.SUCCESS) {
+            bottomNavigation.selectedItemId = R.id.home
+        }else if(requestCode == Constants.INTENT.ACTIVITY.ADD_KEGIATAN_MAIN && resultCode == Constants.INTENT.SUCCESS) {
+            bottomNavigation.selectedItemId = R.id.meeting
         }
     }
 

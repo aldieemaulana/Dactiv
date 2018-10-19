@@ -198,6 +198,7 @@
                         android:id="@+id/textJadwalPelaksana"
                         android:hint="@string/text_jadwal_pelaksana_hint"
                         android:focusable="false"
+                        android:clickable="false"
                         android:focusableInTouchMode="false"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"

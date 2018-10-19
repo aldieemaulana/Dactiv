@@ -4,9 +4,9 @@
 
     <string name="title_profile">Profile</string>
     <string name="title_satker">Satker</string>
-    <string name="title_meeting">Meeting</string>
+    <string name="title_kegiatan">Kegiatan</string>
     <string name="title_event">Event</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Beranda</string>
     <string name="title_sign_in">Sign In</string>
     <string name="text_no_internet">No Internet</string>
     <string name="text_sign_in">Sign In</string>

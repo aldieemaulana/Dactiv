@@ -7,22 +7,18 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.NotificationCompat
 import com.google.firebase.Timestamp
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.ismealdi.dactiv.App
-import com.ismealdi.dactiv.NotificationDialog
+import com.ismealdi.dactiv.activity.NotificationActivity
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Logs
-import com.ismealdi.dactiv.listener.User.Path.Fields as UserFields
-import com.ismealdi.dactiv.listener.User.Path.Name as UserTableName
-import android.support.v4.app.NotificationManagerCompat
-
-
+import com.ismealdi.dactiv.structure.User.Path.Fields as UserFields
+import com.ismealdi.dactiv.structure.User.Path.Name as UserTableName
 
 
 /**
@@ -41,7 +37,7 @@ class AmMessagingService : FirebaseMessagingService() {
             Logs.d("Message data payload: " + remoteMessage.data)
         }
 
-        val intent = Intent(this, NotificationDialog::class.java)
+        val intent = Intent(this, NotificationActivity::class.java)
         intent.putExtra(Constants.INTENT.NOTIFICATION, remoteMessage)
         startActivity(intent)
 

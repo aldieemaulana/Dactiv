@@ -1,7 +1,7 @@
 package com.ismealdi.dactiv.util
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ismealdi.dactiv.listener.*
+import com.ismealdi.dactiv.structure.*
 
 /**
  * Created by Al on 17/10/2018

@@ -26,7 +26,7 @@ class SplashActivity : AmActivity() {
         initData()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        handler(1500)
+        handler(500)
     }
 
     private fun handler(duration: Long) {
@@ -67,5 +67,9 @@ class SplashActivity : AmActivity() {
         ActivityCompat.startActivity(context, intent, null)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         finish()
+    }
+
+    override fun onBackPressed() {
+        return
     }
 }

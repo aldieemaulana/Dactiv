@@ -1,4 +1,4 @@
-package com.ismealdi.dactiv.listener
+package com.ismealdi.dactiv.structure
 
 /**
  * Created by Al on 15/10/2018

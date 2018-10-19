@@ -23,6 +23,7 @@ open class Constants {
             const val REQUEST_SELECT_IMAGE_IN_ALBUM = 1013
             const val ADD_SATKER = 1014
             const val ADD_KEGIATAN = 1015
+            const val ADD_KEGIATAN_MAIN = 1016
         }
 
         const val NOTIFICATION = "intentNotification"

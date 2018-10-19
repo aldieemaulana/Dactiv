@@ -12,6 +12,7 @@ import com.ismealdi.dactiv.components.AmButton
 import com.ismealdi.dactiv.components.AmTextView
 import com.ismealdi.dactiv.fragment.SatkerFragment
 import com.ismealdi.dactiv.model.Satker
+import com.ismealdi.dactiv.util.Utils
 import kotlinx.android.synthetic.main.fragment_satker.*
 import kotlinx.android.synthetic.main.list_satker.view.*
 
@@ -23,6 +24,7 @@ class SatkerAdapter(private var satkers: MutableList<Satker>, private val contex
         val frame: LinearLayout = itemView.layoutFrame
         val more: RelativeLayout = itemView.layoutAddMore
         val buttonAdd: AmButton = itemView.buttonAdd
+        val buttonMore: AmTextView = itemView.buttonMore
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,15 +37,24 @@ class SatkerAdapter(private var satkers: MutableList<Satker>, private val contex
         val satker = satkers[holder.adapterPosition]
 
         if(satker.id != "0") {
+            holder.frame.visibility = View.VISIBLE
             holder.more.visibility = View.GONE
             holder.name.setTextFade(satker.name)
             holder.description.setTextFade(satker.description)
+            holder.buttonMore.setTextFade(Utils.stringKodeFormat(satker.kodeSatker))
+            holder.frame.alpha = 1f
 
-            holder.frame.setOnClickListener {
-                // TODO
+            if(satker.admin == "-1") {
+                holder.frame.alpha = .4f
+                holder.buttonMore.text = "Belum Terupload"
+            }else {
+                holder.frame.setOnClickListener {
+                    // TODO
+                }
             }
 
         }else{
+            holder.frame.visibility = View.GONE
             holder.name.setTextFade("")
             holder.description.setTextFade("")
             holder.more.visibility = View.VISIBLE

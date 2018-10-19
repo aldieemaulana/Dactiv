@@ -101,25 +101,20 @@ class AddKegiatanActivity : AmActivity() {
     }
 
     private fun addKegiatan(data: Kegiatan) {
-        showProgress()
         val document = db!!.kegiatan().document()
 
         data.status = 1
         data.id = document.id
         data.admin = user?.uid.toString()
 
-        document.set(data).addOnSuccessListener {
-            hideProgress()
-            showSnackBar(layoutParent, "Success data saved!", Snackbar.LENGTH_LONG)
-            clearData()
-            Handler().postDelayed({
-                setResult(Constants.INTENT.SUCCESS)
-                finish()
-            }, 750)
-        }.addOnFailureListener {
-            hideProgress()
+        document.set(data).addOnFailureListener {
             showSnackBar(layoutParent, it.message.toString(), Snackbar.LENGTH_LONG)
         }
+
+        clearData()
+
+        setResult(Constants.INTENT.SUCCESS)
+        finish()
     }
 
     private fun clearData() {
@@ -246,7 +241,9 @@ class AddKegiatanActivity : AmActivity() {
         val month = c.get(Calendar.MONTH)
         val day = intent.getIntExtra(Constants.INTENT.SELECTED_DATE, c.get(Calendar.DAY_OF_MONTH))
 
-        textJadwalPelaksana.text =  "$day/${month+1}/$year ${c.get(Calendar.HOUR_OF_DAY)}:${c.get(Calendar.MINUTE)}"
+        if(intent.getIntExtra(Constants.INTENT.SELECTED_DATE, 0) > 0) {
+            textJadwalPelaksana.text = "$day/${month + 1}/$year ${c.get(Calendar.HOUR_OF_DAY)}:${c.get(Calendar.MINUTE)}"
+        }
 
         val timePickerDialog = TimePickerDialog(context,
                 TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->

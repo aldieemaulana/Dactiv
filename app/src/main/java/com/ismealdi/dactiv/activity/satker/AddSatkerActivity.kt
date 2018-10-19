@@ -74,24 +74,19 @@ class AddSatkerActivity : AmActivity() {
     }
 
     private fun addSatker(data: Satker) {
-        showProgress()
         val document = db!!.satker().document()
 
         data.id = document.id
 
-        document.set(data).addOnSuccessListener {
-            hideProgress()
-            showSnackBar(layoutParent, "Success data saved!", Snackbar.LENGTH_LONG)
-            clearData()
-            Handler().postDelayed({
-                setResult(Constants.INTENT.SUCCESS)
-                finish()
-            }, 750)
-
-        }.addOnFailureListener {
+        document.set(data).addOnFailureListener {
             hideProgress()
             showSnackBar(layoutParent, it.message.toString(), Snackbar.LENGTH_LONG)
         }
+
+        clearData()
+
+        setResult(Constants.INTENT.SUCCESS)
+        finish()
     }
 
     private fun clearData() {

@@ -16,8 +16,8 @@ import com.ismealdi.dactiv.activity.MainActivity
 import com.ismealdi.dactiv.activity.auth.SignInActivity.Companion.INTERVAL.RESET_ATTEMPT
 import com.ismealdi.dactiv.activity.auth.SignInActivity.Companion.VALIDATE.EMAIL_PASSWORD_EMPTY
 import com.ismealdi.dactiv.base.AmActivity
-import com.ismealdi.dactiv.listener.User.addFromRegister
-import com.ismealdi.dactiv.listener.User.verifiedUser
+import com.ismealdi.dactiv.structure.User.addFromRegister
+import com.ismealdi.dactiv.structure.User.verifiedUser
 import com.ismealdi.dactiv.services.AmMessagingService
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Logs

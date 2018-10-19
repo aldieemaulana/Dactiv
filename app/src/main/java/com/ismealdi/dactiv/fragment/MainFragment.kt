@@ -18,6 +18,7 @@ import com.ismealdi.dactiv.model.Kegiatan
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Constants.INTENT.SELECTED_DATE
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.list_kegiatan_add.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,7 +26,7 @@ import java.util.*
 class MainFragment : AmFragment() {
 
     private lateinit var mActivity : MainActivity
-    private lateinit var mAdapter : KegiatanAdapter
+    private lateinit var mKegiatanAdapter : KegiatanAdapter
     private lateinit var mAdapterCalendar : CalendarAdapter
 
     private var mKegiatans : MutableList<Kegiatan> = mutableListOf()
@@ -47,9 +48,11 @@ class MainFragment : AmFragment() {
         }
 
         buttonAdd.setOnClickListener {
-            val intent = Intent(context, AddKegiatanActivity::class.java)
-            intent.putExtra(SELECTED_DATE, currentDay)
-            startActivityForResult(intent, Constants.INTENT.ACTIVITY.ADD_KEGIATAN)
+            doAdd()
+        }
+
+        buttonAddMore.setOnClickListener {
+            doAdd()
         }
     }
 
@@ -100,27 +103,34 @@ class MainFragment : AmFragment() {
     private fun initList() {
         mActivity.showProgress()
 
-        mAdapter = KegiatanAdapter(mKegiatansFiltered, this)
+        mKegiatanAdapter = KegiatanAdapter(mKegiatansFiltered, mActivity, View.OnClickListener { doAdd() })
 
         recyclerView.layoutManager = LinearLayoutManager(context,
                 LinearLayout.VERTICAL, false)
-        recyclerView.adapter = mAdapter
+        recyclerView.adapter = mKegiatanAdapter
 
         mActivity.hideProgress()
 
-        showEmpty((mAdapter.itemCount == 0))
+        showEmpty((mKegiatanAdapter.itemCount == 0))
+    }
+
+    private fun doAdd() {
+        val intent = Intent(context, AddKegiatanActivity::class.java)
+        intent.putExtra(SELECTED_DATE, currentDay)
+        startActivityForResult(intent, Constants.INTENT.ACTIVITY.ADD_KEGIATAN)
     }
 
     private fun showEmpty(b: Boolean) {
         if(b) {
             if(layoutEmpty != null) layoutEmpty.visibility = View.VISIBLE
             if(recyclerView != null) recyclerView.visibility = View.GONE
+            if(layoutAddMore != null) layoutAddMore.visibility = View.GONE
         }else{
             if(layoutEmpty != null) layoutEmpty.visibility = View.GONE
             if(recyclerView != null) recyclerView.visibility = View.VISIBLE
+            if(layoutAddMore != null) layoutAddMore.visibility = View.VISIBLE
         }
     }
-
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -134,9 +144,9 @@ class MainFragment : AmFragment() {
         if(textWelcome != null) textWelcome.setTextFade("Hai $name!")
     }
 
-    private fun updateList(mKegiatans: MutableList<Kegiatan>) {
-        mAdapter.updateData(mKegiatans)
-        showEmpty((mKegiatans.size == 0))
+    private fun updateList() {
+        mKegiatanAdapter.updateData(mKegiatansFiltered)
+        showEmpty((mKegiatansFiltered.size == 0))
     }
 
     internal fun filterList(currentDay: Int) {
@@ -155,7 +165,7 @@ class MainFragment : AmFragment() {
 
         this.mKegiatansFiltered.clear()
         this.mKegiatansFiltered = mKegiatansFiltered
-        updateList(mKegiatansFiltered)
+        updateList()
     }
 
     internal fun resetList(mKegiatans: MutableList<Kegiatan>) {

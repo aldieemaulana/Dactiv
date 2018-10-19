@@ -23,8 +23,10 @@ class ConnectionReceiver : BroadcastReceiver() {
         Logs.e("Internet Check")
         val isConnected = wifi != null && wifi.isConnectedOrConnecting || mobile != null && mobile.isConnectedOrConnecting
         if (!isConnected) {
-            showMessage("No Internet Connection")
-            isSwitching = true
+            if(!isSwitching) {
+                showMessage("No Internet Connection")
+                isSwitching = true
+            }
         }else{
             if(isSwitching) {
                 showMessage("Internet Connected")

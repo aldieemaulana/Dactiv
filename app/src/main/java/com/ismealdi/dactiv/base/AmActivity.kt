@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.ismealdi.dactiv.App
-import com.ismealdi.dactiv.NotificationDialog
+import com.ismealdi.dactiv.activity.NotificationActivity
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.interfaces.AmConnectionInterface
 import com.ismealdi.dactiv.util.*
@@ -29,12 +29,12 @@ import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
 
-import com.ismealdi.dactiv.listener.Golongan.Path.Fields as GolonganFields
-import com.ismealdi.dactiv.listener.Jabatan.Path.Fields as JabatanFields
-import com.ismealdi.dactiv.listener.User.Path.Fields as UserFields
-import com.ismealdi.dactiv.listener.Satker.Path.Fields as SatkerFields
-import com.ismealdi.dactiv.listener.Kegiatan.Path.Fields as KegiatanFields
-import com.ismealdi.dactiv.listener.Rapat.Path.Fields as RapatFields
+import com.ismealdi.dactiv.structure.Golongan.Path.Fields as GolonganFields
+import com.ismealdi.dactiv.structure.Jabatan.Path.Fields as JabatanFields
+import com.ismealdi.dactiv.structure.User.Path.Fields as UserFields
+import com.ismealdi.dactiv.structure.Satker.Path.Fields as SatkerFields
+import com.ismealdi.dactiv.structure.Kegiatan.Path.Fields as KegiatanFields
+import com.ismealdi.dactiv.structure.Rapat.Path.Fields as RapatFields
 
 /**
  * Created by Al on 10/10/2018
@@ -143,7 +143,7 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
     internal fun showSnackBar(view: CoordinatorLayout, message: String, duration: Int = Snackbar.LENGTH_SHORT, delay: Long = 0, actionText: String = "", actionListener: Runnable? = null) {
         val mSnackBar = Snackbar.make(view, message, duration)
 
-        if(message.contains("Unable to resolve") || message.contains(getString(R.string.text_no_internet))) mSnackBar.behavior = NoSwipeBehavior()
+        if(message.contains("Unable to resolve")) mSnackBar.behavior = NoSwipeBehavior()
 
         mSnackBar.view.setBackgroundColor(context.resources.getColor(R.color.colorPrimary))
 
@@ -174,14 +174,12 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
     }
 
     override fun onConnectionChange(message: String) {
-        showSnackBar(layoutParent, message, if(message.contains(getString(R.string.text_no_internet))) Snackbar.LENGTH_INDEFINITE else Snackbar.LENGTH_SHORT, 850)
+        showSnackBar(layoutParent, message, Snackbar.LENGTH_SHORT, 850)
         Logs.e(message)
     }
 
-
-
     private fun handleOnNotified() {
-        val mIntent = Intent(context, NotificationDialog::class.java)
+        val mIntent = Intent(context, NotificationActivity::class.java)
 
         if(!intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME).isNullOrEmpty()) {
             mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.NAME, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME))

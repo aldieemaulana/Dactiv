@@ -1,4 +1,4 @@
-package com.ismealdi.dactiv.listener
+package com.ismealdi.dactiv.structure
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
