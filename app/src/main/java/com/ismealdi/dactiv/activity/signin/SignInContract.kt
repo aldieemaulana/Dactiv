@@ -1,4 +1,4 @@
-package com.ismealdi.dactiv.activity.auth.signin
+package com.ismealdi.dactiv.activity.signin
 
 import com.google.firebase.auth.FirebaseUser
 import com.ismealdi.dactiv.base.AmPresenter
@@ -27,7 +27,7 @@ interface SignInContract {
 
     interface Presenter : AmPresenter {
 
-        fun validateInput(isLogin: Boolean, email: String, password: String)
+        fun validateInput(action: String, email: String, password: String)
 
         fun emailVerification(user: FirebaseUser)
 

@@ -28,6 +28,8 @@ open class Constants {
 
         const val NOTIFICATION = "intentNotification"
         const val SELECTED_DATE = "intentSatkerSelectedDate"
+        const val DETAIL_SATKER = "intentDetailSatker"
+        const val DETAIL_SATKER_BAGIAN = "intentDetailSatkerBagian"
 
         const val SUCCESS = 101
         const val FAILED = 102
@@ -64,5 +66,6 @@ open class Constants {
 
     object SHARED {
         const val pushToken = "SHARED_PUSH_TOKEN"
+        const val user = "SHARED_USER"
     }
 }

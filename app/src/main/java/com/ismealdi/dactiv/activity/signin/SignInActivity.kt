@@ -1,4 +1,4 @@
-package com.ismealdi.dactiv.activity.auth.signin
+package com.ismealdi.dactiv.activity.signin
 
 import android.content.Intent
 import android.graphics.Rect
@@ -8,6 +8,9 @@ import android.support.v4.app.ActivityCompat
 import android.view.inputmethod.EditorInfo
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
+import com.ismealdi.dactiv.activity.signin.SignInActivity.Companion.ACTION.RESET_PASSWORD
+import com.ismealdi.dactiv.activity.signin.SignInActivity.Companion.ACTION.SIGN_IN
+import com.ismealdi.dactiv.activity.signin.SignInActivity.Companion.ACTION.SIGN_UP
 import com.ismealdi.dactiv.base.AmActivity
 import com.ismealdi.dactiv.util.Constants.INTENT.LOGIN.FIRST_LOGIN
 import com.ismealdi.dactiv.util.Dialogs
@@ -76,20 +79,32 @@ class SignInActivity : AmActivity(), SignInContract.View {
     fun listener() {
 
         buttonSignIn.setOnClickListener {
-            presenter.validateInput(true, textEmail.text.toString(), textPassword.text.toString())
+            presenter.validateInput(SIGN_IN, textEmail.text.toString(), textPassword.text.toString())
         }
 
         buttonSignUp.setOnClickListener {
-            presenter.validateInput(false, textEmail.text.toString(), textPassword.text.toString())
+            presenter.validateInput(SIGN_UP, textEmail.text.toString(), textPassword.text.toString())
+        }
+
+        buttonForgotPassword.setOnClickListener {
+            presenter.validateInput(RESET_PASSWORD, textEmail.text.toString(), textPassword.text.toString())
         }
 
         textPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                Utils.hideKeyboard(this)
+                Utils.Keyboard.hide(applicationContext, textPassword)
                 buttonSignIn.performClick()
             }
 
             true
+        }
+    }
+
+    companion object {
+        object ACTION {
+            const val SIGN_IN = "SIGN_IN"
+            const val SIGN_UP = "SIGN_UP"
+            const val RESET_PASSWORD = "RESET_PASSWORD"
         }
     }
 

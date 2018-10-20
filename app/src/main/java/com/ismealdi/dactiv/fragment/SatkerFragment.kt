@@ -9,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
-import com.ismealdi.dactiv.activity.satker.AddSatkerActivity
+import com.ismealdi.dactiv.activity.satker.add.AddSatkerActivity
+import com.ismealdi.dactiv.activity.satker.detail.DetailSatkerActivity
 import com.ismealdi.dactiv.adapter.SatkerAdapter
 import com.ismealdi.dactiv.base.AmFragment
 import com.ismealdi.dactiv.model.Satker
 import com.ismealdi.dactiv.util.Constants
+import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_SATKER
+import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_SATKER_BAGIAN
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -85,6 +88,16 @@ class SatkerFragment : AmFragment() {
         mAdapter.updateUser(category)
 
         if(buttonAdd != null) buttonAdd.visibility = if(category == 1) View.VISIBLE else View.GONE
+    }
+
+    fun detail(position: Int) {
+        val mIntent = Intent(context, DetailSatkerActivity::class.java)
+
+        mIntent.putExtra(DETAIL_SATKER, mSatkers[position])
+        mIntent.putExtra(DETAIL_SATKER_BAGIAN, mActivity.mUser?.bagian)
+
+        startActivity(mIntent)
+
     }
 
 }

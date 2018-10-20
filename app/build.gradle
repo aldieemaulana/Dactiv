@@ -66,6 +66,8 @@ dependencies {
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlytics_version"
 
     testImplementation "junit:junit:$junit_version"
+
+    androidTestImplementation "com.android.support.test:rules:$testrules_version"
     androidTestImplementation "com.android.support.test:runner:$testrunner_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
 }

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="?attr/actionBarSize"
-    tools:context=".activity.profile.EditProfileActivity">
+    tools:context=".activity.profile.ProfileActivity">
 
     <include layout="@layout/toolbar_primary"/>
 
@@ -171,7 +171,7 @@
                     android:layout_marginLeft="-8dp"
                     android:layout_marginRight="-8dp"
                     android:layout_marginBottom="@dimen/component_small"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_width="match_parent"/>
             </LinearLayout>
 
@@ -197,7 +197,7 @@
                     android:layout_marginLeft="-8dp"
                     android:layout_marginRight="-8dp"
                     android:layout_marginBottom="@dimen/component_small"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_width="match_parent"/>
             </LinearLayout>
 

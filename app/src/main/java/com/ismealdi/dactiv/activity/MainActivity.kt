@@ -10,8 +10,8 @@ import android.view.MenuItem
 import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.R
-import com.ismealdi.dactiv.activity.auth.signin.SignInActivity
-import com.ismealdi.dactiv.activity.profile.EditProfileActivity
+import com.ismealdi.dactiv.activity.signin.SignInActivity
+import com.ismealdi.dactiv.activity.profile.ProfileActivity
 import com.ismealdi.dactiv.base.AmDraftActivity
 import com.ismealdi.dactiv.fragment.KegiatanFragment
 import com.ismealdi.dactiv.fragment.MainFragment
@@ -110,7 +110,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
 
         if(intent.getBooleanExtra(Constants.INTENT.LOGIN.FIRST_LOGIN, false) && (auth?.currentUser?.displayName).isNullOrEmpty()) {
             bottomNavigation.selectedItemId = R.id.profile
-            startActivityForResult(Intent(context, EditProfileActivity::class.java), Constants.INTENT.ACTIVITY.EDIT_PROFILE)
+            startActivityForResult(Intent(context, ProfileActivity::class.java), Constants.INTENT.ACTIVITY.EDIT_PROFILE)
         }else{
             getRealTimeProfile()
             getRealTimeSatker()

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="?attr/actionBarSize"
-    tools:context=".activity.satker.AddSatkerActivity">
+    tools:context=".activity.satker.add.AddSatkerActivity">
 
     <include layout="@layout/toolbar_primary"/>
 

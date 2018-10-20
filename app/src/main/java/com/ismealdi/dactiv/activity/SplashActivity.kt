@@ -8,7 +8,7 @@ import android.support.v4.app.ActivityCompat
 import android.view.View
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
-import com.ismealdi.dactiv.activity.auth.signin.SignInActivity
+import com.ismealdi.dactiv.activity.signin.SignInActivity
 import com.ismealdi.dactiv.base.AmDraftActivity
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.RevealAnimation

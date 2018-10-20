@@ -15,9 +15,9 @@ import com.ismealdi.dactiv.util.Logs
 
 class AmButton : AppCompatButton {
 
-    private var mFont: String = "R"
-    private var mPath: String = "fonts/Montserrat-"
-    private var mType: String = ".ttf"
+    private var mFont: String? = "R"
+    private var mPath: String? = "fonts/Montserrat-"
+    private var mType: String? = ".ttf"
 
     constructor(context: Context) : super(context)
 
@@ -35,12 +35,12 @@ class AmButton : AppCompatButton {
         setNewTypeFace()
     }
 
-    fun setFont(font: String) {
+    fun setFont(font: String?) {
         mFont = font
     }
 
     fun getFont(): String {
-        return mFont
+        return mFont!!
     }
 
     private fun setNewTypeFace() {

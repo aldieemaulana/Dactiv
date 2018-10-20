@@ -2,8 +2,6 @@ package com.ismealdi.dactiv.util
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.ismealdi.dactiv.util.Constants.SHARED.pushToken
-
 
 /**
  * Created by Al on 20/10/2018
@@ -14,12 +12,12 @@ class Preferences(context: Context) {
 
     fun storeToken(string: String) {
         with (sharedPref.edit()) {
-            putString(pushToken, string)
+            putString(Constants.SHARED.pushToken, string)
             apply()
         }
     }
-    fun getToken() : String {
-        return sharedPref.getString(pushToken, "")
-    }
 
+    fun getToken() : String {
+        return sharedPref.getString(Constants.SHARED.pushToken, "")!!
+    }
 }

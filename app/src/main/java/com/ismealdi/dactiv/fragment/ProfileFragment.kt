@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
-import com.ismealdi.dactiv.activity.profile.EditProfileActivity
+import com.ismealdi.dactiv.activity.profile.ProfileActivity
 import com.ismealdi.dactiv.base.AmFragment
 import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.CircleTransform
@@ -50,7 +50,7 @@ class ProfileFragment : AmFragment() {
 
     private fun listener() {
         buttonEdit.setOnClickListener {
-            startActivityForResult(Intent(context, EditProfileActivity::class.java), Constants.INTENT.ACTIVITY.EDIT_PROFILE)
+            startActivityForResult(Intent(context, ProfileActivity::class.java), Constants.INTENT.ACTIVITY.EDIT_PROFILE)
         }
 
         buttonSignOut.setOnClickListener {

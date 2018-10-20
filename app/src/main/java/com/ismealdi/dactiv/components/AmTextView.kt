@@ -74,7 +74,7 @@ class AmTextView : AppCompatTextView {
 
                 if(mEdit.isEnabled) {
                     mEdit.requestFocus()
-                    Utils.showKeyboard(context)
+                    Utils.Keyboard.show(context)
                 }
             }
         }else if(mLayoutRes > 0 && mLayoutRes != -1) {

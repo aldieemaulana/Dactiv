@@ -9,14 +9,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.ismealdi.dactiv.R
-import com.ismealdi.dactiv.activity.MainActivity
 import com.ismealdi.dactiv.components.AmTextView
 import com.ismealdi.dactiv.model.Kegiatan
 import kotlinx.android.synthetic.main.list_kegiatan.view.*
 import java.text.NumberFormat
 import java.util.*
 
-class KegiatanAdapter(private var kegiatans: MutableList<Kegiatan>, private val context: MainActivity, private val actionAdd : View.OnClickListener) : RecyclerView.Adapter<KegiatanAdapter.ViewHolder>() {
+class KegiatanAdapter(private var kegiatans: MutableList<Kegiatan>) : RecyclerView.Adapter<KegiatanAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val description: AmTextView = itemView.textName

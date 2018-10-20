@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="?attr/actionBarSize"
-    tools:context=".activity.auth.signin.SignInActivity">
+    tools:context=".activity.signin.SignInActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -90,15 +90,24 @@
                 android:gravity="center"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/component_big"/>
+                android:layout_marginBottom="@dimen/component_super"/>
+
+            <com.ismealdi.dactiv.components.AmButton
+                app:AmFont="S"
+                android:id="@+id/buttonForgotPassword"
+                style="@style/AppTheme.ButtonInput.Text"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="@string/text_forgot_password"/>
 
             <com.ismealdi.dactiv.components.AmTextView
                 app:AmFont="R"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_or"
-                android:layout_marginBottom="@dimen/component_medium"/>
+                android:text="@string/text_or"/>
 
             <com.ismealdi.dactiv.components.AmButton
                 app:AmFont="S"
@@ -106,6 +115,7 @@
                 style="@style/AppTheme.ButtonInput.Text"
                 android:text="@string/text_sign_up"
                 android:layout_gravity="center"
+                android:textAllCaps="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

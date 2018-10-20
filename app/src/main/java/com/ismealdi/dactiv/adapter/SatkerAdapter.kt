@@ -49,7 +49,7 @@ class SatkerAdapter(private var satkers: MutableList<Satker>, private val contex
                 holder.buttonMore.text = "Belum Terupload"
             }else {
                 holder.frame.setOnClickListener {
-                    // TODO
+                    context.detail(holder.adapterPosition)
                 }
             }
 
@@ -72,7 +72,7 @@ class SatkerAdapter(private var satkers: MutableList<Satker>, private val contex
     fun updateData(mSatkers: MutableList<Satker>) {
         this.satkers.clear()
 
-        if(this.category > 0 && this.category == 1) {
+        if(mSatkers.size > 0 && this.category > 0 && this.category == 1) {
             this.satkers.add(Satker("0"))
         }
 

@@ -79,7 +79,7 @@ class AmLinearLayout : android.support.v7.widget.LinearLayoutCompat {
             setOnClickListener{
                 if(!mDialog) {
                     mEdit.requestFocus()
-                    Utils.showKeyboard(context)
+                    Utils.Keyboard.show(context)
                 }else{
                     if(mDialogList.isNotEmpty()) {
                         Dialogs.spinnerDialog(context, mDialogList, mDialogQuestion, mEdit as AmTextView, false)

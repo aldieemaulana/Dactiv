@@ -1,12 +1,17 @@
-package com.ismealdi.dactiv.activity.auth.signin
+package com.ismealdi.dactiv.activity.signin
 
 import android.content.Context
 import com.google.firebase.auth.FirebaseUser
 import com.ismealdi.dactiv.App
-import com.ismealdi.dactiv.activity.auth.signin.SignInPresenter.Companion.INFO.EMAIL_RESENT_PASSWORD_SENT
-import com.ismealdi.dactiv.activity.auth.signin.SignInPresenter.Companion.INFO.EMAIL_VERIFICATION_FAIL
-import com.ismealdi.dactiv.activity.auth.signin.SignInPresenter.Companion.INFO.EMAIL_VERIFICATION_SENT
-import com.ismealdi.dactiv.activity.auth.signin.SignInPresenter.Companion.VALIDATE.EMAIL_PASSWORD_EMPTY
+import com.ismealdi.dactiv.activity.signin.SignInActivity.Companion.ACTION.RESET_PASSWORD
+import com.ismealdi.dactiv.activity.signin.SignInActivity.Companion.ACTION.SIGN_IN
+import com.ismealdi.dactiv.activity.signin.SignInActivity.Companion.ACTION.SIGN_UP
+import com.ismealdi.dactiv.activity.signin.SignInPresenter.Companion.INFO.EMAIL_RESENT_PASSWORD_SENT
+import com.ismealdi.dactiv.activity.signin.SignInPresenter.Companion.INFO.EMAIL_VERIFICATION_FAIL
+import com.ismealdi.dactiv.activity.signin.SignInPresenter.Companion.INFO.EMAIL_VERIFICATION_SENT
+import com.ismealdi.dactiv.activity.signin.SignInPresenter.Companion.VALIDATE.EMAIL_EMPTY_RESET
+import com.ismealdi.dactiv.activity.signin.SignInPresenter.Companion.VALIDATE.EMAIL_PASSWORD_EMPTY
+import com.ismealdi.dactiv.activity.signin.SignInPresenter.Companion.VALIDATE.EMAIL_PASSWORD_EMPTY_REGISTER
 import com.ismealdi.dactiv.services.AmMessagingService
 import com.ismealdi.dactiv.structure.User.addFromRegister
 import com.ismealdi.dactiv.structure.User.verifiedUser
@@ -27,18 +32,37 @@ class SignInPresenter(private val view: SignInContract.View, val context: Contex
         view.presenter = this
     }
 
-    override fun validateInput(isLogin: Boolean, email: String, password: String) {
+    override fun validateInput(action: String, email: String, password: String) {
         view.progress.show()
 
-        if(email.isNotEmpty() && password.isNotEmpty()) {
-            if (isLogin) login(email, password) else register(email, password)
+        when(action) {
+            SIGN_IN -> {
+                if(email.isNotEmpty() && password.isNotEmpty()) {
+                    login(email, password)
+                }else{
+                    view.progress.dismiss()
+                    view.onError(EMAIL_PASSWORD_EMPTY)
+                }
+            }
 
-            return
+            SIGN_UP -> {
+                if(email.isNotEmpty() && password.isNotEmpty()) {
+                    register(email, password)
+                }else{
+                    view.progress.dismiss()
+                    view.onError(EMAIL_PASSWORD_EMPTY_REGISTER)
+                }
+            }
+
+            RESET_PASSWORD -> {
+                if(email.isNotEmpty()) {
+                    emailResetPassword(email)
+                }else{
+                    view.progress.dismiss()
+                    view.onError(EMAIL_EMPTY_RESET)
+                }
+            }
         }
-
-        view.progress.dismiss()
-
-        view.onError(EMAIL_PASSWORD_EMPTY)
     }
 
     override fun emailVerification(user: FirebaseUser) {
@@ -53,12 +77,12 @@ class SignInPresenter(private val view: SignInContract.View, val context: Contex
     }
 
     override fun emailResetPassword(email: String) {
-        view.progress.show()
-
         auth.sendPasswordResetEmail(email).addOnCompleteListener {
             if (it.isSuccessful) {
+                view.progress.dismiss()
                 view.onSuccess(EMAIL_RESENT_PASSWORD_SENT + email)
             }else{
+                view.progress.dismiss()
                 view.onError(it.exception?.message.toString())
             }
         }
@@ -110,7 +134,9 @@ class SignInPresenter(private val view: SignInContract.View, val context: Contex
 
     companion object {
         object VALIDATE {
+            const val EMAIL_EMPTY_RESET = "Please put your email address to reset the password"
             const val EMAIL_PASSWORD_EMPTY = "Please check your email address and password input."
+            const val EMAIL_PASSWORD_EMPTY_REGISTER = "Put your email address and password on form above"
         }
 
         object ERROR {

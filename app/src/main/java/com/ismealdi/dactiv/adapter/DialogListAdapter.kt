@@ -2,6 +2,7 @@ package com.ismealdi.dactiv.adapter
 
 import android.app.Dialog
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -31,8 +32,8 @@ class DialogListAdapter(private val listData: List<String>, private var context:
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(selected == listData[position]) {
-            holder.textView.setBackgroundDrawable(context.resources.getDrawable(R.drawable.dialog_selected))
-            holder.textView.setTextColor(context.resources.getColor(R.color.colorWhite))
+            holder.textView.background = ContextCompat.getDrawable(context, R.drawable.dialog_selected)
+            holder.textView.setTextColor(ContextCompat.getColor(context, R.color.colorWhite))
         }
 
         holder.textView.text = listData[position]

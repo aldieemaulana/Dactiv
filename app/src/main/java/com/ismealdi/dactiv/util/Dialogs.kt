@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import com.ismealdi.dactiv.R
@@ -22,8 +23,8 @@ object Dialogs {
             .setDimAmount(0.2f)
             .setCornerRadius(4f)
             .setSize(45,45)
-            .setWindowColor(context.resources.getColor(R.color.colorWhite))
-            .setBackgroundColor(context.resources.getColor(R.color.colorPrimary))
+            .setWindowColor(ContextCompat.getColor(context, R.color.colorWhite))
+            .setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary))
             .setAnimationSpeed(2)
     }
 
