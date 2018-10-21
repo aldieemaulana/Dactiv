@@ -104,4 +104,10 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
     fun String.toNumber(): String {
         return replace(Regex("""[.,Rp ]"""), "")
     }
+
+    override fun onPause() {
+        super.onPause()
+
+        unregisterReceiver(connectionReceiver)
+    }
 }

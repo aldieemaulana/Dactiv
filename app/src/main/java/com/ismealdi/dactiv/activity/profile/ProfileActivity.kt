@@ -111,7 +111,7 @@ class ProfileActivity : AmActivity(), ProfileContract.View {
             val golongan = textGolongan.selectedItemPosition
             val jabatan = textJabatan.selectedItemPosition
 
-            presenter.validateInput(email, fullName, nip, phoneNumber, golongan, jabatan, uriPhoto)
+            presenter.validateInput(email, fullName, nip.toNumber(), phoneNumber, golongan, jabatan, uriPhoto)
         }
 
         buttonBackToolbar.setOnClickListener {

@@ -24,7 +24,7 @@ interface AddSatkerContract {
 
     interface Presenter : AmPresenter {
 
-        fun validateInput(kepalaId: Int?, eselons: Int?, nama: String, description: String, kodeKegiatan: String)
+        fun validateInput(kepalaId: String?, eselons: String?, nama: String, description: String, kodeKegiatan: String)
 
         fun store(satker: Satker)
 

@@ -19,7 +19,7 @@ class AmLinearLayout : android.support.v7.widget.LinearLayoutCompat {
     private var mDialog: Boolean = false
     private var mDialogQuestion: String = ""
     private var mDialogList: List<String> = listOf()
-    private var mKeysList: HashMap<String, String> = hashMapOf()
+    private var mKeysList: List<String> = listOf()
 
     private lateinit var mEdit: View
 
@@ -40,13 +40,13 @@ class AmLinearLayout : android.support.v7.widget.LinearLayoutCompat {
 
     fun setDialogList(list: HashMap<String, String>) {
         mDialogList = list.values.distinct()
-        mKeysList = list
+        mKeysList = list.keys.distinct()
     }
 
     fun getDialogSelected() : String? {
         if(mKeysList.isNotEmpty()) {
             val mEditView = mEdit as AmTextView
-            return mKeysList[mEditView.text.toString()]
+            return mKeysList[mEditView.getSelectedId()!!]
         }
 
         return ""

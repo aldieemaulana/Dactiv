@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.view.View
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.kegiatan.AddKegiatanActivity.Companion.VALIDATE.INPUT_EMPTY
 import com.ismealdi.dactiv.base.AmDraftActivity
@@ -30,13 +31,13 @@ class AddKegiatanActivity : AmDraftActivity() {
         }
     }
 
-    private var mUsers : MutableList<User> = mutableListOf()
+    private var mUsers : HashMap<String, User> = hashMapOf()
     private var mDataAdmin : HashMap<String, String> = hashMapOf()
 
-    private var mSatkers : MutableList<Satker> = mutableListOf()
+    private var mSatkers : HashMap<String, Satker> = hashMapOf()
     private var mDataSatker : HashMap<String, String> = hashMapOf()
 
-    private var mJabatans : MutableList<Jabatan> = mutableListOf()
+    private var mJabatans : HashMap<String, Jabatan> = hashMapOf()
     private var mDataJabatan : HashMap<String, String> = hashMapOf()
 
     private lateinit var datePicker: DatePickerDialog
@@ -74,6 +75,7 @@ class AddKegiatanActivity : AmDraftActivity() {
         val penanggungJawab = textPenanggung.getSelectedId()
         val bagian = textBagian.getSelectedId()
 
+
         if (satkerId != null && penanggungJawab != null && bagian != null &&
                 kodeKegiatan.isNotEmpty() && anggaran.isNotEmpty() && jadwalPelaksana.isNotEmpty()
             && durasi.isNotEmpty() && nama.isNotEmpty()) {
@@ -88,9 +90,9 @@ class AddKegiatanActivity : AmDraftActivity() {
             val formatter = SimpleDateFormat("dd/MM/yyyy h:m")
 
             data.jadwal = formatter.parse(jadwalPelaksana.toString())
-            data.penanggungJawab = mUsers[penanggungJawab].uid
+            data.penanggungJawab = mUsers[layoutPenanggung.getDialogSelected()]!!.uid
             data.bagian = (bagian + 1).toString()
-            data.satker = mSatkers[satkerId].id
+            data.satker = mSatkers[layoutSatker.getDialogSelected()]!!.id
 
             addKegiatan(data)
 
@@ -162,7 +164,7 @@ class AddKegiatanActivity : AmDraftActivity() {
                         val mUser = document.toObject(User::class.java)
                         if(mUser != null) {
                             mDataAdmin[mUser.uid] = mUser.displayName
-                            mUsers.add(mUser)
+                            mUsers[mUser.uid] = mUser
                         }
                     }
                 }
@@ -190,7 +192,7 @@ class AddKegiatanActivity : AmDraftActivity() {
                         val mJabatan = document.toObject(Jabatan::class.java)
                         if(mJabatan != null && mJabatan.nama != "-") {
                             mDataJabatan[document.id] = mJabatan.nama
-                            mJabatans.add(mJabatan)
+                            mJabatans[document.id] = mJabatan
                         }
                     }
                 }
@@ -207,7 +209,7 @@ class AddKegiatanActivity : AmDraftActivity() {
 
     private fun getSatker() {
         showProgress()
-        db!!.satker().addSnapshotListener { it, e ->
+        db!!.satker().orderBy(satkerFields.createdOn).addSnapshotListener { it, e ->
             if(e != null) {
                 showSnackBar(layoutParent, e.message.toString(), Snackbar.LENGTH_LONG)
             }
@@ -218,7 +220,7 @@ class AddKegiatanActivity : AmDraftActivity() {
                         val mSatker = document.toObject(Satker::class.java)
                         if(mSatker != null) {
                             mDataSatker[mSatker.id] = mSatker.name
-                            mSatkers.add(mSatker)
+                            mSatkers[mSatker.id] =  mSatker
                         }
                     }
                 }

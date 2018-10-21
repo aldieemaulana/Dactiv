@@ -68,8 +68,8 @@ class AddSatkerActivity : AmActivity(), AddSatkerContract.View {
 
     private fun listener() {
         buttonMenuToolbar.setOnClickListener {
-            val kepalaId = textKepala.getSelectedId()
-            val eselons = textEselon.getSelectedId()
+            val kepalaId = layoutKepala.getDialogSelected()
+            val eselons = layoutEselon.getDialogSelected()
             val nama = textNamaSatker.text.toString()
             val description = textDeskripsi.text.toString()
             val kodeKegiatan = textKodeKegiatan.text.toString().toNumber()

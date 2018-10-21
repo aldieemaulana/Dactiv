@@ -18,14 +18,14 @@ class AddSatkerPresenter(private val view: AddSatkerContract.View, val context: 
 
     private var database = App.fireStoreBase
     private val user = App.fireBaseAuth.currentUser
-    private var mUsers : MutableList<User> = mutableListOf()
+    private var mUsers : HashMap<String, User> = hashMapOf()
     private var mDataAdmin : HashMap<String, String> = hashMapOf()
 
     init {
         view.presenter = this
     }
 
-    override fun validateInput(kepalaId: Int?, eselons: Int?, nama: String, description: String, kodeKegiatan: String) {
+    override fun validateInput(kepalaId: String?, eselons: String?, nama: String, description: String, kodeKegiatan: String) {
 
         if (kepalaId != null && eselons != null &&
                 kodeKegiatan.isNotEmpty() && nama.isNotEmpty() && description.isNotEmpty()) {
@@ -33,8 +33,8 @@ class AddSatkerPresenter(private val view: AddSatkerContract.View, val context: 
             val satker = Satker()
 
             satker.admin = user?.uid.toString()
-            satker.kepala = mUsers[kepalaId].uid
-            satker.eselon = ("${mUsers[eselons].uid},${satker.kepala}").split(",")
+            satker.kepala = mUsers[kepalaId]!!.uid
+            satker.eselon = ("${mUsers[eselons]!!.uid},${satker.kepala}").split(",")
             satker.name = nama
             satker.description = description
             satker.kodeSatker = kodeKegiatan
@@ -70,7 +70,7 @@ class AddSatkerPresenter(private val view: AddSatkerContract.View, val context: 
                         val mUser = document.toObject(User::class.java)
                         if(mUser != null) {
                             mDataAdmin[mUser.uid] = mUser.displayName
-                            mUsers.add(mUser)
+                            mUsers[mUser.uid] = mUser
                         }
                     }
                 }

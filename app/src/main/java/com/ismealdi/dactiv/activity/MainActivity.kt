@@ -108,13 +108,13 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         mRevealAnimation = RevealAnimation(layoutParent, intent, context as Activity)
         listener()
 
+        getRealTimeProfile()
+        getRealTimeSatker()
+        getRealTimeKegiatan()
+
         if(intent.getBooleanExtra(Constants.INTENT.LOGIN.FIRST_LOGIN, false) && (auth?.currentUser?.displayName).isNullOrEmpty()) {
             bottomNavigation.selectedItemId = R.id.profile
             startActivityForResult(Intent(context, ProfileActivity::class.java), Constants.INTENT.ACTIVITY.EDIT_PROFILE)
-        }else{
-            getRealTimeProfile()
-            getRealTimeSatker()
-            getRealTimeKegiatan()
         }
     }
 
