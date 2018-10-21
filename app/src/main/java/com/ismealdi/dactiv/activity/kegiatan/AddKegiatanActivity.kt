@@ -16,6 +16,7 @@ import com.ismealdi.dactiv.model.Kegiatan
 import com.ismealdi.dactiv.model.Satker
 import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.*
+import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_SATKER
 import com.ismealdi.dactiv.watcher.AmCurrencyWatcher
 import com.ismealdi.dactiv.watcher.AmFourDigitWatcher
 import kotlinx.android.synthetic.main.activity_kegiatan_add.*
@@ -71,12 +72,12 @@ class AddKegiatanActivity : AmDraftActivity() {
         val anggaran = textAnggaran.text.toString()
         val jadwalPelaksana = textJadwalPelaksana.text
         val durasi = textDurasi.text.toString()
-        val satkerId = textSatker.getSelectedId()
+        val satkerId = textSatker.text.toString()
         val penanggungJawab = textPenanggung.getSelectedId()
         val bagian = textBagian.getSelectedId()
 
 
-        if (satkerId != null && penanggungJawab != null && bagian != null &&
+        if (satkerId.isNotEmpty() && penanggungJawab != null && bagian != null &&
                 kodeKegiatan.isNotEmpty() && anggaran.isNotEmpty() && jadwalPelaksana.isNotEmpty()
             && durasi.isNotEmpty() && nama.isNotEmpty()) {
 
@@ -92,7 +93,7 @@ class AddKegiatanActivity : AmDraftActivity() {
             data.jadwal = formatter.parse(jadwalPelaksana.toString())
             data.penanggungJawab = mUsers[layoutPenanggung.getDialogSelected()]!!.uid
             data.bagian = (bagian + 1).toString()
-            data.satker = mSatkers[layoutSatker.getDialogSelected()]!!.id
+            data.satker = if(intent.getParcelableExtra<Satker>(DETAIL_SATKER) != null) intent.getParcelableExtra<Satker>(DETAIL_SATKER).id else mSatkers[layoutSatker.getDialogSelected()]!!.id
 
             addKegiatan(data)
 
@@ -138,6 +139,14 @@ class AddKegiatanActivity : AmDraftActivity() {
         buttonMenuToolbar.visibility = View.VISIBLE
 
         initView()
+
+        if(intent.getParcelableExtra<Satker>(DETAIL_SATKER) != null) {
+            textSatker.text = intent.getParcelableExtra<Satker>(DETAIL_SATKER).name
+            layoutSatker.isClickable = false
+            layoutSatker.isEnabled = false
+            textSatker.isClickable = false
+            textSatker.isEnabled = false
+        }
     }
 
     private fun watcher() {

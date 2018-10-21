@@ -47,15 +47,30 @@
             android:clipToPadding="false"
             android:paddingTop="68dp">
 
-            <com.ismealdi.dactiv.components.AmTextView
-                app:AmFont="R"
-                android:id="@+id/textName"
-                android:layout_width="match_parent"
-                android:gravity="center"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorTextDark"
-                android:textSize="@dimen/text_medium"
-                tools:text="@tools:sample/full_names"/>
+                android:layout_gravity="center"
+                android:gravity="center">
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    android:id="@+id/textName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="@dimen/text_medium"
+                    tools:text="@tools:sample/full_names"/>
+                <View
+                    app:layout_constraintLeft_toRightOf="@id/textName"
+                    android:layout_marginLeft="@dimen/component_small"
+                    android:layout_marginTop="@dimen/component_tiny"
+                    app:layout_constraintBottom_toBottomOf="@id/textName"
+                    app:layout_constraintTop_toTopOf="@id/textName"
+                    android:id="@+id/viewOnline"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/label_cancelled"/>
+            </android.support.constraint.ConstraintLayout>
 
             <com.ismealdi.dactiv.components.AmTextView
                 app:AmFont="R"

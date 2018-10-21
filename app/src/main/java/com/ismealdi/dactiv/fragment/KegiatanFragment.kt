@@ -50,7 +50,7 @@ class KegiatanFragment : AmFragment() {
     private fun initList() {
         mActivity.showProgress()
 
-        mAdapter = KegiatanAdapter(mKegiatansFiltered)
+        mAdapter = KegiatanAdapter(mKegiatansFiltered,false,true)
 
         recyclerView.layoutManager = LinearLayoutManager(context,
                 LinearLayout.VERTICAL, false)

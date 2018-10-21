@@ -29,6 +29,7 @@ object User {
             const val bagian = "bagian"
             const val nip = "nip"
             const val pushId = "pushId"
+            const val onlineUser = "onlineUser"
             const val lastUpdated = "lastUpdated"
         }
     }

@@ -8,7 +8,9 @@ import com.ismealdi.dactiv.activity.satker.detail.DetailSatkerPresenter.Companio
 import com.ismealdi.dactiv.activity.satker.detail.DetailSatkerPresenter.Companion.INFO.DB_USER_DETAIL_NOT_FOUND
 import com.ismealdi.dactiv.base.AmDraftActivity.Companion.kegiatanFields
 import com.ismealdi.dactiv.model.Kegiatan
+import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.kegiatan
+import com.ismealdi.dactiv.util.user
 
 
 /**
@@ -35,10 +37,10 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
         val userDocument = database.kegiatan().whereEqualTo(kegiatanFields.satker, id).orderBy(kegiatanFields.createdOn, Query.Direction.DESCENDING)
         val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
 
-        userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, _ ->
+        userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
             view.progress.dismiss()
 
-            if (documentSnapshot != null) {
+            if (documentSnapshot != null && e == null) {
                 mKegiatans.clear()
 
                 documentSnapshot.documents.forEach {
@@ -53,7 +55,41 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
                 }
 
                 view.mKegiatan = mKegiatans
-                view.populateList()
+                view.populateList(mKegiatans)
+
+            }
+
+        }
+    }
+
+    override fun users(id: List<String>) {
+        if (user == null){
+            view.onError(DB_USER_DETAIL_NOT_FOUND)
+            return
+        }
+
+        view.progress.show()
+
+        val userDocument = database.user()
+        val  mUsers : MutableList<User> = mutableListOf()
+
+        userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
+            view.progress.dismiss()
+
+            if (documentSnapshot != null && e == null) {
+                mUsers.clear()
+
+                documentSnapshot.documents.forEach {
+                    val mUser = it.toObject(User::class.java)
+
+                    if (mUser != null) {
+                        if(id.contains(mUser.uid))
+                            mUsers.add(mUser)
+                    }
+                }
+
+                view.mEselons = mUsers
+                view.populateEselonList(mUsers)
 
             }
 

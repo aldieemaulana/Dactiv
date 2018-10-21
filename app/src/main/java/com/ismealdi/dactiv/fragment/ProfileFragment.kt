@@ -32,6 +32,7 @@ class ProfileFragment : AmFragment() {
             if(textName != null) textName.setTextFade(user.displayName)
             if(textState != null) textState.setTextFade(if(user.emailVerified) "Verified" else "Unverified")
             if(textState != null) textEmail.setTextFade(user.email)
+            if(viewOnline != null) viewOnline.visibility = if (user.onlineUser) View.VISIBLE else View.GONE
 
             val photo = user.photoUrl
 

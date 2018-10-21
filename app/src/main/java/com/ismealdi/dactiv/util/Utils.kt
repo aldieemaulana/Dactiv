@@ -1,11 +1,16 @@
 package com.ismealdi.dactiv.util
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Rect
+import android.net.Uri
+import android.provider.MediaStore
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import java.io.ByteArrayOutputStream
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 
@@ -49,6 +54,21 @@ object Utils {
         }
 
         return fmt.format(string.toLong()).toString()
+    }
+
+    fun compressBitmap(bitmap:Bitmap, quality:Int):Bitmap{
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
+
+        val byteArray = stream.toByteArray()
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    }
+
+    fun getImageUri(context: Context, inImage: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, inImage, "DactivFoto", null)
+        return Uri.parse(path)
     }
 
 }

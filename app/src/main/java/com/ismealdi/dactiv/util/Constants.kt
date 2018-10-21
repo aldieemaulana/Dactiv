@@ -24,6 +24,7 @@ open class Constants {
             const val ADD_SATKER = 1014
             const val ADD_KEGIATAN = 1015
             const val ADD_KEGIATAN_MAIN = 1016
+            const val REQUEST_WRITE_PERMISSION = 1017
         }
 
         const val NOTIFICATION = "intentNotification"
@@ -66,6 +67,7 @@ open class Constants {
 
     object SHARED {
         const val pushToken = "SHARED_PUSH_TOKEN"
+        const val userUid = "SHARED_UID"
         const val user = "SHARED_USER"
     }
 }

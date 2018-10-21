@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.toolbar_primary.*
 open class AmActivity : AppCompatActivity(), AmConnectionInterface {
 
     private var connectionReceiver : ConnectionReceiver? = null
+    private var isRegisteredReceiver: Boolean = false
 
     internal fun setTitle(title: String, isPrimary: Boolean = false) {
         if(textTitleToolbar.text != title) {
@@ -93,6 +94,7 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
             mIntentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
 
             registerReceiver(connectionReceiver, mIntentFilter)
+            isRegisteredReceiver = true
         }
     }
 
@@ -107,7 +109,9 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
 
     override fun onPause() {
         super.onPause()
-
-        unregisterReceiver(connectionReceiver)
+        if(isRegisteredReceiver) {
+            unregisterReceiver(connectionReceiver)
+            isRegisteredReceiver = false
+        }
     }
 }

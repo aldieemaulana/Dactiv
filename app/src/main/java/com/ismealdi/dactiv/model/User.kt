@@ -9,17 +9,18 @@ import com.google.gson.annotations.SerializedName
  */
 
 open class User(
-    var uid: String = "",
-    var providerId: String = "",
-    var displayName: String = "",
-    var photoUrl: String = "",
-    var email: String = "",
-    var phoneNumber: String = "",
-    var emailVerified: Boolean = false,
-    var category: Int = 2,
-    var golongan: Int = 0,
-    var bagian: Int = 0,
-    var nip: String = "",
-    var pushId: String = "",
-    var lastUpdated: Timestamp = Timestamp.now()
+        var uid: String = "",
+        var providerId: String = "",
+        var displayName: String = "",
+        var photoUrl: String = "",
+        var email: String = "",
+        var phoneNumber: String = "",
+        var emailVerified: Boolean = false,
+        var category: Int = 2,
+        var golongan: Int = 0,
+        var bagian: Int = 0,
+        var nip: String = "",
+        var pushId: String = "",
+        var onlineUser: Boolean = false,
+        var lastUpdated: Timestamp = Timestamp.now()
 )

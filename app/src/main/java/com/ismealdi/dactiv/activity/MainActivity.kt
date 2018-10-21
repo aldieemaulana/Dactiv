@@ -18,6 +18,8 @@ import com.ismealdi.dactiv.fragment.MainFragment
 import com.ismealdi.dactiv.fragment.ProfileFragment
 import com.ismealdi.dactiv.fragment.SatkerFragment
 import com.ismealdi.dactiv.model.*
+import com.ismealdi.dactiv.services.AmMessagingService
+import com.ismealdi.dactiv.services.AmTaskService
 import com.ismealdi.dactiv.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -128,6 +130,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         }
 
         auth?.signOut()
+        AmMessagingService().storeOnline(false)
         mRevealAnimation?.unRevealActivity(Intent(context, SignInActivity::class.java), context)
 
     }
@@ -268,6 +271,9 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         }
     }
 
-
+    override fun onBackPressed() {
+        AmMessagingService().storeOnline(false)
+        super.onBackPressed()
+    }
 
 }

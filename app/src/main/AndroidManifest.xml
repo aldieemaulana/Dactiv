@@ -41,6 +41,11 @@
             </intent-filter>
         </service>
 
+        <service
+            android:name=".services.AmTaskService"
+            android:enabled="true"
+            android:stopWithTask="false" />
+
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"

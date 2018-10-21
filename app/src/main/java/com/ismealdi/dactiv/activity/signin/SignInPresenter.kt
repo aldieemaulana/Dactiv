@@ -128,6 +128,7 @@ class SignInPresenter(private val view: SignInContract.View, val context: Contex
     }
 
     override fun subscribeMemberTopic(topic: String) {
+        AmMessagingService().storeOnline(true)
         AmMessagingService().storeToken(Preferences(context).getToken())
         message.subscribeToTopic(topic)
     }

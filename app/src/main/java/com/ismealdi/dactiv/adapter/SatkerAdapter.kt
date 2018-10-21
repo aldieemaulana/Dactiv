@@ -88,7 +88,7 @@ class SatkerAdapter(private var satkers: MutableList<Satker>, private val contex
             if(this.category > 0 && this.category == 1 && this.satkers[0].id != "0") {
                 this.satkers.add(0, Satker("0", ""))
                 notifyDataSetChanged()
-            }else if(this.satkers[0].id == "0") {
+            }else if(this.satkers[0].id == "0" && this.category != 1) {
                 this.satkers.removeAt(0)
                 notifyDataSetChanged()
             }

@@ -14,6 +14,7 @@ import com.ismealdi.dactiv.activity.signin.SignInActivity.Companion.ACTION.SIGN_
 import com.ismealdi.dactiv.base.AmActivity
 import com.ismealdi.dactiv.util.Constants.INTENT.LOGIN.FIRST_LOGIN
 import com.ismealdi.dactiv.util.Dialogs
+import com.ismealdi.dactiv.util.Preferences
 import com.ismealdi.dactiv.util.RevealAnimation
 import com.ismealdi.dactiv.util.RevealAnimation.Companion.EXTRA_CIRCULAR_REVEAL_X
 import com.ismealdi.dactiv.util.RevealAnimation.Companion.EXTRA_CIRCULAR_REVEAL_Y

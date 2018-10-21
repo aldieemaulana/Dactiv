@@ -15,6 +15,7 @@ import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.activity.NotificationActivity
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
+import com.ismealdi.dactiv.structure.User
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Logs
 import com.ismealdi.dactiv.util.Preferences
@@ -49,6 +50,19 @@ class AmMessagingService : FirebaseMessagingService() {
         Logs.d("Refreshed token: " + token!!)
         storeToken(token)
         Preferences(this).storeToken(token)
+    }
+
+    fun storeOnline(state: Boolean) {
+        val data : MutableMap<String, Any> = mutableMapOf()
+
+        data[UserFields.onlineUser] = state
+        data[UserFields.lastUpdated] = Timestamp.now()
+
+        App.fireStoreBase.user(App.fireBaseAuth.currentUser!!.uid).update(data.toMap()).addOnSuccessListener {
+            Logs.d("State changed to $state")
+        }.addOnFailureListener {
+            Logs.d("Failed update state: " + it.message!!)
+        }
     }
 
     fun storeToken(token: String) {

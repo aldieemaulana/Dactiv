@@ -1,6 +1,8 @@
 package com.ismealdi.dactiv.activity.profile
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -14,11 +16,22 @@ import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.CircleTransform
 import com.ismealdi.dactiv.util.Constants.INTENT.ACTIVITY.REQUEST_SELECT_IMAGE_IN_ALBUM
 import com.ismealdi.dactiv.util.Dialogs
+import com.ismealdi.dactiv.util.Utils
 import com.ismealdi.dactiv.watcher.AmFourDigitWatcher
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile_edit.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
+import android.graphics.Bitmap
+import android.os.Build
+import android.os.Handler
+import android.provider.MediaStore
+import com.ismealdi.dactiv.util.Constants.INTENT.ACTIVITY.REQUEST_WRITE_PERMISSION
+import java.io.ByteArrayOutputStream
+import android.support.v4.content.ContextCompat
+
+
+
 
 /**
  * Created by Al on 15/10/2018
@@ -69,6 +82,7 @@ class ProfileActivity : AmActivity(), ProfileContract.View {
     }
 
     override fun onSuccess(message: String) {
+        uriPhoto = null
         showSnackBar(message, Snackbar.LENGTH_LONG)
     }
 
@@ -100,7 +114,12 @@ class ProfileActivity : AmActivity(), ProfileContract.View {
 
     private fun listener() {
         buttonChangePhoto.setOnClickListener {
-            presenter.selectImage(packageManager, this)
+            val permissionCheckStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (permissionCheckStorage != PackageManager.PERMISSION_GRANTED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_WRITE_PERMISSION)
+            } else {
+                presenter.selectImage(packageManager, this)
+            }
         }
 
         buttonMenuToolbar.setOnClickListener {
@@ -136,17 +155,30 @@ class ProfileActivity : AmActivity(), ProfileContract.View {
 
         if(requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM && resultCode == RESULT_OK &&data != null) {
             progress.show()
-
-            uriPhoto = data.data
-
-            Picasso.get().load(uriPhoto)
+            Picasso.get().load(data.data)
                     .transform(CircleTransform())
                     .placeholder(R.drawable.empty_circle)
                     .into(imagePhoto)
 
-            progress.dismiss()
+            Handler().postDelayed({
+                val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, data.data)
+                uriPhoto = Utils.getImageUri(applicationContext, Utils.compressBitmap(bitmap, 10))
+
+                progress.dismiss()
+            }, 1500)
+
         }
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_WRITE_PERMISSION) {
+            if (grantResults.isNotEmpty() && permissions[0] == Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    buttonChangePhoto.performClick()
+                }
+            }
+        }
 
+    }
 }

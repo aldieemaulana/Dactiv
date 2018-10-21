@@ -74,6 +74,7 @@ class ProfilePresenter(private val view: ProfileContract.View, val context: Cont
     }
 
     override fun upload(user: User, uriPhoto: Uri) {
+        view.progress.show()
         val storageRef = storage.reference.child(PROFILE_PHOTO + user.uid)
         val uploadTask = storageRef.putFile(uriPhoto)
         uploadTask.addOnSuccessListener { _ ->

@@ -8,6 +8,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
+import com.ismealdi.dactiv.services.AmMessagingService
+import com.ismealdi.dactiv.services.AmTaskService
 
 /**
  * Created by Al on 10/10/2018
@@ -36,5 +38,6 @@ class App : MultiDexApplication() {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
+
 
 }

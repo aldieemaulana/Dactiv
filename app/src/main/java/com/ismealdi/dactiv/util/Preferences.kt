@@ -20,4 +20,15 @@ class Preferences(context: Context) {
     fun getToken() : String {
         return sharedPref.getString(Constants.SHARED.pushToken, "")!!
     }
+
+    fun storeUid(string: String) {
+        with (sharedPref.edit()) {
+            putString(Constants.SHARED.userUid, string)
+            apply()
+        }
+    }
+
+    fun getUid() : String {
+        return sharedPref.getString(Constants.SHARED.userUid, "")!!
+    }
 }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import com.ismealdi.dactiv.interfaces.AmConnectionInterface
+import com.ismealdi.dactiv.services.AmMessagingService
 
 /**
  * Created by Al on 14/10/2018
@@ -24,11 +25,13 @@ class ConnectionReceiver : BroadcastReceiver() {
         val isConnected = wifi != null && wifi.isConnectedOrConnecting || mobile != null && mobile.isConnectedOrConnecting
         if (!isConnected) {
             if(!isSwitching) {
+                AmMessagingService().storeOnline(false)
                 showMessage("No Internet Connection")
                 isSwitching = true
             }
         }else{
             if(isSwitching) {
+                AmMessagingService().storeOnline(true)
                 showMessage("Internet Connected")
                 isSwitching = false
             }

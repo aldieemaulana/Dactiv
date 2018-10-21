@@ -10,7 +10,10 @@ import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.signin.SignInActivity
 import com.ismealdi.dactiv.base.AmDraftActivity
+import com.ismealdi.dactiv.services.AmMessagingService
+import com.ismealdi.dactiv.services.AmTaskService
 import com.ismealdi.dactiv.util.Constants
+import com.ismealdi.dactiv.util.Preferences
 import com.ismealdi.dactiv.util.RevealAnimation
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -46,6 +49,9 @@ class SplashActivity : AmDraftActivity() {
         if(App.fireBaseAuth.currentUser != null) {
             intent = Intent(context, MainActivity::class.java)
             intent.putExtra(Constants.INTENT.LOGIN.FIRST_LOGIN, false)
+
+            AmMessagingService().storeOnline(true)
+            startService(Intent(baseContext, AmTaskService::class.java))
 
             if(this.intent.extras != null) {
                 if(!this.intent.getStringExtra("google.delivered_priority").isNullOrEmpty() &&
