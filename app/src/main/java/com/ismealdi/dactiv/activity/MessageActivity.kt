@@ -59,7 +59,7 @@ class MessageActivity : AmActivity() {
                 val userId = remoteMessage.data["fromUser"]
                 satkerId = remoteMessage.data["satker"].toString()
 
-                if(userId == "" || remoteMessage.data["kegiatan"].toString().isNotBlank())
+                if(userId == "" || data["title"] == "Reminder")
                     layoutReply.visibility = View.GONE
 
                 App.fireStoreBase.user(userId.toString()).addSnapshotListener { documentSnapshot, _ ->
@@ -136,8 +136,10 @@ class MessageActivity : AmActivity() {
         mMessage.satker = satker
 
 
-        if(intent.getStringExtra(KEGIATAN).isNotEmpty() && intent.getStringExtra(KEGIATAN) != "") {
-            mMessage.date = "${intent.getStringExtra(KEGIATAN_NAMA)}\n${mMessage.date}"
+        if(intent.getStringExtra(KEGIATAN) != null) {
+            if (intent.getStringExtra(KEGIATAN).isNotEmpty() && intent.getStringExtra(KEGIATAN) != "") {
+                mMessage.date = "${intent.getStringExtra(KEGIATAN_NAMA)}\n${mMessage.date}"
+            }
         }
 
         val document = App.fireStoreBase.message().document()
