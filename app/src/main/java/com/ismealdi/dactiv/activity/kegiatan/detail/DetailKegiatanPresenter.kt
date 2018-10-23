@@ -5,6 +5,7 @@ import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.DB_USER_DETAIL_NOT_FOUND
+import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.DB_USER_DETAIL_NOT_MATCH
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.USER_SUCCESS_ATTEND
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.USER_SUCCESS_DONE
 import com.ismealdi.dactiv.base.AmDraftActivity.Companion.kegiatanFields
@@ -55,6 +56,11 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
     override fun doAttend(barcode: String, kegiatan: Kegiatan) {
         if (user == null){
             view.onError(DB_USER_DETAIL_NOT_FOUND)
+            return
+        }
+
+        if (barcode != kegiatan.id){
+            view.onError(DB_USER_DETAIL_NOT_MATCH)
             return
         }
 
@@ -162,6 +168,7 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
 
     companion object {
         object INFO {
+            const val DB_USER_DETAIL_NOT_MATCH = "Sorry the data not match!"
             const val USER_SUCCESS_ATTEND = "Mark as attend"
             const val USER_SUCCESS_DONE = "Mark as done"
             const val DB_USER_DETAIL_NOT_FOUND = "Sorry your detail not found on our record"
