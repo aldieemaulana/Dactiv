@@ -64,6 +64,8 @@ dependencies {
     implementation "com.google.firebase:firebase-storage:$firebasestorage_version"
     implementation "com.google.firebase:firebase-messaging:$firebasemessage_version"
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlytics_version"
+    implementation "com.google.android.gms:play-services-vision:$googlevision_version"
+    implementation "com.github.kenglxn.QRGen:android:$kenglxnqrgen_version"
 
     testImplementation "junit:junit:$junit_version"
 

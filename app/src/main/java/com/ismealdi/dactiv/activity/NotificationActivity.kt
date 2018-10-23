@@ -1,6 +1,8 @@
 package com.ismealdi.dactiv.activity
 
+import android.content.pm.ActivityInfo
 import android.media.RingtoneManager
+import android.os.Build
 import android.os.Bundle
 import com.google.firebase.messaging.RemoteMessage
 import com.ismealdi.dactiv.R
@@ -14,6 +16,10 @@ class NotificationActivity : AmDraftActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_notification)
+
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
 
         init()
     }

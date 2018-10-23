@@ -2,6 +2,7 @@ package com.ismealdi.dactiv.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
@@ -12,10 +13,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.ismealdi.dactiv.R
+import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanActivity
 import com.ismealdi.dactiv.components.AmTextView
 import com.ismealdi.dactiv.model.Kegiatan
+import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_KEGIATAN
 import kotlinx.android.synthetic.main.list_kegiatan.view.*
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -98,10 +102,18 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
                 }
 
                 holder.frame.setOnClickListener {
-
+                    detail(kegiatan)
                 }
             }
         }
+    }
+
+    private fun detail(kegiatan: Kegiatan) {
+        val mIntent = Intent(context, DetailKegiatanActivity::class.java)
+
+        mIntent.putExtra(DETAIL_KEGIATAN, kegiatan)
+
+        context.startActivity(mIntent)
     }
 
     private fun setStatus(state: AmTextView, circle: View, time: Long) {
@@ -135,7 +147,7 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
         headOf = ""
     }
 
-    fun numberOfDays(end: Long) : Long {
+    private fun numberOfDays(end: Long) : Long {
         val start = Calendar.getInstance().time.time
         val duration = end - start
 

@@ -33,6 +33,7 @@ open class Constants {
         const val SELECTED_DATE = "intentSatkerSelectedDate"
         const val DETAIL_SATKER = "intentDetailSatker"
         const val DETAIL_SATKER_BAGIAN = "intentDetailSatkerBagian"
+        const val DETAIL_KEGIATAN = "intentDetailKegiatan"
 
         const val SUCCESS = 101
         const val FAILED = 102

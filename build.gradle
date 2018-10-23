@@ -26,6 +26,8 @@ buildscript {
         fabric_version = '1.26.1'
         crashlytics_version = '2.9.5'
         multidex_version = '1.0.3'
+        googlevision_version = '17.0.2'
+        kenglxnqrgen_version = '2.5.0'
     }
 
     repositories {
@@ -48,9 +50,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url 'https://maven.google.com/'
-        }
+        maven { url 'https://maven.google.com/' }
+        maven { url "https://jitpack.io" }
     }
 }
 

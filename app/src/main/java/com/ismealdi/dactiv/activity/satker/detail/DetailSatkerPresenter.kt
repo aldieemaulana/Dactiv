@@ -39,7 +39,7 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
 
         view.progress.show()
 
-        val userDocument = database.kegiatan().whereEqualTo(kegiatanFields.satker, id).orderBy(kegiatanFields.createdOn, Query.Direction.DESCENDING)
+        val userDocument = database.kegiatan().whereEqualTo(kegiatanFields.satker, id).orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING)
         val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
 
         userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
@@ -52,7 +52,7 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
                     val mKegiatan = it.toObject(Kegiatan::class.java)
 
                     if (mKegiatan != null) {
-                        if(mKegiatan.bagian == bagian.toString() || mKegiatan.admin == user.uid) {
+                        if(mKegiatan.bagian == bagian.toString()) {
                             mKegiatan.status = if(it.metadata.hasPendingWrites()) -1 else mKegiatan.status
                             mKegiatans.add(mKegiatan)
                         }

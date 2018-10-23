@@ -154,6 +154,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
                     profileFragment.setData(user)
                     satkerFragment.updateStateOfUser(user.category)
 
+                    getRealTimeKegiatan()
                     getRealTimeGolongan(user.golongan.toString())
                     getRealTimeJabatan(user.bagian.toString())
                 }
@@ -243,7 +244,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
                     val mKegiatan = it.toObject(Kegiatan::class.java)
 
                     if (mKegiatan != null) {
-                        if(mKegiatan.bagian == mUser?.bagian.toString() || mKegiatan.admin == mUser?.uid) {
+                        if(mKegiatan.bagian == mUser?.bagian.toString()) {
                             mKegiatan.status = if(it.metadata.hasPendingWrites()) -1 else mKegiatan.status
                             mKegiatans.add(mKegiatan)
                         }

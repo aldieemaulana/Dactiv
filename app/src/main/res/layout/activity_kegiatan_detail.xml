@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutParent"
+    android:background="@color/colorBackgroundPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?attr/actionBarSize"
+    tools:context=".activity.kegiatan.AddKegiatanActivity">
+
+    <include layout="@layout/toolbar_primary"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_primary"
+        app:layout_insetEdge="top"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".fragment.SatkerFragment"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="@color/colorBackgroundPrimary">
+
+            <requestFocus />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/background"
+                style="@style/AppTheme.Layout.Vertical"
+                android:paddingBottom="0dp">
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="M"
+                    android:id="@+id/textName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextNormal"
+                    style="@style/AppTheme.Margin.Horizontal"
+                    android:text="@string/text_eselon"
+                    android:textSize="@dimen/text_normal"
+                    android:layout_marginBottom="@dimen/component_small"/>
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    android:id="@+id/textKodeKegiatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    style="@style/AppTheme.Margin.Horizontal"
+                    android:text="@string/text_kode_kegiatan"
+                    android:textSize="@dimen/text_tiny"
+                    android:layout_marginBottom="@dimen/component_medium"/>
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    android:id="@+id/textAnggaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextNormal"
+                    style="@style/AppTheme.Margin.Horizontal"
+                    android:textSize="@dimen/text_normal"
+                    android:layout_marginBottom="@dimen/component_medium" />
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    android:id="@+id/textDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    style="@style/AppTheme.Margin.Horizontal"
+                    android:textSize="@dimen/text_tiny"
+                    android:text="12 October 2018"
+                    android:layout_marginBottom="@dimen/component_big"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

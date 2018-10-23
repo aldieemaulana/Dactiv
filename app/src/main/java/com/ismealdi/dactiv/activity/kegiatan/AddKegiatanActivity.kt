@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.view.View
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.kegiatan.AddKegiatanActivity.Companion.VALIDATE.INPUT_EMPTY
 import com.ismealdi.dactiv.base.AmDraftActivity
@@ -74,10 +73,9 @@ class AddKegiatanActivity : AmDraftActivity() {
         val durasi = textDurasi.text.toString()
         val satkerId = textSatker.text.toString()
         val penanggungJawab = textPenanggung.getSelectedId()
-        val bagian = textBagian.getSelectedId()
 
 
-        if (satkerId.isNotEmpty() && penanggungJawab != null && bagian != null &&
+        if (satkerId.isNotEmpty() && penanggungJawab != null &&
                 kodeKegiatan.isNotEmpty() && anggaran.isNotEmpty() && jadwalPelaksana.isNotEmpty()
             && durasi.isNotEmpty() && nama.isNotEmpty()) {
 
@@ -92,7 +90,7 @@ class AddKegiatanActivity : AmDraftActivity() {
 
             data.jadwal = formatter.parse(jadwalPelaksana.toString())
             data.penanggungJawab = mUsers[layoutPenanggung.getDialogSelected()]!!.uid
-            data.bagian = (bagian + 1).toString()
+            data.bagian = mUsers[user?.uid]!!.bagian.toString()
             data.satker = if(intent.getParcelableExtra<Satker>(DETAIL_SATKER) != null) intent.getParcelableExtra<Satker>(DETAIL_SATKER).id else mSatkers[layoutSatker.getDialogSelected()]!!.id
 
             addKegiatan(data)

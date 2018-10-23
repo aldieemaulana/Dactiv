@@ -270,6 +270,7 @@
             </com.ismealdi.dactiv.components.AmLinearLayout>
 
             <com.ismealdi.dactiv.components.AmLinearLayout
+                android:visibility="gone"
                 android:id="@+id/layoutBagian"
                 app:AmDialog="true"
                 app:AmEdit="@id/textBagian"
