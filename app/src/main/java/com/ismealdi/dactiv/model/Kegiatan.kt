@@ -1,11 +1,8 @@
 package com.ismealdi.dactiv.model
 
-import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.firebase.Timestamp
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 open class Kegiatan(
@@ -20,6 +17,7 @@ open class Kegiatan(
         var bagian: String = "",
         var status: Int = 0,
         var admin: String = "",
+        var attendent: List<Attendent> = emptyList(),
         var createdOn: Timestamp = Timestamp.now(),
         var lastUpdated: Timestamp = Timestamp.now()
 ) : Parcelable {
@@ -35,6 +33,7 @@ open class Kegiatan(
             parcel.readString(),
             parcel.readInt(),
             parcel.readString(),
+            parcel.createTypedArrayList(Attendent),
             parcel.readParcelable(Timestamp::class.java.classLoader),
             parcel.readParcelable(Timestamp::class.java.classLoader)) {
     }
@@ -51,6 +50,7 @@ open class Kegiatan(
         parcel.writeString(bagian)
         parcel.writeInt(status)
         parcel.writeString(admin)
+        parcel.writeTypedList(attendent)
         parcel.writeParcelable(createdOn, flags)
         parcel.writeParcelable(lastUpdated, flags)
     }

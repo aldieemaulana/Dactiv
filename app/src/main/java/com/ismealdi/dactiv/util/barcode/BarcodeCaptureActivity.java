@@ -24,6 +24,7 @@ import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.ismealdi.dactiv.R;
+import com.ismealdi.dactiv.base.AmActivity;
 
 import java.io.IOException;
 
@@ -32,7 +33,7 @@ import java.io.IOException;
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and ID of each barcode.
  */
-public final class BarcodeCaptureActivity extends AppCompatActivity implements BarcodeGraphicTracker.BarcodeUpdateListener {
+public final class BarcodeCaptureActivity extends AmActivity implements BarcodeGraphicTracker.BarcodeUpdateListener {
 
     private static final String TAG = "Barcode-reader";
     private static final int RC_HANDLE_GMS = 9001;
@@ -231,8 +232,12 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
 
     @Override
     public void onBarcodeDetected(Barcode barcode) {
-        AppCompatTextView textSelected = this.findViewById(R.id.text_selected);
-        textSelected.setText(barcode.displayValue);
-        buttonSearch.setEnabled(true);
+        if(barcode != null) {
+            Intent data = new Intent();
+            data.putExtra(BarcodeObject, barcode);
+            setResult(CommonStatusCodes.SUCCESS, data);
+            finish();
+        }
     }
+
 }

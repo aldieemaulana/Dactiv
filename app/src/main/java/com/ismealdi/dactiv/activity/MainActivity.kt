@@ -127,6 +127,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     fun onSignOut() {
         if(msg != null) {
             msg!!.unsubscribeFromTopic(getString(R.string.default_channel))
+            msg!!.unsubscribeFromTopic(mUser!!.bagian.toString())
         }
 
         AmMessagingService().storeOnline(false)
@@ -153,10 +154,12 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
                     mainFragment.setName(user.displayName)
                     profileFragment.setData(user)
                     satkerFragment.updateStateOfUser(user.category)
+                    msg!!.subscribeToTopic(user.bagian.toString())
 
                     getRealTimeKegiatan()
                     getRealTimeGolongan(user.golongan.toString())
                     getRealTimeJabatan(user.bagian.toString())
+
                 }
 
                 hideProgress()
@@ -196,8 +199,6 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     }
 
     private fun getRealTimeSatker() {
-        showProgress()
-
         val userDocument = db?.satker()?.orderBy(satkerFields.createdOn, Query.Direction.DESCENDING)
         val mSatkers : MutableList<Satker> = mutableListOf()
 
@@ -230,7 +231,6 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     }
 
     private fun getRealTimeKegiatan() {
-        showProgress()
 
         val userDocument = db?.kegiatan()?.orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING)
         val  mKegiatans : MutableList<Kegiatan> = mutableListOf()

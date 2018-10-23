@@ -94,11 +94,11 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
                 holder.state.visibility = View.VISIBLE
                 holder.description.setTextFade(status[kegiatan.status])
 
-                if(kegiatan.status == 1)
-                    setStatus(holder.state, holder.circle, kegiatan.jadwal.time)
-                else {
+                if(kegiatan.status == 2) {
                     holder.circle.background = ContextCompat.getDrawable(context, R.drawable.state_green)
                     holder.state.background = ContextCompat.getDrawable(context, R.drawable.state_green)
+                }else {
+                    setStatus(holder.state, holder.circle, kegiatan.jadwal.time)
                 }
 
                 holder.frame.setOnClickListener {

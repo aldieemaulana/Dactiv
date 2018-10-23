@@ -37,13 +37,11 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
             return
         }
 
-        view.progress.show()
 
         val userDocument = database.kegiatan().whereEqualTo(kegiatanFields.satker, id).orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING)
         val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
 
         userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
-            view.progress.dismiss()
 
             if (documentSnapshot != null && e == null) {
                 mKegiatans.clear()
@@ -73,13 +71,11 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
             return
         }
 
-        view.progress.show()
 
         val userDocument = database.user()
         val  mUsers : MutableList<User> = mutableListOf()
 
         userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
-            view.progress.dismiss()
 
             if (documentSnapshot != null && e == null) {
                 mUsers.clear()

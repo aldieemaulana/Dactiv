@@ -20,12 +20,14 @@
 
         <com.ismealdi.dactiv.util.barcode.GraphicOverlay
             android:id="@+id/graphicOverlay"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
     </com.ismealdi.dactiv.util.barcode.CameraSourcePreview>
 
     <RelativeLayout
+        android:visibility="invisible"
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -13,6 +13,8 @@ open class Constants {
                 const val DESCRIPTION = "intentLoginPushDescription"
                 const val DATE = "intentLoginPushDate"
                 const val ID = "intentLoginPushId"
+                const val KEGIATAN = "intentLoginKegiatan"
+                const val KEGIATAN_NAMA = "intentLoginKegiatanNama"
 
             }
 

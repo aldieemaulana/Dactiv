@@ -27,3 +27,6 @@ fun FirebaseFirestore.kegiatan(uid: String) = collection(Kegiatan.Path.Name).doc
 
 fun FirebaseFirestore.message() = collection(Message.Path.Name)
 fun FirebaseFirestore.message(uid: String) = collection(Message.Path.Name).document(uid)
+
+fun FirebaseFirestore.alert() = collection(Alert.Path.Name)
+fun FirebaseFirestore.alert(uid: String) = collection(Alert.Path.Name).document(uid)

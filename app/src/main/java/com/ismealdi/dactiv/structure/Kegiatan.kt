@@ -21,6 +21,7 @@ object Kegiatan {
             const val bagian = "bagian"
             const val status = "status"
             const val admin = "admin"
+            const val attendent = "attendent"
             const val createdOn = "createdOn"
             const val lastUpdated = "lastUpdated"
         }

@@ -19,8 +19,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_send" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../../send.svg" />
+                            <entry key="outputName" value="ic_checked" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../../checked.svg" />
                           </map>
                         </option>
                       </PersistentState>

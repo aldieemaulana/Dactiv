@@ -16,6 +16,8 @@ import com.ismealdi.dactiv.base.AmActivity
 import com.ismealdi.dactiv.model.Message
 import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.Constants
+import com.ismealdi.dactiv.util.Constants.INTENT.LOGIN.PUSH.KEGIATAN
+import com.ismealdi.dactiv.util.Constants.INTENT.LOGIN.PUSH.KEGIATAN_NAMA
 import com.ismealdi.dactiv.util.message
 import com.ismealdi.dactiv.util.user
 import kotlinx.android.synthetic.main.dialog_message.*
@@ -56,6 +58,10 @@ class MessageActivity : AmActivity() {
 
                 val userId = remoteMessage.data["fromUser"]
                 satkerId = remoteMessage.data["satker"].toString()
+
+                if(userId == "" || remoteMessage.data["kegiatan"].toString().isNotBlank())
+                    layoutReply.visibility = View.GONE
+
                 App.fireStoreBase.user(userId.toString()).addSnapshotListener { documentSnapshot, _ ->
 
                     if (documentSnapshot != null && documentSnapshot.exists()) {
@@ -104,7 +110,9 @@ class MessageActivity : AmActivity() {
             val reply = textName.text.toString()
 
             if(reply.isNotEmpty()) {
-                mUser?.let { it1 -> message(it1, satkerId, reply) }
+                mUser?.let { it1 ->
+                    message(it1, satkerId, reply)
+                }
 
                 finish()
                 overridePendingTransition(0, R.anim.anim_out)
@@ -126,6 +134,11 @@ class MessageActivity : AmActivity() {
         mMessage.title = App.fireBaseAuth.currentUser!!.displayName.toString()
         mMessage.date = DateFormat.format("d MMMM yyyy h:m", Calendar.getInstance()).toString()
         mMessage.satker = satker
+
+
+        if(intent.getStringExtra(KEGIATAN).isNotEmpty() && intent.getStringExtra(KEGIATAN) != "") {
+            mMessage.date = "${intent.getStringExtra(KEGIATAN_NAMA)}\n${mMessage.date}"
+        }
 
         val document = App.fireStoreBase.message().document()
         document.set(mMessage).addOnFailureListener {

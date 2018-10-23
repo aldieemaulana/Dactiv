@@ -71,6 +71,7 @@
             android:layout_marginBottom="@dimen/component_super"/>
 
         <RelativeLayout
+            android:id="@+id/layoutReply"
             android:background="@drawable/input_secondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

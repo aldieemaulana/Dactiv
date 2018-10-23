@@ -6,5 +6,4 @@ package com.ismealdi.dactiv.base
  */
 
 interface AmPresenter {
-
 }

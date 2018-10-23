@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="@dimen/component_medium"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/shape_card"
+        style="@style/AppTheme.Layout.Parent">
+
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textName"
+            app:AmFont="B"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/textCategory"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/colorTextDark"
+            android:textSize="@dimen/text_small"
+            android:singleLine="true"/>
+
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textTime"
+            app:AmFont="L"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/component_small"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/colorTextNormal"
+            android:textSize="@dimen/text_small"
+            android:gravity="right"
+            tools:ignore="RtlHardcoded" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

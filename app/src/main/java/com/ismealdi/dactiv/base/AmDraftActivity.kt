@@ -66,7 +66,7 @@ open class AmDraftActivity : AppCompatActivity(), AmConnectionInterface {
     private var connectionReceiver : ConnectionReceiver? = null
 
     internal fun showProgress() {
-        if(progress != null)
+        if(progress != null && !progress!!.isShowing)
             progress!!.show()
     }
 
@@ -180,7 +180,7 @@ open class AmDraftActivity : AppCompatActivity(), AmConnectionInterface {
     }
 
     private fun handleOnNotified() {
-        val mIntent = Intent(applicationContext, if(intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE) != "") MessageActivity::class.java else NotificationActivity::class.java)
+        val mIntent = Intent(applicationContext, if(intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE) != null && intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE) != "") MessageActivity::class.java else NotificationActivity::class.java)
 
         if(!intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME).isNullOrEmpty()) {
             mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.SATKER, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.SATKER))

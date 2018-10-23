@@ -31,58 +31,147 @@
 
             <requestFocus />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:background="@drawable/background"
+                android:paddingBottom="@dimen/component_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.Layout.Vertical"
+                    android:layout_toLeftOf="@id/layoutImage"
+                    android:orientation="vertical">
+                    <com.ismealdi.dactiv.components.AmTextView
+                        app:AmFont="M"
+                        android:id="@+id/textName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextNormal"
+                        style="@style/AppTheme.Margin.Horizontal"
+                        android:text="@string/text_eselon"
+                        android:textSize="@dimen/text_normal"
+                        android:layout_marginBottom="@dimen/component_small"/>
+
+                    <com.ismealdi.dactiv.components.AmTextView
+                        app:AmFont="R"
+                        android:id="@+id/textKodeKegiatan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextLight"
+                        style="@style/AppTheme.Margin.Horizontal"
+                        android:text="@string/text_kode_kegiatan"
+                        android:textSize="@dimen/text_tiny"
+                        android:layout_marginBottom="@dimen/component_medium"/>
+
+                    <com.ismealdi.dactiv.components.AmTextView
+                        app:AmFont="R"
+                        android:id="@+id/textAnggaran"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextNormal"
+                        style="@style/AppTheme.Margin.Horizontal"
+                        android:textSize="@dimen/text_normal"
+                        android:layout_marginBottom="@dimen/component_medium" />
+
+                    <com.ismealdi.dactiv.components.AmTextView
+                        app:AmFont="R"
+                        android:id="@+id/textDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextLight"
+                        style="@style/AppTheme.Margin.Horizontal"
+                        android:textSize="@dimen/text_tiny"
+                        android:text="12 October 2018"/>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layoutImage"
+                    android:layout_width="115dp"
+                    android:layout_height="115dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_small"
+                    android:layout_marginRight="8dp"
+                    android:layout_alignParentRight="true">
+
+                    <ImageView
+                        android:id="@+id/imageBarCode"
+                        android:layout_marginTop="-3dp"
+                        android:layout_width="115dp"
+                        android:layout_height="115dp"
+                        android:scaleType="fitCenter"/>
+
+                    <ImageView
+                        android:id="@+id/imageOverlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:scaleType="fitCenter"
+                        android:padding="@dimen/component_super"
+                        android:src="@drawable/ic_lock"
+                        android:background="@color/colorPrimaryTransparent"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AppTheme.Layout.Parent.Small"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:background="@drawable/background">
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    android:id="@+id/textPenanggung"
+                    android:layout_width="0dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@id/buttonAlarm"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextNormal"
+                    android:layout_centerVertical="true"
+                    android:text="Aldi Maulana"
+                    android:layout_marginRight="@dimen/component_medium"
+                    android:textSize="@dimen/text_small" />
+
+                <ImageButton
+                    android:id="@+id/buttonMessage"
+                    style="@style/AppTheme.ButtonInput.Round"
+                    android:src="@drawable/ic_bell"
+                    android:layout_width="@dimen/button_toolbar"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="@dimen/button_toolbar" />
+
+                <ImageButton
+                    android:id="@+id/buttonAlarm"
+                    android:layout_toLeftOf="@id/buttonMessage"
+                    style="@style/AppTheme.ButtonInput.Round"
+                    android:src="@drawable/ic_clocks"
+                    android:padding="@dimen/component_medium"
+                    android:scaleType="centerInside"
+                    android:layout_width="@dimen/button_toolbar"
+                    android:layout_marginRight="@dimen/component_medium"
+                    android:layout_height="@dimen/button_toolbar" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="0dp"
+                android:scrollbars="none"
                 style="@style/AppTheme.Layout.Vertical"
-                android:paddingBottom="0dp">
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="M"
-                    android:id="@+id/textName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextNormal"
-                    style="@style/AppTheme.Margin.Horizontal"
-                    android:text="@string/text_eselon"
-                    android:textSize="@dimen/text_normal"
-                    android:layout_marginBottom="@dimen/component_small"/>
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="R"
-                    android:id="@+id/textKodeKegiatan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextLight"
-                    style="@style/AppTheme.Margin.Horizontal"
-                    android:text="@string/text_kode_kegiatan"
-                    android:textSize="@dimen/text_tiny"
-                    android:layout_marginBottom="@dimen/component_medium"/>
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="R"
-                    android:id="@+id/textAnggaran"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextNormal"
-                    style="@style/AppTheme.Margin.Horizontal"
-                    android:textSize="@dimen/text_normal"
-                    android:layout_marginBottom="@dimen/component_medium" />
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="R"
-                    android:id="@+id/textDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextLight"
-                    style="@style/AppTheme.Margin.Horizontal"
-                    android:textSize="@dimen/text_tiny"
-                    android:text="12 October 2018"
-                    android:layout_marginBottom="@dimen/component_big"/>
-
-            </LinearLayout>
+                android:paddingTop="@dimen/activity_vertical_margin_small"
+                android:paddingLeft="@dimen/activity_horizontal_margin_small"
+                android:paddingRight="@dimen/activity_horizontal_margin_small"
+                android:nestedScrollingEnabled="false"
+                android:isScrollContainer="false"
+                tools:targetApi="lollipop"
+                tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
