@@ -98,16 +98,18 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         val bitmap = QRCode.from(kegiatan.id).withSize(1000, 1000).bitmap()
         imageBarCode.setImageBitmap(bitmap)
 
-        if(kegiatan.penanggungJawab == App.fireBaseAuth.currentUser!!.uid && DateFormat.format("d MMMM yyyy", kegiatan.jadwal) == DateFormat.format("d MMMM yyyy", Calendar.getInstance()))
-            imageOverlay.visibility = View.GONE
+        if(App.fireBaseAuth.currentUser != null) {
+            if (kegiatan.penanggungJawab == App.fireBaseAuth.currentUser!!.uid && DateFormat.format("d MMMM yyyy", kegiatan.jadwal) == DateFormat.format("d MMMM yyyy", Calendar.getInstance()))
+                imageOverlay.visibility = View.GONE
 
-        buttonAlarm.isEnabled = false
-        buttonMessage.isEnabled = false
-        presenter.penanggungJawab(kegiatan.penanggungJawab)
+            buttonAlarm.isEnabled = false
+            buttonMessage.isEnabled = false
+            presenter.penanggungJawab(kegiatan.penanggungJawab)
 
-        mKegiatan = kegiatan
+            mKegiatan = kegiatan
 
-        checkState()
+            checkState()
+        }
 
     }
 
