@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/AppTheme.Layout.Parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:background="@color/colorTransparent">
+
+    <LinearLayout
+        android:layout_width="@dimen/dialog_min_width"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shape_card"
+        android:paddingTop="@dimen/component_super"
+        android:paddingBottom="@dimen/component_super"
+        style="@style/AppTheme.Layout.Parent">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/component_big">
+            <com.ismealdi.dactiv.components.AmTextView
+                app:AmFont="S"
+                android:id="@+id/textNotification"
+                android:gravity="center"
+                android:textSize="@dimen/text_big"
+                android:textColor="@color/colorPrimary"
+                android:text="Aldi Maulana"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <View
+                app:layout_constraintLeft_toRightOf="@id/textNotification"
+                android:layout_marginLeft="@dimen/component_small"
+                app:layout_constraintBottom_toBottomOf="@id/textNotification"
+                app:layout_constraintTop_toTopOf="@id/textNotification"
+                android:visibility="gone"
+                android:id="@+id/viewOnline"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/label_cancelled"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textDescription"
+            app:AmFont="R"
+            android:gravity="center"
+            android:textSize="@dimen/text_normal"
+            android:textColor="@color/colorTextNormal"
+            android:text="Jauh dimata deket di hati, apakah sama apa yang aku rasa. ingin jumpa walau tak ada jarak"
+            android:layout_width="match_parent"
+            style="@style/AppTheme.Layout.Parent.Small"
+            android:paddingLeft="@dimen/component_small"
+            android:paddingRight="@dimen/component_small"
+            android:layout_marginBottom="@dimen/component_super"
+            android:layout_height="wrap_content"/>
+
+        <View  android:layout_gravity="center" android:layout_width="80dp" android:layout_height="@dimen/divider_half" android:background="@drawable/divider"
+            android:layout_marginBottom="@dimen/component_big"/>
+
+        <com.ismealdi.dactiv.components.AmTextView
+            android:id="@+id/textDate"
+            app:AmFont="R"
+            android:gravity="center"
+            android:textSize="@dimen/text_tiny"
+            android:textColor="@color/colorTextHint"
+            android:text="@string/text_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/component_super"/>
+
+        <RelativeLayout
+            android:background="@drawable/input_secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.ismealdi.dactiv.components.AmEditText
+                style="@style/AppTheme.TextInput"
+                android:paddingTop="@dimen/component_big"
+                app:AmFont="R"
+                android:id="@+id/textName"
+                android:textSize="@dimen/text_small"
+                android:hint="@string/text_message"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:maxLength="235"
+                android:inputType="textPersonName"
+                android:layout_alignRight="@id/buttonSend"
+                android:paddingRight="58dp"
+                android:singleLine="true"/>
+
+            <com.ismealdi.dactiv.components.AmButton
+                android:layout_alignParentRight="true"
+                app:AmFont="S"
+                android:id="@+id/buttonSend"
+                style="@style/AppTheme.ButtonInput.Text"
+                android:layout_gravity="center|bottom"
+                android:gravity="center"
+                android:text="@string/text_send"
+                android:paddingRight="@dimen/component_medium"
+                android:paddingTop="@dimen/component_medium"
+                android:src="@drawable/ic_send"
+                android:textSize="@dimen/text_small"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/component_small"
+                android:layout_marginBottom="@dimen/component_small"
+                android:layout_marginRight="@dimen/component_small"
+                android:layout_width="50dp"
+                android:layout_height="32dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -197,7 +197,6 @@
             android:layout_centerHorizontal="true">
             <com.ismealdi.dactiv.components.AmButton
                 app:AmFont="S"
-                android:enabled="false"
                 android:id="@+id/buttonEdit"
                 style="@style/AppTheme.ButtonInput.Round"
                 android:text="@string/text_edit_profile"

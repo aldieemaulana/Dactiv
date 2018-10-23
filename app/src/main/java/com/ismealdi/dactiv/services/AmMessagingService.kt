@@ -15,6 +15,7 @@ import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.activity.NotificationActivity
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
+import com.ismealdi.dactiv.activity.MessageActivity
 import com.ismealdi.dactiv.structure.User
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Logs
@@ -40,7 +41,7 @@ class AmMessagingService : FirebaseMessagingService() {
             Logs.d("Message data payload: " + remoteMessage.data)
         }
 
-        val intent = Intent(this, NotificationActivity::class.java)
+        val intent = if(remoteMessage!!.data["fromUser"] != "") Intent(this, MessageActivity::class.java) else Intent(this, NotificationActivity::class.java)
         intent.putExtra(Constants.INTENT.NOTIFICATION, remoteMessage)
         startActivity(intent)
 
@@ -53,15 +54,17 @@ class AmMessagingService : FirebaseMessagingService() {
     }
 
     fun storeOnline(state: Boolean) {
-        val data : MutableMap<String, Any> = mutableMapOf()
+        if(App.fireBaseAuth.currentUser != null) {
+            val data : MutableMap<String, Any> = mutableMapOf()
 
-        data[UserFields.onlineUser] = state
-        data[UserFields.lastUpdated] = Timestamp.now()
+            data[UserFields.onlineUser] = state
+            data[UserFields.lastUpdated] = Timestamp.now()
 
-        App.fireStoreBase.user(App.fireBaseAuth.currentUser!!.uid).update(data.toMap()).addOnSuccessListener {
-            Logs.d("State changed to $state")
-        }.addOnFailureListener {
-            Logs.d("Failed update state: " + it.message!!)
+            App.fireStoreBase.user(App.fireBaseAuth.currentUser!!.uid).update(data.toMap()).addOnSuccessListener {
+                Logs.d("State changed to $state")
+            }.addOnFailureListener {
+                Logs.d("Failed update state: " + it.message!!)
+            }
         }
     }
 

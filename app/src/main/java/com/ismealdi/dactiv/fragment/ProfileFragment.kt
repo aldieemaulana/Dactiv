@@ -42,10 +42,6 @@ class ProfileFragment : AmFragment() {
                         .placeholder(R.drawable.empty_circle)
                         .into(imagePhoto)
             }
-
-            if(buttonEdit != null) buttonEdit.isEnabled = true
-        }else{
-            if(buttonEdit != null) buttonEdit.isEnabled = false
         }
     }
 

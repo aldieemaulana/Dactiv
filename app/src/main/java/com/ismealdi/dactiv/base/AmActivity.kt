@@ -1,6 +1,7 @@
 package com.ismealdi.dactiv.base
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Typeface
 import android.os.Handler
@@ -11,11 +12,10 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.widget.TextView
 import com.ismealdi.dactiv.R
+import com.ismealdi.dactiv.activity.MessageActivity
+import com.ismealdi.dactiv.activity.NotificationActivity
 import com.ismealdi.dactiv.interfaces.AmConnectionInterface
-import com.ismealdi.dactiv.util.ConnectionReceiver
-import com.ismealdi.dactiv.util.Logs
-import com.ismealdi.dactiv.util.NoSwipeBehavior
-import com.ismealdi.dactiv.util.Utils
+import com.ismealdi.dactiv.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
 
@@ -96,6 +96,8 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
             registerReceiver(connectionReceiver, mIntentFilter)
             isRegisteredReceiver = true
         }
+
+        handleOnNotified()
     }
 
     override fun onConnectionChange(message: String) {
@@ -112,6 +114,20 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
         if(isRegisteredReceiver) {
             unregisterReceiver(connectionReceiver)
             isRegisteredReceiver = false
+        }
+    }
+
+    private fun handleOnNotified() {
+        val mIntent = Intent(applicationContext, if(intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE) != "") MessageActivity::class.java else NotificationActivity::class.java)
+
+        if(!intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME).isNullOrEmpty()) {
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.SATKER, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.SATKER))
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE))
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.NAME, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME))
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION))
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DATE, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.DATE))
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.ID, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.ID))
+            Handler().postDelayed({startActivity(mIntent)}, 250)
         }
     }
 }

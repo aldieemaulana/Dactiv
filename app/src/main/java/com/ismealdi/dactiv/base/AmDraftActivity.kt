@@ -23,6 +23,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.activity.NotificationActivity
 import com.ismealdi.dactiv.R
+import com.ismealdi.dactiv.activity.MessageActivity
 import com.ismealdi.dactiv.interfaces.AmConnectionInterface
 import com.ismealdi.dactiv.util.*
 import com.kaopiz.kprogresshud.KProgressHUD
@@ -179,14 +180,16 @@ open class AmDraftActivity : AppCompatActivity(), AmConnectionInterface {
     }
 
     private fun handleOnNotified() {
-        val mIntent = Intent(context, NotificationActivity::class.java)
+        val mIntent = Intent(applicationContext, if(intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE) != "") MessageActivity::class.java else NotificationActivity::class.java)
 
         if(!intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME).isNullOrEmpty()) {
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.SATKER, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.SATKER))
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE))
             mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.NAME, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.NAME))
             mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION))
             mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DATE, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.DATE))
             mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.ID, intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.ID))
-            Handler().postDelayed({startActivity(mIntent)}, 1500)
+            Handler().postDelayed({startActivity(mIntent)}, 250)
         }
     }
 

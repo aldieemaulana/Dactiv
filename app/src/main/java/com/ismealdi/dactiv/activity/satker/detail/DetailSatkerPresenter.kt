@@ -1,6 +1,7 @@
 package com.ismealdi.dactiv.activity.satker.detail
 
 import android.content.Context
+import android.text.format.DateFormat
 import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.App
@@ -8,9 +9,13 @@ import com.ismealdi.dactiv.activity.satker.detail.DetailSatkerPresenter.Companio
 import com.ismealdi.dactiv.activity.satker.detail.DetailSatkerPresenter.Companion.INFO.DB_USER_DETAIL_NOT_FOUND
 import com.ismealdi.dactiv.base.AmDraftActivity.Companion.kegiatanFields
 import com.ismealdi.dactiv.model.Kegiatan
+import com.ismealdi.dactiv.model.Message
+import com.ismealdi.dactiv.model.Satker
 import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.kegiatan
+import com.ismealdi.dactiv.util.message
 import com.ismealdi.dactiv.util.user
+import java.util.*
 
 
 /**
@@ -94,6 +99,30 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
             }
 
         }
+    }
+
+    override fun message(user: User, satker: Satker) {
+        //if(this.user!!.uid != user.uid) {
+            view.progress.show()
+
+            val mMessage = Message()
+
+            mMessage.fromUser = this.user!!.uid
+            mMessage.toUser = user.uid
+            mMessage.toToken = user.pushId
+            mMessage.description = "Hai ${user.displayName} this is me ${this.user.displayName} we just connected now"
+            mMessage.title = this.user.displayName.toString()
+            mMessage.date = DateFormat.format("d MMMM yyyy h:m", Calendar.getInstance()).toString()
+            mMessage.satker = satker.id
+
+            val document = database.message().document()
+            document.set(mMessage).addOnSuccessListener {
+                view.progress.dismiss()
+            }.addOnFailureListener {
+                view.onError(it.message.toString())
+            }
+        //}
+
     }
 
     companion object {

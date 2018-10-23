@@ -24,3 +24,6 @@ fun FirebaseFirestore.rapat(uid: String) = collection(Rapat.Path.Name).document(
 
 fun FirebaseFirestore.kegiatan() = collection(Kegiatan.Path.Name)
 fun FirebaseFirestore.kegiatan(uid: String) = collection(Kegiatan.Path.Name).document(uid)
+
+fun FirebaseFirestore.message() = collection(Message.Path.Name)
+fun FirebaseFirestore.message(uid: String) = collection(Message.Path.Name).document(uid)

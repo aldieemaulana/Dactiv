@@ -33,6 +33,8 @@ interface DetailSatkerContract {
 
         fun users(id: List<String>)
 
+        fun message(user: User, satker: Satker)
+
     }
 
 

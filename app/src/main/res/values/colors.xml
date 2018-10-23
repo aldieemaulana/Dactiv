@@ -12,7 +12,7 @@
 
     <color name="colorList">#c4c4c4</color>
     <color name="colorListPressed">#acacac</color>
-    <color name="colorDivider">#f2dedede</color>
+    <color name="colorDivider">#f2bcbcbc</color>
 
     <color name="colorBackgroundPrimary">#f5f5f5</color>
     <color name="colorBackgroundSecondary">#FFDADADA</color>
@@ -39,5 +39,10 @@
     <color name="colorButtonDisableToolbar">#cb363636</color>
     <color name="colorBlackTransparent">#c4e7e7e7</color>
     <color name="colorLocal">#b3b3b3</color>
+
+    <color name="orange">#FB8C00</color>
+    <color name="green">#43A047</color>
+    <color name="red">#D50000</color>
+    <color name="blue">#2962FF</color>
 
 </resources>

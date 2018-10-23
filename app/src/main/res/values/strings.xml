@@ -73,5 +73,7 @@
     <string name="text_create_new_data">Hei press that button if you want to add more data!</string>
     <string name="text_forgot_password">Forgot Password?</string>
     <string name="title_detail">Detail</string>
+    <string name="text_message">Short messages</string>
+    <string name="text_send">Send</string>
 
 </resources>

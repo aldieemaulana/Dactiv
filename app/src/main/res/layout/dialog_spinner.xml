@@ -19,18 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:AmFont="M"
-            android:gravity="center"
-            android:visibility="gone"
-            android:textColor="@color/colorTextNormal"
+            android:background="@drawable/shape_top_round_primary"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/text_medium"
-            android:layout_marginBottom="@dimen/component_extra_big"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            style="@style/AppTheme.Layout.Horizontal"/>
+            style="@style/AppTheme.Layout.Parent"
+            android:text="Data List"/>
 
         <android.support.v7.widget.RecyclerView
             style="@style/AppTheme.Layout.Horizontal"
-            android:paddingTop="@dimen/component_super"
-            android:paddingBottom="@dimen/component_super"
+            android:paddingTop="@dimen/component_medium"
+            android:paddingBottom="@dimen/component_medium"
             android:id="@+id/listViewDialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

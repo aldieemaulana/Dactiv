@@ -114,7 +114,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         getRealTimeSatker()
         getRealTimeKegiatan()
 
-        if(intent.getBooleanExtra(Constants.INTENT.LOGIN.FIRST_LOGIN, false) && (auth?.currentUser?.displayName).isNullOrEmpty()) {
+        if((auth?.currentUser?.displayName).isNullOrEmpty()) {
             bottomNavigation.selectedItemId = R.id.profile
             startActivityForResult(Intent(context, ProfileActivity::class.java), Constants.INTENT.ACTIVITY.EDIT_PROFILE)
         }
@@ -129,8 +129,8 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
             msg!!.unsubscribeFromTopic(getString(R.string.default_channel))
         }
 
-        auth?.signOut()
         AmMessagingService().storeOnline(false)
+        auth?.signOut()
         mRevealAnimation?.unRevealActivity(Intent(context, SignInActivity::class.java), context)
 
     }
@@ -231,7 +231,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     private fun getRealTimeKegiatan() {
         showProgress()
 
-        val userDocument = db?.kegiatan()?.orderBy(satkerFields.createdOn, Query.Direction.DESCENDING)
+        val userDocument = db?.kegiatan()?.orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING)
         val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
 
         userDocument!!.addSnapshotListener(MetadataChanges.INCLUDE) { documentSnapshot, _ ->

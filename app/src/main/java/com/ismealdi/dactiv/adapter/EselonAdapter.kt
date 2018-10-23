@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.ismealdi.dactiv.R
+import com.ismealdi.dactiv.activity.satker.detail.DetailSatkerActivity
 import com.ismealdi.dactiv.components.AmTextView
 import com.ismealdi.dactiv.model.User
 import kotlinx.android.synthetic.main.list_user.view.*
 
-class EselonAdapter(private var users: MutableList<User>) : RecyclerView.Adapter<EselonAdapter.ViewHolder>() {
+class EselonAdapter(private var users: MutableList<User>, private var detailSatkerActivity: DetailSatkerActivity) : RecyclerView.Adapter<EselonAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: AmTextView = itemView.textName
@@ -31,6 +32,10 @@ class EselonAdapter(private var users: MutableList<User>) : RecyclerView.Adapter
         holder.name.setTextFade(user.displayName)
 
         holder.onlineState.visibility = if(user.onlineUser) View.VISIBLE else View.GONE
+
+        holder.frame.setOnClickListener {
+            detailSatkerActivity.openMessage(user)
+        }
 
     }
 

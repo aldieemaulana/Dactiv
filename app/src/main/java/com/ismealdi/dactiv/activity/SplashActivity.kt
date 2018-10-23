@@ -16,6 +16,10 @@ import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Preferences
 import com.ismealdi.dactiv.util.RevealAnimation
 import kotlinx.android.synthetic.main.activity_splash.*
+import com.google.firebase.messaging.RemoteMessage
+import com.google.firebase.messaging.FirebaseMessaging
+
+
 
 
 /**
@@ -55,7 +59,9 @@ class SplashActivity : AmDraftActivity() {
 
             if(this.intent.extras != null) {
                 if(!this.intent.getStringExtra("google.delivered_priority").isNullOrEmpty() &&
-                        this.intent.getStringExtra("from") == "/topics/${getString(R.string.default_channel)}") {
+                        this.intent.getStringExtra("title").isNotEmpty()) {
+                    intent.putExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE, this.intent.getStringExtra("fromUser"))
+                    intent.putExtra(Constants.INTENT.LOGIN.PUSH.SATKER, this.intent.getStringExtra("satker"))
                     intent.putExtra(Constants.INTENT.LOGIN.PUSH.NAME, this.intent.getStringExtra("title"))
                     intent.putExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION, this.intent.getStringExtra("description"))
                     intent.putExtra(Constants.INTENT.LOGIN.PUSH.DATE, this.intent.getStringExtra("date"))

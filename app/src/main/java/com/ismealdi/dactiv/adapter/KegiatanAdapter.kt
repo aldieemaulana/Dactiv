@@ -1,7 +1,9 @@
 package com.ismealdi.dactiv.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -15,8 +17,9 @@ import com.ismealdi.dactiv.model.Kegiatan
 import kotlinx.android.synthetic.main.list_kegiatan.view.*
 import java.text.NumberFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
-class KegiatanAdapter(private var kegiatans: MutableList<Kegiatan>, private var isFirstOff: Boolean = false, private var isTitled: Boolean = false) : RecyclerView.Adapter<KegiatanAdapter.ViewHolder>() {
+class KegiatanAdapter(private var context: Context, private var kegiatans: MutableList<Kegiatan>, private var isFirstOff: Boolean = false, private var isTitled: Boolean = false) : RecyclerView.Adapter<KegiatanAdapter.ViewHolder>() {
 
     private var headOf = ""
 
@@ -86,9 +89,36 @@ class KegiatanAdapter(private var kegiatans: MutableList<Kegiatan>, private var 
             }else{
                 holder.state.visibility = View.VISIBLE
                 holder.description.setTextFade(status[kegiatan.status])
-                holder.frame.setOnClickListener {
-                    // TODO Action
+
+                if(kegiatan.status == 1)
+                    setStatus(holder.state, holder.circle, kegiatan.jadwal.time)
+                else {
+                    holder.circle.background = ContextCompat.getDrawable(context, R.drawable.state_green)
+                    holder.state.background = ContextCompat.getDrawable(context, R.drawable.state_green)
                 }
+
+                holder.frame.setOnClickListener {
+
+                }
+            }
+        }
+    }
+
+    private fun setStatus(state: AmTextView, circle: View, time: Long) {
+        val dayLeft = numberOfDays(time)
+
+        when {
+            dayLeft in 1..14 -> {
+                circle.background = ContextCompat.getDrawable(context, R.drawable.state_orange)
+                state.background = ContextCompat.getDrawable(context, R.drawable.state_orange)
+            }
+            dayLeft <= 0-> {
+                circle.background = ContextCompat.getDrawable(context, R.drawable.state_red)
+                state.background = ContextCompat.getDrawable(context, R.drawable.state_red)
+            }
+            else -> {
+                circle.background = ContextCompat.getDrawable(context, R.drawable.state_blue)
+                state.background = ContextCompat.getDrawable(context, R.drawable.state_blue)
             }
         }
     }
@@ -103,6 +133,13 @@ class KegiatanAdapter(private var kegiatans: MutableList<Kegiatan>, private var 
         notifyDataSetChanged()
 
         headOf = ""
+    }
+
+    fun numberOfDays(end: Long) : Long {
+        val start = Calendar.getInstance().time.time
+        val duration = end - start
+
+        return TimeUnit.MILLISECONDS.toDays(duration)
     }
 
 }

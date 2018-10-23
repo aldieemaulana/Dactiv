@@ -8,7 +8,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.format.DateFormat
 import android.view.View
 import android.widget.LinearLayout
+import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
+import com.ismealdi.dactiv.activity.MessageActivity
 import com.ismealdi.dactiv.activity.kegiatan.AddKegiatanActivity
 import com.ismealdi.dactiv.adapter.EselonAdapter
 import com.ismealdi.dactiv.adapter.KegiatanAdapter
@@ -24,6 +26,7 @@ import com.ismealdi.dactiv.util.Utils
 import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.activity_satker_detail.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
+import java.util.*
 
 
 /**
@@ -32,7 +35,7 @@ import kotlinx.android.synthetic.main.toolbar_primary.*
 
 class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View {
 
-    private lateinit var mSatker : Satker
+    internal lateinit var mSatker : Satker
 
     override lateinit var progress: KProgressHUD
     override lateinit var presenter: DetailSatkerContract.Presenter
@@ -68,12 +71,12 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View {
     }
 
     private fun initList() {
-        mAdapter = KegiatanAdapter(mKegiatan, true, true)
+        mAdapter = KegiatanAdapter(this, mKegiatan, true, true)
         recyclerView.layoutManager = LinearLayoutManager(applicationContext,
                 LinearLayout.VERTICAL, false)
         recyclerView.adapter = mAdapter
 
-        mEselonAdapter = EselonAdapter(mEselons)
+        mEselonAdapter = EselonAdapter(mEselons, this)
         recyclerViewEselon.layoutManager = LinearLayoutManager(applicationContext,
                 LinearLayout.HORIZONTAL, false)
         recyclerViewEselon.adapter = mEselonAdapter
@@ -130,6 +133,20 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View {
 
         if(requestCode == Constants.INTENT.ACTIVITY.ADD_KEGIATAN && resultCode == Constants.INTENT.SUCCESS) {
             presenter.kegiatans(mSatker.id, intent.getIntExtra(DETAIL_SATKER_BAGIAN, 0))
+        }
+    }
+
+    fun openMessage(user: User) {
+        if(App.fireBaseAuth.currentUser!!.uid != user.uid) {
+            val mIntent = Intent(this, MessageActivity::class.java)
+
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.SATKER, mSatker.id)
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE, user.uid)
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.NAME, user.displayName)
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DESCRIPTION, "")
+            mIntent.putExtra(Constants.INTENT.LOGIN.PUSH.DATE, DateFormat.format("d MMMM yyyy h:m", Calendar.getInstance()).toString())
+
+            startActivity(mIntent)
         }
     }
 

@@ -7,6 +7,8 @@ open class Constants {
         object LOGIN {
 
             object PUSH {
+                const val MESSAGE = "intentMessage"
+                const val SATKER = "intentMessageSatker"
                 const val NAME = "intentLoginPushName"
                 const val DESCRIPTION = "intentLoginPushDescription"
                 const val DATE = "intentLoginPushDate"
