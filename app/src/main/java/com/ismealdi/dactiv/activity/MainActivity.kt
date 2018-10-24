@@ -117,9 +117,11 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         mRevealAnimation = RevealAnimation(layoutParent, intent, context as Activity)
         listener()
 
+        showProgress()
         getRealTimeProfile()
         getRealTimeSatker()
         getRealTimeKegiatan()
+        hideProgress()
 
         if((auth?.currentUser?.displayName).isNullOrEmpty()) {
             bottomNavigation.selectedItemId = R.id.profile
@@ -144,7 +146,6 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     }
 
     private fun getRealTimeProfile() {
-
         userSnapshot = db?.user(user?.uid.toString())!!.addSnapshotListener { documentSnapshot, _ ->
 
             if (documentSnapshot != null && documentSnapshot.exists()) {
@@ -165,8 +166,6 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
                     getRealTimeJabatan(user.bagian.toString())
 
                 }
-
-                hideProgress()
             }
 
         }

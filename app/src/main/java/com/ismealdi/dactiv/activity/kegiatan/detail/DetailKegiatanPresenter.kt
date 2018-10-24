@@ -111,6 +111,7 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
             return
         }
 
+        view.progress.show()
 
         val  mUsers : MutableList<User> = mutableListOf()
         userSnapshot = database.user().addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
@@ -122,13 +123,16 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
                     val mUser = it.toObject(User::class.java)
 
                     if (mUser != null) {
-                        if(mUser.bagian == bagian.toInt())
-                            mUsers.add(mUser)
+                        mUsers.add(mUser)
                     }
                 }
 
-                view.mUsers = mUsers
-                view.populateAttendent(mUsers)
+                if(mUsers != null) {
+                    view.mUsers = mUsers
+                    view.populateAttendent(mUsers)
+                }
+
+                view.progress.dismiss()
             }
 
         }
@@ -139,6 +143,8 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
             view.onError(DB_USER_DETAIL_NOT_FOUND)
             return
         }
+
+        view.progress.show()
 
         val  mUsers : MutableList<Attendent> = mutableListOf()
         kegiatanSnapshot = database.kegiatan(kegiatan.id).addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
@@ -158,6 +164,8 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
                     view.mAttendents = mUsers
                     view.reloadAttendent(mUsers)
                 }
+
+                view.progress.dismiss()
             }
 
         }

@@ -60,7 +60,9 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         presenter = DetailKegiatanPresenter(this, this)
 
         presenter.users(mKegiatan.bagian)
+        presenter.attendents(mKegiatan)
 
+        initList()
         listener()
 
         setTitle(getString(R.string.title_kegiatan))
@@ -98,7 +100,10 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         val bitmap = QRCode.from(kegiatan.id).withSize(1000, 1000).bitmap()
         imageBarCode.setImageBitmap(bitmap)
 
+        checkState()
+
         if(App.fireBaseAuth.currentUser != null) {
+
             if (kegiatan.penanggungJawab == App.fireBaseAuth.currentUser!!.uid && DateFormat.format("d MMMM yyyy", kegiatan.jadwal) == DateFormat.format("d MMMM yyyy", Calendar.getInstance()))
                 imageOverlay.visibility = View.GONE
 
@@ -107,23 +112,21 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
             presenter.penanggungJawab(kegiatan.penanggungJawab)
 
             mKegiatan = kegiatan
-
-            checkState()
         }
 
     }
 
-    private fun initList(mUsers: MutableList<User>) {
-        mAdapter = UserAdapter(mKegiatan.attendent.toMutableList(), mUsers)
+    private fun initList() {
+
+        mAdapter = UserAdapter(mutableListOf(), mutableListOf())
         recyclerView.layoutManager = LinearLayoutManager(applicationContext,
                 LinearLayout.VERTICAL, false)
         recyclerView.adapter = mAdapter
 
-        presenter.attendents(mKegiatan)
     }
 
     override fun populateAttendent(mUsers: MutableList<User>) {
-        initList(mUsers)
+        mAdapter.updateUser(mUsers)
     }
 
     private fun checkState() {
@@ -150,20 +153,18 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
 
     private fun doScanBarcode() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            ActivityCompat.requestPermissions(this@DetailKegiatanActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission_group.CAMERA, Manifest.permission.CAMERA), request)
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            request -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 val intent = Intent(this, BarcodeCaptureActivity::class.java)
                 intent.putExtra(BarcodeCaptureActivity.AutoFocus, true)
                 startActivityForResult(intent, capture)
-            } else {
-                showSnackBar("Camera Permission Denied!")
+            }else {
+                ActivityCompat.requestPermissions(this@DetailKegiatanActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission_group.CAMERA, Manifest.permission.CAMERA), request)
             }
+        }else{
+            val intent = Intent(this, BarcodeCaptureActivity::class.java)
+            intent.putExtra(BarcodeCaptureActivity.AutoFocus, true)
+            startActivityForResult(intent, capture)
         }
     }
 
@@ -189,7 +190,6 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
             buttonMessage.isEnabled = true
             textPenanggung.setTextFade(getString(R.string.text_admin) + ": ${user.displayName}")
             if (App.fireBaseAuth.currentUser!!.uid != user.uid) {
-
                 buttonMessage.setOnClickListener {
                     openMessage(user)
                 }
@@ -238,12 +238,12 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
     }
 
     override fun reloadAttendent(mAttendents: MutableList<Attendent>) {
+        this.mAttendents = mAttendents
         mAdapter.updateData(mAttendents)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
         presenter.killSnapshot()
     }
 

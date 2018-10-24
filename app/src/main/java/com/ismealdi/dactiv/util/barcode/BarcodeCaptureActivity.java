@@ -48,7 +48,7 @@ public final class BarcodeCaptureActivity extends AmActivity implements BarcodeG
     private ScaleGestureDetector scaleGestureDetector;
     private GestureDetector gestureDetector;
     private CameraSource.Builder builder;
-    private Boolean useFlash = false;
+    boolean useFlash = false;
 
     AppCompatImageButton buttonFlash, buttonSearch;
 
@@ -67,7 +67,7 @@ public final class BarcodeCaptureActivity extends AmActivity implements BarcodeG
         buttonFlash = (AppCompatImageButton) findViewById(R.id.buttonFlash);
 
         boolean autoFocus = getIntent().getBooleanExtra(AutoFocus, true);
-        boolean useFlash = getIntent().getBooleanExtra(UseFlash, false);
+        final boolean useFlash = getIntent().getBooleanExtra(UseFlash, false);
 
         createCameraSource(autoFocus, useFlash);
 
@@ -91,6 +91,16 @@ public final class BarcodeCaptureActivity extends AmActivity implements BarcodeG
                     }
                 }
         );
+
+        buttonFlash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCameraSource.setFlashMode((mCameraSource.getFlashMode().equals(Camera.Parameters.FLASH_MODE_TORCH)) ? Camera.Parameters.FLASH_MODE_OFF : Camera.Parameters.FLASH_MODE_TORCH);
+
+            }
+        });
+
+
     }
 
     @SuppressLint("InlinedApi")

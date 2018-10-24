@@ -86,9 +86,8 @@ class AddSatkerActivity : AmActivity(), AddSatkerContract.View {
         textKodeKegiatan.addTextChangedListener(AmFourDigitWatcher())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
+    override fun onStop() {
+        super.onStop()
         presenter.killSnapshot()
     }
 

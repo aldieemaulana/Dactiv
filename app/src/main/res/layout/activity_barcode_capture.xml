@@ -27,7 +27,6 @@
     </com.ismealdi.dactiv.util.barcode.CameraSourcePreview>
 
     <RelativeLayout
-        android:visibility="invisible"
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +41,7 @@
 
         <com.ismealdi.dactiv.components.AmTextView
             app:AmFont="R"
+            android:visibility="gone"
             android:id="@+id/text_note"
             android:layout_marginTop="34dp"
             android:layout_width="wrap_content"
@@ -57,6 +57,7 @@
 
         <com.ismealdi.dactiv.components.AmTextView
             app:AmFont="M"
+            android:visibility="gone"
             android:id="@+id/text_selected"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
@@ -68,6 +69,7 @@
             android:layout_alignLeft="@+id/text_note" />
 
         <android.support.v7.widget.AppCompatImageButton
+            android:visibility="gone"
             android:id="@+id/buttonSearch"
             android:layout_width="58dp"
             android:layout_height="58dp"
@@ -81,12 +83,11 @@
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/buttonFlash"
-            android:visibility="gone"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="12dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_bell"
             android:layout_marginRight="@dimen/component_big"
             android:background="@drawable/button_toolbar"
             android:layout_centerVertical="true"
