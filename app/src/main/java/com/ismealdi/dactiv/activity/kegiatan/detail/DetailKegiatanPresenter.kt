@@ -1,8 +1,7 @@
 package com.ismealdi.dactiv.activity.kegiatan.detail
 
 import android.content.Context
-import com.google.firebase.firestore.MetadataChanges
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.DB_USER_DETAIL_NOT_FOUND
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.DB_USER_DETAIL_NOT_MATCH
@@ -23,6 +22,8 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
 
     private var database = App.fireStoreBase
     private val user = App.fireBaseAuth.currentUser
+    private var kegiatanSnapshot : ListenerRegistration? = null
+    private var userSnapshot : ListenerRegistration? = null
 
     init {
         view.presenter = this
@@ -111,10 +112,8 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
         }
 
 
-        val userDocument = database.user()
         val  mUsers : MutableList<User> = mutableListOf()
-
-        userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
+        userSnapshot = database.user().addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
 
             if (documentSnapshot != null && e == null) {
                 mUsers.clear()
@@ -141,10 +140,8 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
             return
         }
 
-        val userDocument = database.kegiatan(kegiatan.id)
         val  mUsers : MutableList<Attendent> = mutableListOf()
-
-        userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
+        kegiatanSnapshot = database.kegiatan(kegiatan.id).addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
 
             if (documentSnapshot != null && e == null) {
                 val kegiatan = documentSnapshot.toObject(Kegiatan::class.java)
@@ -164,6 +161,15 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
             }
 
         }
+
+    }
+
+    override fun killSnapshot() {
+        if(kegiatanSnapshot != null)
+            kegiatanSnapshot!!.remove()
+
+        if(userSnapshot != null)
+            userSnapshot!!.remove()
     }
 
     companion object {

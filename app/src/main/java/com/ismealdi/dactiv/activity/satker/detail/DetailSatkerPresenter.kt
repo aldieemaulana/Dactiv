@@ -2,6 +2,7 @@ package com.ismealdi.dactiv.activity.satker.detail
 
 import android.content.Context
 import android.text.format.DateFormat
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.App
@@ -27,6 +28,9 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
     private var database = App.fireStoreBase
     private val user = App.fireBaseAuth.currentUser
 
+    private var kegiatanSnapshot : ListenerRegistration? = null
+    private var userSnapshot : ListenerRegistration? = null
+
     init {
         view.presenter = this
     }
@@ -38,10 +42,9 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
         }
 
 
-        val userDocument = database.kegiatan().whereEqualTo(kegiatanFields.satker, id).orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING)
         val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
 
-        userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
+        kegiatanSnapshot = database.kegiatan().whereEqualTo(kegiatanFields.satker, id).orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING).addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
 
             if (documentSnapshot != null && e == null) {
                 mKegiatans.clear()
@@ -72,10 +75,9 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
         }
 
 
-        val userDocument = database.user()
         val  mUsers : MutableList<User> = mutableListOf()
 
-        userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
+        userSnapshot = database.user().addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
 
             if (documentSnapshot != null && e == null) {
                 mUsers.clear()
@@ -119,6 +121,14 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
             }
         //}
 
+    }
+
+    override fun killSnapshot() {
+        if(kegiatanSnapshot != null)
+            kegiatanSnapshot!!.remove()
+
+        if(userSnapshot != null)
+            userSnapshot!!.remove()
     }
 
     companion object {

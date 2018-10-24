@@ -48,6 +48,8 @@ interface DetailKegiatanContract {
 
         fun attendents(kegiatan: Kegiatan)
 
+        fun killSnapshot()
+
     }
 
 

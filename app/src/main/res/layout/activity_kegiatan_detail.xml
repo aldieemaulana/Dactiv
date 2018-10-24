@@ -97,7 +97,7 @@
 
                     <ImageView
                         android:id="@+id/imageBarCode"
-                        android:layout_marginTop="-3dp"
+                        android:layout_marginTop="0dp"
                         android:layout_width="115dp"
                         android:layout_height="115dp"
                         android:scaleType="fitCenter"/>
@@ -109,8 +109,9 @@
                         android:layout_margin="10dp"
                         android:scaleType="fitCenter"
                         android:padding="@dimen/component_super"
+                        android:layout_marginBottom="18dp"
                         android:src="@drawable/ic_lock"
-                        android:background="@color/colorPrimaryTransparent"/>
+                        android:background="@drawable/shape_card_transparent"/>
 
                 </RelativeLayout>
 

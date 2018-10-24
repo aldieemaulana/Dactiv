@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.MenuItem
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.R
@@ -40,6 +41,12 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     internal var mUser : User? = null
     internal var activeFragment : Fragment = mainFragment
     internal val mFragmentManager = supportFragmentManager
+
+    private var userSnapshot : ListenerRegistration? = null
+    private var golonganSnapshot : ListenerRegistration? = null
+    private var jabatanSnapshot : ListenerRegistration? = null
+    private var satkerSnapshot : ListenerRegistration? = null
+    private var kegiatanSnapshot : ListenerRegistration? = null
 
     override fun onConnectionChange(message: String) {
         showSnackBar(layoutSnackBar, message, Snackbar.LENGTH_SHORT, 850)
@@ -137,11 +144,8 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     }
 
     private fun getRealTimeProfile() {
-        showProgress()
 
-        val userDocument = db?.user(user?.uid.toString())
-
-        userDocument!!.addSnapshotListener { documentSnapshot, _ ->
+        userSnapshot = db?.user(user?.uid.toString())!!.addSnapshotListener { documentSnapshot, _ ->
 
             if (documentSnapshot != null && documentSnapshot.exists()) {
                 val user = documentSnapshot.toObject(User::class.java)
@@ -169,9 +173,8 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     }
 
     private fun getRealTimeGolongan(id: String) {
-        val document = db?.golongan(id)
 
-        document!!.addSnapshotListener { documentSnapshot, _ ->
+        golonganSnapshot = db?.golongan(id)!!.addSnapshotListener { documentSnapshot, _ ->
 
             if (documentSnapshot != null && documentSnapshot.exists()) {
                 val golongan = documentSnapshot.toObject(Golongan::class.java)
@@ -184,9 +187,8 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     }
 
     private fun getRealTimeJabatan(id: String) {
-        val document = db?.jabatan(id)
 
-        document!!.addSnapshotListener { documentSnapshot, _ ->
+        jabatanSnapshot = db?.jabatan(id)!!.addSnapshotListener { documentSnapshot, _ ->
 
             if (documentSnapshot != null && documentSnapshot.exists()) {
                 val jabatan = documentSnapshot.toObject(Jabatan::class.java)
@@ -199,10 +201,10 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     }
 
     private fun getRealTimeSatker() {
-        val userDocument = db?.satker()?.orderBy(satkerFields.createdOn, Query.Direction.DESCENDING)
+
         val mSatkers : MutableList<Satker> = mutableListOf()
 
-        userDocument!!.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, _ ->
+        satkerSnapshot = db?.satker()?.orderBy(satkerFields.createdOn, Query.Direction.DESCENDING)!!.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, _ ->
 
             if (documentSnapshot != null) {
                 mSatkers.clear()
@@ -232,10 +234,9 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
 
     private fun getRealTimeKegiatan() {
 
-        val userDocument = db?.kegiatan()?.orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING)
         val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
 
-        userDocument!!.addSnapshotListener(MetadataChanges.INCLUDE) { documentSnapshot, _ ->
+        kegiatanSnapshot = db?.kegiatan()?.orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING)!!.addSnapshotListener(MetadataChanges.INCLUDE) { documentSnapshot, _ ->
 
             if (documentSnapshot != null) {
                 mKegiatans.clear()
@@ -275,6 +276,21 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     override fun onBackPressed() {
         AmMessagingService().storeOnline(false)
         super.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if(kegiatanSnapshot != null)
+            kegiatanSnapshot!!.remove()
+        if(satkerSnapshot != null)
+            satkerSnapshot!!.remove()
+        if(jabatanSnapshot != null)
+            jabatanSnapshot!!.remove()
+        if(golonganSnapshot != null)
+            golonganSnapshot!!.remove()
+        if(userSnapshot != null)
+            userSnapshot!!.remove()
     }
 
 }

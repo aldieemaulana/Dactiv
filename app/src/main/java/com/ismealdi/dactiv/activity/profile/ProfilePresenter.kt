@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ListenerRegistration
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.profile.ProfilePresenter.Companion.INFO.DB_USER_DETAIL_NOT_FOUND

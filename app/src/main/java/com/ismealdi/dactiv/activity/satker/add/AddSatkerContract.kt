@@ -30,6 +30,8 @@ interface AddSatkerContract {
 
         fun users()
 
+        fun killSnapshot()
+
     }
 
 

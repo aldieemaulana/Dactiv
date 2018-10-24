@@ -2,6 +2,7 @@ package com.ismealdi.dactiv.activity.satker.add
 
 import android.content.Context
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ListenerRegistration
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.activity.satker.add.AddSatkerPresenter.Companion.VALIDATE.INPUT_EMPTY
 import com.ismealdi.dactiv.model.Satker
@@ -20,6 +21,8 @@ class AddSatkerPresenter(private val view: AddSatkerContract.View, val context: 
     private val user = App.fireBaseAuth.currentUser
     private var mUsers : HashMap<String, User> = hashMapOf()
     private var mDataAdmin : HashMap<String, String> = hashMapOf()
+
+    private var userSnapshot : ListenerRegistration? = null
 
     init {
         view.presenter = this
@@ -59,7 +62,7 @@ class AddSatkerPresenter(private val view: AddSatkerContract.View, val context: 
     }
 
     override fun users() {
-        database.user().addSnapshotListener { it, e ->
+        userSnapshot = database.user().addSnapshotListener { it, e ->
             if(e != null) {
                 view.onError(e.message.toString())
             }
@@ -81,6 +84,11 @@ class AddSatkerPresenter(private val view: AddSatkerContract.View, val context: 
 
             }
         }
+    }
+
+    override fun killSnapshot() {
+        if(userSnapshot != null)
+            userSnapshot!!.remove()
     }
 
     companion object {

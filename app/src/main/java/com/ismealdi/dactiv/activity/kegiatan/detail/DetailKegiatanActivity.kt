@@ -241,4 +241,10 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         mAdapter.updateData(mAttendents)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        presenter.killSnapshot()
+    }
+
 }

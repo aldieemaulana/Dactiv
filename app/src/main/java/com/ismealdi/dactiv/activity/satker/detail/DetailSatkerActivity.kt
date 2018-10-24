@@ -150,4 +150,10 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        presenter.killSnapshot()
+    }
+
 }

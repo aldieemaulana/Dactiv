@@ -35,6 +35,8 @@ interface DetailSatkerContract {
 
         fun message(user: User, satker: Satker)
 
+        fun killSnapshot()
+
     }
 
 
