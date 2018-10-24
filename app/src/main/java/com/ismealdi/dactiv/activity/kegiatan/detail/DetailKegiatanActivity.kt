@@ -1,6 +1,9 @@
 package com.ismealdi.dactiv.activity.kegiatan.detail
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -29,8 +32,10 @@ import com.ismealdi.dactiv.model.Attendent
 import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.*
 import com.ismealdi.dactiv.util.barcode.BarcodeCaptureActivity
+import com.ismealdi.dactiv.watcher.AmCurrencyWatcher
 import net.glxn.qrgen.android.QRCode
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -52,6 +57,9 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
     private var detector: BarcodeDetector? = null
     private val capture = 9001
 
+    private lateinit var datePicker: DatePickerDialog
+    private var isDeskripsi = false
+
 
     fun init() {
         mKegiatan = intent.getParcelableExtra(DETAIL_KEGIATAN)
@@ -63,6 +71,7 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         presenter.attendents(mKegiatan)
 
         initList()
+        watcher()
         listener()
 
         setTitle(getString(R.string.title_kegiatan))
@@ -81,6 +90,10 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         init()
     }
 
+    private fun watcher() {
+        textRealisasi.addTextChangedListener(AmCurrencyWatcher(textRealisasi))
+    }
+
     private fun listener() {
         buttonBackToolbar.setOnClickListener {
             onBackPressed()
@@ -88,6 +101,11 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
 
         buttonMenuToolbar.setOnClickListener {
             doScanBarcode()
+        }
+
+        layoutJadwalPelaksana.setOnClickListener {
+            initCalendarDialog()
+            datePicker.show()
         }
     }
 
@@ -104,8 +122,21 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
 
         if(App.fireBaseAuth.currentUser != null) {
 
-            if (kegiatan.penanggungJawab == App.fireBaseAuth.currentUser!!.uid && DateFormat.format("d MMMM yyyy", kegiatan.jadwal) == DateFormat.format("d MMMM yyyy", Calendar.getInstance()))
+            if (kegiatan.penanggungJawab == App.fireBaseAuth.currentUser!!.uid && DateFormat.format("d MMMM yyyy", kegiatan.jadwal) == DateFormat.format("d MMMM yyyy", Calendar.getInstance())) {
                 imageOverlay.visibility = View.GONE
+            }
+
+            if(kegiatan.status == 1) {
+                layoutAdmin.visibility = View.VISIBLE
+                layoutDeskripsi.isClickable = false
+                layoutDeskripsi.isEnabled = false
+            }else if(kegiatan.status == 4){
+                textAlasan.visibility = View.VISIBLE
+                textAlasan.setTextFade(kegiatan.alasan)
+                val persentase = ((kegiatan.realisasi.toFloat() / kegiatan.anggaran.toFloat()) * 100)
+                textAnggaran.setTextFade(format!!.format(kegiatan.realisasi) + " (${String.format("%2.02f", persentase)}%) ")
+                textDate.setTextFade(DateFormat.format("d MMMM yyyy hh:mm", kegiatan.pelaksanaan).toString())
+            }
 
             buttonAlarm.isEnabled = false
             buttonMessage.isEnabled = false
@@ -132,8 +163,10 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
     private fun checkState() {
         if(mKegiatan.status != 1 || mKegiatan.attendent.any { x -> x.user == App.fireBaseAuth.currentUser!!.uid }) {
             buttonMenuToolbar.visibility = View.GONE
+            layoutAdmin.visibility = View.GONE
             buttonAlarm.isEnabled = false
             buttonMessage.isEnabled = false
+
         }
     }
 
@@ -214,7 +247,7 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
                     buttonMenuToolbar.setPadding(18, 18, 18, 18)
 
                     buttonMenuToolbar.setOnClickListener {
-                        presenter.setAsDone(mKegiatan)
+                        presenter.setAsDone(mKegiatan, textRealisasi.text.toString().toNumber(), textJadwalPelaksana.text.toString(), textDeskripsi.text.toString())
                     }
                 }
 
@@ -258,6 +291,57 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.killSnapshot()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initCalendarDialog() {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = intent.getIntExtra(Constants.INTENT.SELECTED_DATE, c.get(Calendar.DAY_OF_MONTH))
+
+        if(intent.getIntExtra(Constants.INTENT.SELECTED_DATE, 0) > 0) {
+            textJadwalPelaksana.text = "$day/${month + 1}/$year ${c.get(Calendar.HOUR_OF_DAY)}:${c.get(Calendar.MINUTE)}"
+        }
+
+        val timePickerDialog = TimePickerDialog(this,
+                TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                    textJadwalPelaksana.text = textJadwalPelaksana.text.toString() + " $hourOfDay:$minute"
+
+                    val jad = SimpleDateFormat("dd/MM/yyyy").parse(textJadwalPelaksana.text.toString())
+                    val dat = SimpleDateFormat("dd/MM/yyyy").parse(DateFormat.format("dd/MM/yyyy", mKegiatan.jadwal).toString())
+
+                    if(dat.time < jad.time) {
+                        setLayoutDeskripsi(true)
+                    }
+                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true)
+
+        timePickerDialog.setOnCancelListener {
+            textJadwalPelaksana.text = ""
+            setLayoutDeskripsi(false)
+        }
+
+        datePicker = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, y, m, d ->
+            val mm = m + 1
+            textJadwalPelaksana.text =  "$d/$mm/$y"
+            timePickerDialog.show()
+        }, year, month, day)
+
+        datePicker.datePicker.minDate = System.currentTimeMillis() - 1000
+
+        datePicker.setOnCancelListener {
+            textJadwalPelaksana.text = ""
+            setLayoutDeskripsi(false)
+        }
+    }
+
+    private fun setLayoutDeskripsi(v: Boolean) {
+        layoutDeskripsi.isClickable = v
+        layoutDeskripsi.isEnabled = v
+        textDeskripsi.isEnabled = v
+        textDeskripsi.setText("")
+
+        isDeskripsi = v
     }
 
 }

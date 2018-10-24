@@ -42,7 +42,7 @@ interface DetailKegiatanContract {
 
         fun remindTo(mMessage: Alert)
 
-        fun setAsDone(kegiatan: Kegiatan)
+        fun setAsDone(kegiatan: Kegiatan, realisasi: String, jadwal: String, deskripsi: String)
 
         fun users(bagian: String)
 

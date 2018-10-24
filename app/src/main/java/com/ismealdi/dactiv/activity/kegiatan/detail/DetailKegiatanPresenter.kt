@@ -1,17 +1,20 @@
 package com.ismealdi.dactiv.activity.kegiatan.detail
 
 import android.content.Context
+import android.text.format.DateFormat
 import com.google.firebase.firestore.*
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.DB_USER_DETAIL_NOT_FOUND
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.DB_USER_DETAIL_NOT_MATCH
+import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.INPUT_NOT_COMPLETE
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.USER_SUCCESS_ATTEND
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.USER_SUCCESS_DONE
-import com.ismealdi.dactiv.base.AmDraftActivity.Companion.kegiatanFields
 import com.ismealdi.dactiv.model.*
 import com.ismealdi.dactiv.util.alert
 import com.ismealdi.dactiv.util.kegiatan
 import com.ismealdi.dactiv.util.user
+import java.text.SimpleDateFormat
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -88,21 +91,45 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
         }
     }
 
-    override fun setAsDone(kegiatan: Kegiatan) {
+    override fun setAsDone(kegiatan: Kegiatan, realisasi: String, jadwal: String, deskripsi: String) {
         if (user == null){
             view.onError(DB_USER_DETAIL_NOT_FOUND)
             return
         }
 
-        kegiatan.status = 2
+        if(jadwal.isEmpty() || realisasi.toLong() < 1) {
+            view.onError(INPUT_NOT_COMPLETE)
+        }else{
+            val jad = SimpleDateFormat("dd/MM/yyyy").parse(jadwal)
+            val dat = SimpleDateFormat("dd/MM/yyyy").parse(DateFormat.format("dd/MM/yyyy", kegiatan.jadwal).toString())
+            kegiatan.status = if(dat.time < jad.time) 4 else 2
+            kegiatan.realisasi = realisasi.toLong()
+            kegiatan.pelaksanaan = jad
 
-        val document = App.fireStoreBase.kegiatan(kegiatan.id)
-        document.set(kegiatan).addOnSuccessListener {
-            view.onError(USER_SUCCESS_DONE)
-            view.onDoneKegiatan()
-        }.addOnFailureListener {
-            view.onError(it.message.toString())
+            if(dat.time < jad.time) {
+                kegiatan.alasan = deskripsi
+
+                if(deskripsi.isEmpty()) {
+                    view.onError(INPUT_NOT_COMPLETE)
+                    return
+                }
+            }
+
+
+            val document = App.fireStoreBase.kegiatan(kegiatan.id)
+            document.set(kegiatan).addOnSuccessListener {
+                view.onError(USER_SUCCESS_DONE)
+                view.onDoneKegiatan()
+            }.addOnFailureListener {
+                view.onError(it.message.toString())
+            }
         }
+    }
+
+    private fun numberOfDays(start: Long, end: Long) : Long {
+        val duration = end - start
+
+        return TimeUnit.MILLISECONDS.toDays(duration)
     }
 
     override fun users(bagian: String) {
@@ -186,7 +213,7 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
             const val USER_SUCCESS_ATTEND = "Mark as attend"
             const val USER_SUCCESS_DONE = "Mark as done"
             const val DB_USER_DETAIL_NOT_FOUND = "Sorry your detail not found on our record"
-            const val DB_KEGIATAN_DETAIL_NOT_FOUND = "Belum ada Kegiatan untuk Satuan Kerja"
+            const val INPUT_NOT_COMPLETE = "Please Fill in all detail"
         }
     }
 

@@ -97,6 +97,9 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
                 if(kegiatan.status == 2) {
                     holder.circle.background = ContextCompat.getDrawable(context, R.drawable.state_green)
                     holder.state.background = ContextCompat.getDrawable(context, R.drawable.state_green)
+                }else if(kegiatan.status == 4) {
+                    holder.circle.background = ContextCompat.getDrawable(context, R.drawable.state_red)
+                    holder.state.background = ContextCompat.getDrawable(context, R.drawable.state_red)
                 }else {
                     setStatus(holder.state, holder.circle, kegiatan.jadwal.time)
                 }

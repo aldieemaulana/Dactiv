@@ -11,7 +11,10 @@ open class Kegiatan(
         var satker: String = "",
         var kodeKegiatan: String = "",
         var anggaran: Long = 0,
+        var realisasi: Long = 0,
+        var alasan: String = "",
         var jadwal: Date = Date(),
+        var pelaksanaan: Date = Date(),
         var durasi: Int = 0,
         var penanggungJawab: String = "",
         var bagian: String = "",
@@ -27,6 +30,9 @@ open class Kegiatan(
             parcel.readString(),
             parcel.readString(),
             parcel.readLong(),
+            parcel.readLong(),
+            parcel.readString(),
+            parcel.readDate()!!,
             parcel.readDate()!!,
             parcel.readInt(),
             parcel.readString(),
@@ -44,7 +50,10 @@ open class Kegiatan(
         parcel.writeString(satker)
         parcel.writeString(kodeKegiatan)
         parcel.writeLong(anggaran)
+        parcel.writeLong(realisasi)
+        parcel.writeString(alasan)
         parcel.writeDate(jadwal)
+        parcel.writeDate(pelaksanaan)
         parcel.writeInt(durasi)
         parcel.writeString(penanggungJawab)
         parcel.writeString(bagian)
