@@ -155,17 +155,30 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
             && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                val intent = Intent(this, BarcodeCaptureActivity::class.java)
-                intent.putExtra(BarcodeCaptureActivity.AutoFocus, true)
-                startActivityForResult(intent, capture)
+                callBarcode()
             }else {
                 ActivityCompat.requestPermissions(this@DetailKegiatanActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission_group.CAMERA, Manifest.permission.CAMERA), request)
             }
         }else{
-            val intent = Intent(this, BarcodeCaptureActivity::class.java)
-            intent.putExtra(BarcodeCaptureActivity.AutoFocus, true)
-            startActivityForResult(intent, capture)
+            callBarcode()
         }
+    }
+
+    private fun callBarcode() {
+        val intent = Intent(this, BarcodeCaptureActivity::class.java)
+        intent.putExtra(BarcodeCaptureActivity.AutoFocus, true)
+        startActivityForResult(intent, capture)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == request) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                    && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                callBarcode()
+            }
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
