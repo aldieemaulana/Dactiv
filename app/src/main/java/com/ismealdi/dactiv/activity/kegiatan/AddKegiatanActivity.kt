@@ -86,7 +86,7 @@ class AddKegiatanActivity : AmDraftActivity() {
             data.durasi = durasi.toInt()
             data.anggaran = anggaran.toNumber().toLong()
 
-            val formatter = SimpleDateFormat("dd/MM/yyyy h:m")
+            val formatter = SimpleDateFormat("dd/MM/yyyy h:m", Locale.ENGLISH)
 
             data.jadwal = formatter.parse(jadwalPelaksana.toString())
             data.penanggungJawab = mUsers[layoutPenanggung.getDialogSelected()]!!.uid

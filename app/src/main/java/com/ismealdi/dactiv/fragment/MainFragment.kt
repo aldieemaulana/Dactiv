@@ -66,9 +66,9 @@ class MainFragment : AmFragment() {
         cal.time = date
 
         val maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
-        val day = SimpleDateFormat("d")
-        val name = SimpleDateFormat("EEEE")
-        val monthYear = SimpleDateFormat("MMMM yyyy")
+        val day = SimpleDateFormat("d", Locale.ENGLISH)
+        val name = SimpleDateFormat("EEEE", Locale.ENGLISH)
+        val monthYear = SimpleDateFormat("MMMM yyyy", Locale.ENGLISH)
 
         currentDay = day.format(cal.time).toInt()
 
@@ -154,7 +154,7 @@ class MainFragment : AmFragment() {
         val date = Date()
         date.date = currentDay
 
-        val mDateFormat = SimpleDateFormat("d/M/yyyy")
+        val mDateFormat = SimpleDateFormat("d/M/yyyy", Locale.ENGLISH)
         val mKegiatansFiltered : MutableList<Kegiatan> = mutableListOf()
 
         mKegiatans.forEach {

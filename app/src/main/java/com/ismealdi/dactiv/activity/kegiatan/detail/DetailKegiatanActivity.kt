@@ -308,8 +308,8 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
                 TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                     textJadwalPelaksana.text = textJadwalPelaksana.text.toString() + " $hourOfDay:$minute"
 
-                    val jad = SimpleDateFormat("dd/MM/yyyy").parse(textJadwalPelaksana.text.toString())
-                    val dat = SimpleDateFormat("dd/MM/yyyy").parse(DateFormat.format("dd/MM/yyyy", mKegiatan.jadwal).toString())
+                    val jad = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(textJadwalPelaksana.text.toString())
+                    val dat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(DateFormat.format("dd/MM/yyyy", mKegiatan.jadwal).toString())
 
                     if(dat.time < jad.time) {
                         setLayoutDeskripsi(true)

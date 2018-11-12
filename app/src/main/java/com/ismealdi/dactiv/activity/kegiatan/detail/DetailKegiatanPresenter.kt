@@ -14,6 +14,7 @@ import com.ismealdi.dactiv.util.alert
 import com.ismealdi.dactiv.util.kegiatan
 import com.ismealdi.dactiv.util.user
 import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -100,8 +101,8 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
         if(jadwal.isEmpty() || realisasi.toLong() < 1) {
             view.onError(INPUT_NOT_COMPLETE)
         }else{
-            val jad = SimpleDateFormat("dd/MM/yyyy").parse(jadwal)
-            val dat = SimpleDateFormat("dd/MM/yyyy").parse(DateFormat.format("dd/MM/yyyy", kegiatan.jadwal).toString())
+            val jad = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(jadwal)
+            val dat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(DateFormat.format("dd/MM/yyyy", kegiatan.jadwal).toString())
             kegiatan.status = if(dat.time < jad.time) 4 else 2
             kegiatan.realisasi = realisasi.toLong()
             kegiatan.pelaksanaan = jad
