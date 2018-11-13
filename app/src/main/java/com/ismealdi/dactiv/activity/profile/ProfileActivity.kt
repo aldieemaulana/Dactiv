@@ -32,7 +32,6 @@ import android.support.v4.content.ContextCompat
 
 
 
-
 /**
  * Created by Al on 15/10/2018
  */

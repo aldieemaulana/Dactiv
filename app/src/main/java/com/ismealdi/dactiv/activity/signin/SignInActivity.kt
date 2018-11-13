@@ -63,7 +63,7 @@ class SignInActivity : AmActivity(), SignInContract.View {
     override fun showNextActivity() {
         presenter.subscribeMemberTopic(getString(R.string.default_channel))
 
-        val intent = Intent(applicationContext, MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         val bounds = Rect()
 
         layoutParent.getDrawingRect(bounds)
@@ -72,7 +72,7 @@ class SignInActivity : AmActivity(), SignInContract.View {
         intent.putExtra(EXTRA_CIRCULAR_REVEAL_X, bounds.centerX())
         intent.putExtra(EXTRA_CIRCULAR_REVEAL_Y, bounds.centerY())
 
-        ActivityCompat.startActivity(applicationContext, intent, null)
+        ActivityCompat.startActivity(this, intent, null)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         finish()
     }

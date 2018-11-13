@@ -7,9 +7,8 @@ import android.support.multidex.MultiDexApplication
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.perf.FirebasePerformance
 import com.google.firebase.storage.FirebaseStorage
-import com.ismealdi.dactiv.services.AmMessagingService
-import com.ismealdi.dactiv.services.AmTaskService
 
 /**
  * Created by Al on 10/10/2018
@@ -23,6 +22,7 @@ class App : MultiDexApplication() {
         lateinit var fireStoreBase : FirebaseFirestore
         lateinit var fireStorage: FirebaseStorage
         lateinit var fireBaseMsg: FirebaseMessaging
+        lateinit var firesafePerformances: FirebasePerformance
 
     }
 
@@ -32,6 +32,7 @@ class App : MultiDexApplication() {
         fireStoreBase = FirebaseFirestore.getInstance()
         fireStorage = FirebaseStorage.getInstance()
         fireBaseMsg = FirebaseMessaging.getInstance()
+        firesafePerformances = FirebasePerformance.getInstance()
     }
 
     override fun attachBaseContext(base: Context) {

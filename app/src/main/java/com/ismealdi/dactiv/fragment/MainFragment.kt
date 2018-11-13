@@ -1,5 +1,6 @@
 package com.ismealdi.dactiv.fragment
 
+import kotlin.coroutines.*;
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
