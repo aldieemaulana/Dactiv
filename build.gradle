@@ -4,13 +4,11 @@ buildscript {
         compilesdk_version = 28
         targetsdk_version = 28
         minsdk_version = 16
-        buildgradle_version = '3.2.0'
+        buildgradle_version = '3.2.1'
         kotlin_version = '1.3.0'
         androidsupport_version = '28.0.0'
         googleandroid_version = '16.0.1'
         constraintlayout_version = '1.1.3'
-        rxjava_version = '2.0.2'
-        retrofit_version = '2.3.0'
         picasso_version = '2.71828'
         kaopizkprogress_version = '1.2.0'
         espresso_version = '3.0.2'
@@ -24,6 +22,7 @@ buildscript {
         firebasemessage_version = '17.3.4'
         firebasefirestore_version = '17.1.3'
         firebaseperf_version = '16.2.0'
+        firebaseplugins_version = '1.1.5'
         fabric_version = '1.26.1'
         crashlytics_version = '2.9.6'
         multidex_version = '1.0.3'
@@ -40,9 +39,10 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:3.2.1"
+        classpath "com.android.tools.build:gradle:$buildgradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:$gms_version"
+        classpath "com.google.firebase:firebase-plugins:$firebaseplugins_version"
         classpath "io.fabric.tools:gradle:$fabric_version"
     }
 }

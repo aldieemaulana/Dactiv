@@ -104,7 +104,7 @@ class MainFragment : AmFragment() {
     private fun initList() {
         mActivity.showProgress()
 
-        mKegiatanAdapter = KegiatanAdapter(activity!!.applicationContext, mKegiatansFiltered)
+        mKegiatanAdapter = KegiatanAdapter(activity!!, mKegiatansFiltered)
 
         recyclerView.layoutManager = LinearLayoutManager(context,
                 LinearLayout.VERTICAL, false)
