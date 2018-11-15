@@ -65,10 +65,10 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
 
         mKegiatan = intent.getParcelableExtra(DETAIL_KEGIATAN)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             textName.transitionName = intent.getStringExtra("nameView")
             textAnggaran.transitionName = intent.getStringExtra("anggaranView")
-        }
+        }*/
 
         progress = Dialogs.initProgressDialog(this)
         presenter = DetailKegiatanPresenter(this, this)
