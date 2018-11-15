@@ -43,6 +43,7 @@ class AmMessagingService : FirebaseMessagingService() {
 
         val intent = if(remoteMessage!!.data["fromUser"] != null) Intent(this, MessageActivity::class.java) else Intent(this, NotificationActivity::class.java)
         intent.putExtra(Constants.INTENT.NOTIFICATION, remoteMessage)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
 
     }

@@ -300,7 +300,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         mIntent.putExtra("nameView", ViewCompat.getTransitionName(nameView))
         mIntent.putExtra("anggaranView", ViewCompat.getTransitionName(anggaranView))
 
-        val p1= UtilPair.create(nameView, ViewCompat.getTransitionName(nameView)!!)
+        /*val p1= UtilPair.create(nameView, ViewCompat.getTransitionName(nameView)!!)
         val p2= UtilPair.create(anggaranView, ViewCompat.getTransitionName(anggaranView)!!)
 
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -308,7 +308,8 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
                 p1,
                 p2)
 
-        startActivity(mIntent, options.toBundle())
+        startActivity(mIntent, options.toBundle())*/
+        startActivity(mIntent)
 
     }
 

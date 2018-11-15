@@ -89,7 +89,7 @@ class MessageActivity : AmActivity() {
                 textDate.text = intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.DATE)
 
                 val userId = intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.MESSAGE)
-                satkerId = intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.SATKER)
+                satkerId = intent.getStringExtra(Constants.INTENT.LOGIN.PUSH.SATKER) ?: ""
                 App.fireStoreBase.user(userId.toString()).addSnapshotListener { documentSnapshot, _ ->
 
                     if (documentSnapshot != null && documentSnapshot.exists()) {

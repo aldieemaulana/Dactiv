@@ -57,4 +57,9 @@ class CalendarAdapter(private var dates: List<String>, private val context: Cont
         return dates.size
     }
 
+    fun update(data: MutableList<String>) {
+        this.dates = data
+        notifyDataSetChanged()
+    }
+
 }

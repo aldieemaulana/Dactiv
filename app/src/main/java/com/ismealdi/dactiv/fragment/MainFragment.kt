@@ -1,5 +1,7 @@
 package com.ismealdi.dactiv.fragment
 
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.LinearLayout
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
@@ -34,6 +37,10 @@ class MainFragment : AmFragment() {
     private var mKegiatansFiltered : MutableList<Kegiatan> = mutableListOf()
 
     internal var currentDay = 0
+    internal var currentMonth = 0
+    internal var currentYear = 0
+
+    private lateinit var datePicker: DatePickerDialog
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +65,10 @@ class MainFragment : AmFragment() {
         buttonAddMore.setOnClickListener {
             doAdd()
         }
+
+        textMonthYear.setOnClickListener {
+            datePicker.show()
+        }
     }
 
     private fun initCalendar() {
@@ -75,6 +86,8 @@ class MainFragment : AmFragment() {
         val monthYear = SimpleDateFormat("MMMM yyyy", Locale.ENGLISH)
 
         currentDay = day.format(cal.time).toInt()
+        currentMonth = cal.get(Calendar.MONTH)
+        currentYear = cal.get(Calendar.YEAR)
 
         textDate.text = currentDay.toString()
         textDay.text = name.format(cal.time)
@@ -94,6 +107,46 @@ class MainFragment : AmFragment() {
         mActivity.hideProgress()
 
         recyclerViewCalendar.scrollToPosition(currentDay - 1)
+
+        initCalendarDialog()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initCalendarDialog() {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+
+        datePicker = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { time, y, m, d ->
+            val calendar = Calendar.getInstance()
+            calendar.set(y, m, d)
+
+            textMonthYear.setTextFade(SimpleDateFormat("MMMM yyyy", Locale.ENGLISH).format(calendar.time))
+
+            textDate.setTextFade(d.toString())
+            textDay.setTextFade(SimpleDateFormat("EEEE", Locale.ENGLISH).format(calendar.time))
+            currentDay = d
+
+            currentMonth = m
+            currentYear = y
+
+            filterList(d, m, y)
+
+            if(m != month) {
+                val data : MutableList<String> = mutableListOf()
+                val maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+                for (i in 0 until maxDay) {
+                    calendar.set(Calendar.DAY_OF_MONTH, i + 1)
+                    data.add(SimpleDateFormat("d", Locale.ENGLISH).format(calendar.time)+ "#" +SimpleDateFormat("EEEE", Locale.ENGLISH).format(calendar.time))
+                }
+
+                mAdapterCalendar.update(data)
+
+                setToCurrentDay()
+
+            }
+
+        }, year, month, currentDay)
     }
 
     private fun setToCurrentDay() {
@@ -153,16 +206,22 @@ class MainFragment : AmFragment() {
         showEmpty((mKegiatansFiltered.size == 0))
     }
 
-    internal fun filterList(currentDay: Int) {
+    internal fun filterList(currentDay: Int, month: Int = -1, year: Int = -1) {
 
-        val date = Date()
-        date.date = currentDay
+        val calendar = Calendar.getInstance()
+        calendar.set(currentYear, currentMonth, currentDay)
+
+        if(month > -1)
+            calendar.set(calendar.get(Calendar.YEAR), month, currentDay)
+
+        if(year > -1)
+            calendar.set(year, month, currentDay)
 
         val mDateFormat = SimpleDateFormat("d/M/yyyy", Locale.ENGLISH)
         val mKegiatansFiltered : MutableList<Kegiatan> = mutableListOf()
 
         mKegiatans.forEach {
-            if (mDateFormat.format(it.jadwal) == mDateFormat.format(date)) {
+            if (mDateFormat.format(it.jadwal) == mDateFormat.format(calendar.time)) {
                 mKegiatansFiltered.add(it)
             }
         }
