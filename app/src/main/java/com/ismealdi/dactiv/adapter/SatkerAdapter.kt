@@ -15,6 +15,7 @@ import com.ismealdi.dactiv.model.Satker
 import com.ismealdi.dactiv.util.Utils
 import kotlinx.android.synthetic.main.fragment_satker.*
 import kotlinx.android.synthetic.main.list_satker.view.*
+import kotlinx.android.synthetic.main.view_empty_state.*
 
 class SatkerAdapter(private var satkers: MutableList<Satker>, private val context: SatkerFragment, private var category: Int = 0) : RecyclerView.Adapter<SatkerAdapter.ViewHolder>() {
 

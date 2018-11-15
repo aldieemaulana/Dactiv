@@ -1,238 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.ProfileFragment"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:background="@color/colorBackgroundPrimary">
+    android:orientation="vertical">
 
-    <requestFocus />
-
-    <View
-        android:id="@+id/viewBackground"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/background_accent" />
-
-    <LinearLayout
-        android:layout_below="@id/viewBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"/>
+    <include layout="@layout/toolbar_primary"/>
 
     <RelativeLayout
-        android:layout_below="@id/viewBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-125dp"
-        android:orientation="vertical"
-        style="@style/AppTheme.Margin.Horizontal">
+        android:layout_height="match_parent"
+        tools:context=".fragment.ProfileFragment"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/colorBackgroundPrimary">
+
+        <requestFocus />
+
+        <View
+            android:id="@+id/viewBackground"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/background_accent" />
 
         <LinearLayout
-            android:id="@+id/layoutDetail"
-            android:layout_marginTop="50dp"
+            android:layout_below="@id/viewBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"/>
+
+        <RelativeLayout
+            android:layout_below="@id/viewBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-125dp"
             android:orientation="vertical"
-            style="@style/AppTheme.Layout.Parent"
-            android:background="@drawable/shape_card"
-            android:clipToPadding="false"
-            android:paddingTop="68dp">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center">
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="R"
-                    android:id="@+id/textName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextDark"
-                    android:textSize="@dimen/text_medium"
-                    tools:text="@tools:sample/full_names"/>
-                <View
-                    app:layout_constraintLeft_toRightOf="@id/textName"
-                    android:layout_marginLeft="@dimen/component_small"
-                    android:layout_marginTop="@dimen/component_tiny"
-                    app:layout_constraintBottom_toBottomOf="@id/textName"
-                    app:layout_constraintTop_toTopOf="@id/textName"
-                    android:id="@+id/viewOnline"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:background="@drawable/label_cancelled"/>
-            </android.support.constraint.ConstraintLayout>
-
-            <com.ismealdi.dactiv.components.AmTextView
-                app:AmFont="R"
-                android:id="@+id/textEmail"
-                android:layout_width="match_parent"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorTextDark"
-                android:textSize="@dimen/text_small"
-                tools:text="@tools:sample/cities"
-                android:layout_marginBottom="@dimen/component_big"/>
-
-            <View  android:layout_gravity="center" android:layout_width="180dp" android:layout_height="@dimen/divider_half" android:background="@drawable/divider"
-                android:layout_marginBottom="@dimen/component_big"/>
-
+            style="@style/AppTheme.Margin.Horizontal">
 
             <LinearLayout
+                android:id="@+id/layoutDetail"
+                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="vertical"
+                style="@style/AppTheme.Layout.Parent"
+                android:background="@drawable/shape_card"
+                android:clipToPadding="false"
+                android:paddingTop="68dp">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+                    <com.ismealdi.dactiv.components.AmTextView
+                        app:AmFont="R"
+                        android:id="@+id/textName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextDark"
+                        android:textSize="@dimen/text_medium"
+                        tools:text="@tools:sample/full_names"/>
+                    <View
+                        app:layout_constraintLeft_toRightOf="@id/textName"
+                        android:layout_marginLeft="@dimen/component_small"
+                        android:layout_marginTop="@dimen/component_tiny"
+                        app:layout_constraintBottom_toBottomOf="@id/textName"
+                        app:layout_constraintTop_toTopOf="@id/textName"
+                        android:id="@+id/viewOnline"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:background="@drawable/label_cancelled"/>
+                </android.support.constraint.ConstraintLayout>
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    android:id="@+id/textEmail"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="@dimen/text_small"
+                    tools:text="@tools:sample/cities"
+                    android:layout_marginBottom="@dimen/component_big"/>
+
+                <View  android:layout_gravity="center" android:layout_width="180dp" android:layout_height="@dimen/divider_half" android:background="@drawable/divider"
+                    android:layout_marginBottom="@dimen/component_big"/>
+
 
                 <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/component_small"
-                    android:orientation="vertical"
-                    style="@style/AppTheme.Layout.Parent.Small"
-                    android:background="@drawable/shape_card_accent">
-                    <com.ismealdi.dactiv.components.AmTextView
-                        app:AmFont="M"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextDark"
-                        android:textSize="@dimen/text_small"
-                        android:text="@string/text_jabatan"
-                        android:layout_marginBottom="@dimen/component_small"/>
-                    <com.ismealdi.dactiv.components.AmTextView
-                        android:id="@+id/textJabatan"
-                        app:AmFont="R"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextDark"
-                        android:textSize="@dimen/text_tiny"
-                        android:singleLine="true"
-                        android:layout_marginBottom="@dimen/component_small"/>
-                </LinearLayout>
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginRight="@dimen/component_tiny"
-                    android:layout_marginLeft="@dimen/component_tiny"
-                    style="@style/AppTheme.Layout.Parent.Small"
-                    android:background="@drawable/shape_card_accent">
-                    <com.ismealdi.dactiv.components.AmTextView
-                        app:AmFont="M"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextDark"
-                        android:textSize="@dimen/text_small"
-                        android:text="@string/text_golongan"
-                        android:layout_marginBottom="@dimen/component_small"/>
-                    <com.ismealdi.dactiv.components.AmTextView
-                        android:id="@+id/textGolongan"
-                        app:AmFont="R"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextDark"
-                        android:textSize="@dimen/text_tiny"
-                        android:singleLine="true"
-                        android:text="-"
-                        android:layout_marginBottom="@dimen/component_small"/>
-                </LinearLayout>
+                        android:layout_marginRight="@dimen/component_small"
+                        android:orientation="vertical"
+                        style="@style/AppTheme.Layout.Parent.Small"
+                        android:background="@drawable/shape_card_accent">
+                        <com.ismealdi.dactiv.components.AmTextView
+                            app:AmFont="M"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTextDark"
+                            android:textSize="@dimen/text_small"
+                            android:text="@string/text_jabatan"
+                            android:layout_marginBottom="@dimen/component_small"/>
+                        <com.ismealdi.dactiv.components.AmTextView
+                            android:id="@+id/textJabatan"
+                            app:AmFont="R"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTextDark"
+                            android:textSize="@dimen/text_tiny"
+                            android:singleLine="true"
+                            android:layout_marginBottom="@dimen/component_small"/>
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    style="@style/AppTheme.Layout.Parent.Small"
-                    android:layout_marginLeft="@dimen/component_small"
-                    android:background="@drawable/shape_card_accent">
-                    <com.ismealdi.dactiv.components.AmTextView
-                        app:AmFont="M"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextDark"
-                        android:textSize="@dimen/text_small"
-                        android:text="@string/text_status"
-                        android:layout_marginBottom="@dimen/component_small"/>
-                    <com.ismealdi.dactiv.components.AmTextView
-                        android:id="@+id/textState"
-                        app:AmFont="R"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextDark"
-                        android:singleLine="true"
-                        android:textSize="@dimen/text_tiny"
-                        android:layout_marginBottom="@dimen/component_small"/>
-                </LinearLayout>
+                        android:orientation="vertical"
+                        android:layout_marginRight="@dimen/component_tiny"
+                        android:layout_marginLeft="@dimen/component_tiny"
+                        style="@style/AppTheme.Layout.Parent.Small"
+                        android:background="@drawable/shape_card_accent">
+                        <com.ismealdi.dactiv.components.AmTextView
+                            app:AmFont="M"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTextDark"
+                            android:textSize="@dimen/text_small"
+                            android:text="@string/text_golongan"
+                            android:layout_marginBottom="@dimen/component_small"/>
+                        <com.ismealdi.dactiv.components.AmTextView
+                            android:id="@+id/textGolongan"
+                            app:AmFont="R"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTextDark"
+                            android:textSize="@dimen/text_tiny"
+                            android:singleLine="true"
+                            android:text="-"
+                            android:layout_marginBottom="@dimen/component_small"/>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        style="@style/AppTheme.Layout.Parent.Small"
+                        android:layout_marginLeft="@dimen/component_small"
+                        android:background="@drawable/shape_card_accent">
+                        <com.ismealdi.dactiv.components.AmTextView
+                            app:AmFont="M"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTextDark"
+                            android:textSize="@dimen/text_small"
+                            android:text="@string/text_status"
+                            android:layout_marginBottom="@dimen/component_small"/>
+                        <com.ismealdi.dactiv.components.AmTextView
+                            android:id="@+id/textState"
+                            app:AmFont="R"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTextDark"
+                            android:singleLine="true"
+                            android:textSize="@dimen/text_tiny"
+                            android:layout_marginBottom="@dimen/component_small"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/component_big"
-            android:layout_below="@id/layoutDetail"
-            android:layout_marginTop="@dimen/component_super"
-            android:layout_centerHorizontal="true">
-            <com.ismealdi.dactiv.components.AmButton
-                app:AmFont="S"
-                android:id="@+id/buttonEdit"
-                style="@style/AppTheme.ButtonInput.Round"
-                android:text="@string/text_edit_profile"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/component_big"/>
-
-            <com.ismealdi.dactiv.components.AmTextView
-                app:AmFont="R"
-                android:layout_gravity="center"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_or"
-                android:layout_marginBottom="@dimen/component_medium"/>
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/component_big"
+                android:layout_below="@id/layoutDetail"
+                android:layout_marginTop="@dimen/component_super"
+                android:layout_centerHorizontal="true">
+                <com.ismealdi.dactiv.components.AmButton
+                    app:AmFont="S"
+                    android:id="@+id/buttonEdit"
+                    style="@style/AppTheme.ButtonInput.Round"
+                    android:text="@string/text_edit_profile"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/component_big"/>
 
-            <com.ismealdi.dactiv.components.AmButton
-                app:AmFont="S"
-                android:id="@+id/buttonSignOut"
-                style="@style/AppTheme.ButtonInput.Text"
-                android:text="@string/text_sign_out"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_or"
+                    android:layout_marginBottom="@dimen/component_medium"/>
 
-        <ImageView
-            android:id="@+id/imagePhoto"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            tools:src="@tools:sample/avatars"
-            android:src="@drawable/empty_circle"/>
+                <com.ismealdi.dactiv.components.AmButton
+                    app:AmFont="S"
+                    android:id="@+id/buttonSignOut"
+                    style="@style/AppTheme.ButtonInput.Text"
+                    android:text="@string/text_sign_out"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imagePhoto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                tools:src="@tools:sample/avatars"
+                android:src="@drawable/empty_circle"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

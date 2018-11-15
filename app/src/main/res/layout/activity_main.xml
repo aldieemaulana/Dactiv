@@ -9,8 +9,6 @@
     android:minHeight="?attr/actionBarSize"
     tools:context=".activity.MainActivity">
 
-    <include layout="@layout/toolbar_primary"/>
-
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/layoutSnackBar"
         android:layout_width="match_parent"

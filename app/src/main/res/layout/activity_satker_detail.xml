@@ -122,43 +122,7 @@
                 android:orientation="vertical"
                 android:background="@drawable/background_primary">
 
-                <LinearLayout
-                    android:id="@+id/layoutEmpty"
-                    android:layout_width="@dimen/dialog_min_width"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:background="@drawable/shape_card"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:paddingTop="@dimen/component_super"
-                    android:paddingBottom="@dimen/component_super"
-                    style="@style/AppTheme.Layout.Parent">
-
-                    <com.ismealdi.dactiv.components.AmTextView
-                        app:AmFont="S"
-                        android:gravity="center"
-                        android:textSize="@dimen/text_big"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/text_ooh"
-                        android:layout_marginBottom="@dimen/component_big"/>
-
-                    <com.ismealdi.dactiv.components.AmTextView
-                        app:AmFont="R"
-                        android:gravity="center"
-                        android:textSize="@dimen/text_normal"
-                        android:textColor="@color/colorTextNormal"
-                        android:text="@string/text_no_satker_data"
-                        android:layout_width="match_parent"
-                        style="@style/AppTheme.Layout.Parent.Small"
-                        android:paddingLeft="@dimen/component_small"
-                        android:paddingRight="@dimen/component_small"
-                        android:layout_marginBottom="@dimen/component_super"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
+                <include layout="@layout/view_empty_state"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"

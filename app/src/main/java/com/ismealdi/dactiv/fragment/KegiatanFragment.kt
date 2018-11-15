@@ -12,11 +12,14 @@ import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
 import com.ismealdi.dactiv.activity.kegiatan.AddKegiatanActivity
 import com.ismealdi.dactiv.adapter.KegiatanAdapter
+import com.ismealdi.dactiv.base.AmActivity
 import com.ismealdi.dactiv.base.AmFragment
 import com.ismealdi.dactiv.model.Kegiatan
 import com.ismealdi.dactiv.util.Constants
 import kotlinx.android.synthetic.main.fragment_kegiatan.*
 import kotlinx.android.synthetic.main.list_kegiatan_add.*
+import kotlinx.android.synthetic.main.toolbar_primary.*
+import kotlinx.android.synthetic.main.view_empty_state.*
 
 
 class KegiatanFragment : AmFragment() {
@@ -28,6 +31,8 @@ class KegiatanFragment : AmFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        textTitleToolbar.text = getString(R.string.title_kegiatan)
 
         initList()
         listener()
@@ -50,7 +55,7 @@ class KegiatanFragment : AmFragment() {
     private fun initList() {
         mActivity.showProgress()
 
-        mAdapter = KegiatanAdapter(activity!!, mKegiatansFiltered,false,true)
+        mAdapter = KegiatanAdapter(mActivity, mKegiatansFiltered,false,true, listener = mActivity)
 
         recyclerView.layoutManager = LinearLayoutManager(context,
                 LinearLayout.VERTICAL, false)

@@ -3,6 +3,7 @@ package com.ismealdi.dactiv.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.ismealdi.dactiv.util.CircleTransform
 import com.ismealdi.dactiv.util.Constants
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.toolbar_primary.*
 
 class ProfileFragment : AmFragment() {
 
@@ -22,6 +24,10 @@ class ProfileFragment : AmFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        textTitleToolbar.setTextColor(ContextCompat.getColor(mActivity,R.color.colorWhite))
+        toolbar.setBackgroundColor(ContextCompat.getColor(mActivity,R.color.colorPrimary))
+        textTitleToolbar.text = getString(R.string.title_profile)
 
         listener()
     }

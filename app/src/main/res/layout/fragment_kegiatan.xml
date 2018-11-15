@@ -1,107 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nestedScrollView"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_primary"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.KegiatanFragment"
-        android:orientation="vertical"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:background="@color/colorBackgroundPrimary">
-
-        <requestFocus />
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
-            android:id="@+id/layoutContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:context=".fragment.KegiatanFragment"
             android:orientation="vertical"
-            android:background="@drawable/background_primary">
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:background="@color/colorBackgroundPrimary">
+
+            <requestFocus />
 
             <LinearLayout
-                android:id="@+id/layoutEmpty"
-                android:layout_width="@dimen/dialog_min_width"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@drawable/shape_card"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:paddingTop="@dimen/component_super"
-                android:paddingBottom="@dimen/component_super"
-                style="@style/AppTheme.Layout.Parent">
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="S"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_big"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_ooh"
-                    android:layout_marginBottom="@dimen/component_big"/>
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="R"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_normal"
-                    android:textColor="@color/colorTextNormal"
-                    android:text="@string/text_no_satker_data"
-                    android:layout_width="match_parent"
-                    style="@style/AppTheme.Layout.Parent.Small"
-                    android:paddingLeft="@dimen/component_small"
-                    android:paddingRight="@dimen/component_small"
-                    android:layout_marginBottom="@dimen/component_super"
-                    android:layout_height="wrap_content"/>
-
-                <View  android:layout_gravity="center" android:layout_width="80dp" android:layout_height="@dimen/divider_half" android:background="@drawable/divider"
-                    android:layout_marginBottom="@dimen/component_big"/>
-
-                <com.ismealdi.dactiv.components.AmButton
-                    app:AmFont="S"
-                    android:id="@+id/buttonAdd"
-                    style="@style/AppTheme.ButtonInput.Round"
-                    android:text="@string/text_add"
-                    android:layout_gravity="center|bottom"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_small"
-                    android:layout_width="140dp"
-                    android:layout_height="40dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/layoutAddMore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin_small"
-                android:paddingRight="@dimen/activity_horizontal_margin_small">
-                <include layout="@layout/list_kegiatan_add"/>
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/layoutContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:elevation="0dp"
-                android:scrollbars="none"
-                style="@style/AppTheme.Layout.Vertical"
-                android:paddingTop="0dp"
-                android:paddingLeft="@dimen/activity_horizontal_margin_small"
-                android:paddingRight="@dimen/activity_horizontal_margin_small"
-                android:nestedScrollingEnabled="false"
-                android:isScrollContainer="false"
-                tools:targetApi="lollipop"
-                tools:ignore="RtlSymmetry" />
+                android:orientation="vertical"
+                android:background="@drawable/background_primary">
+
+                <include layout="@layout/view_empty_state"/>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/layoutAddMore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin_small"
+                    android:paddingRight="@dimen/activity_horizontal_margin_small">
+                    <include layout="@layout/list_kegiatan_add"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="0dp"
+                    android:scrollbars="none"
+                    style="@style/AppTheme.Layout.Vertical"
+                    android:paddingTop="0dp"
+                    android:paddingLeft="@dimen/activity_horizontal_margin_small"
+                    android:paddingRight="@dimen/activity_horizontal_margin_small"
+                    android:nestedScrollingEnabled="false"
+                    android:isScrollContainer="false"
+                    tools:targetApi="lollipop"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
 
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</LinearLayout>

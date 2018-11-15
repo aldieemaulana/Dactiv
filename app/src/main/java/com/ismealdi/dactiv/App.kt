@@ -32,7 +32,7 @@ class App : MultiDexApplication() {
         fireStoreBase = FirebaseFirestore.getInstance()
         fireStorage = FirebaseStorage.getInstance()
         fireBaseMsg = FirebaseMessaging.getInstance()
-        firesafePerformances = FirebasePerformance.getInstance()
+        //firesafePerformances = FirebasePerformance.getInstance()
     }
 
     override fun attachBaseContext(base: Context) {

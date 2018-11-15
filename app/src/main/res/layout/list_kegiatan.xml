@@ -103,7 +103,7 @@
                 style="@style/AppTheme.Layout.Parent">
 
                 <com.ismealdi.dactiv.components.AmTextView
-                    android:id="@+id/textTime"
+                    android:id="@+id/textName"
                     app:AmFont="B"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -113,7 +113,8 @@
                     android:textColor="@color/colorTextDark"
                     android:textSize="@dimen/text_small"
                     android:singleLine="true"
-                    android:text="12:30 PM"/>
+                    android:transitionName="text_name_transition"
+                    tools:targetApi="lollipop" />
 
                 <com.ismealdi.dactiv.components.AmTextView
                     android:id="@+id/textCategory"
@@ -126,22 +127,22 @@
                     android:textColor="@color/colorTextNormal"
                     android:textSize="@dimen/text_small"
                     android:gravity="right"
-                    android:text="Technology"
-                    tools:ignore="RtlHardcoded" />
+                    tools:ignore="RtlHardcoded"
+                    android:transitionName="text_anggaran_transition"
+                    tools:targetApi="lollipop" />
 
                 <com.ismealdi.dactiv.components.AmTextView
-                    android:id="@+id/textName"
+                    android:id="@+id/textDescription"
                     app:AmFont="R"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textTime"
+                    app:layout_constraintTop_toBottomOf="@id/textName"
                     android:singleLine="true"
                     android:layout_marginTop="@dimen/component_small"
                     android:textColor="@color/colorTextDark"
-                    android:textSize="@dimen/text_small"
-                    android:text="Perumusan UU No.14 Tahun 2013"/>
+                    android:textSize="@dimen/text_small"/>
 
             </android.support.constraint.ConstraintLayout>
         </RelativeLayout>

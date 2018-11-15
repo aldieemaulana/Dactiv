@@ -3,7 +3,10 @@ package com.ismealdi.dactiv.activity.satker.detail
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.util.Pair
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.text.format.DateFormat
 import android.view.View
@@ -12,9 +15,11 @@ import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MessageActivity
 import com.ismealdi.dactiv.activity.kegiatan.AddKegiatanActivity
+import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanActivity
 import com.ismealdi.dactiv.adapter.EselonAdapter
 import com.ismealdi.dactiv.adapter.KegiatanAdapter
 import com.ismealdi.dactiv.base.AmActivity
+import com.ismealdi.dactiv.interfaces.KegiatanListener
 import com.ismealdi.dactiv.model.Kegiatan
 import com.ismealdi.dactiv.model.Satker
 import com.ismealdi.dactiv.model.User
@@ -26,6 +31,7 @@ import com.ismealdi.dactiv.util.Utils
 import com.kaopiz.kprogresshud.KProgressHUD
 import kotlinx.android.synthetic.main.activity_satker_detail.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
+import kotlinx.android.synthetic.main.view_empty_state.*
 import java.util.*
 
 
@@ -33,7 +39,7 @@ import java.util.*
  * Created by Al on 20/10/2018
  */
 
-class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View {
+class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanListener {
 
     internal lateinit var mSatker : Satker
 
@@ -71,7 +77,7 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View {
     }
 
     private fun initList() {
-        mAdapter = KegiatanAdapter(this, mKegiatan, true, true)
+        mAdapter = KegiatanAdapter(this, mKegiatan, true, true, listener = this)
         recyclerView.layoutManager = LinearLayoutManager(applicationContext,
                 LinearLayout.VERTICAL, false)
         recyclerView.adapter = mAdapter
@@ -153,6 +159,25 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View {
     override fun onStop() {
         super.onStop()
         presenter.killSnapshot()
+    }
+
+    override fun goToDetail(kegiatan: Kegiatan, nameView: View, anggaranView: View) {
+        val mIntent = Intent(this, DetailKegiatanActivity::class.java)
+
+        mIntent.putExtra(Constants.INTENT.DETAIL_KEGIATAN, kegiatan)
+        mIntent.putExtra("nameView", ViewCompat.getTransitionName(nameView))
+        mIntent.putExtra("anggaranView", ViewCompat.getTransitionName(anggaranView))
+
+        val p1= Pair.create(nameView, ViewCompat.getTransitionName(nameView)!!)
+        val p2= Pair.create(anggaranView, ViewCompat.getTransitionName(anggaranView)!!)
+
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                p1,
+                p2)
+
+        startActivity(mIntent, options.toBundle())
+
     }
 
 }

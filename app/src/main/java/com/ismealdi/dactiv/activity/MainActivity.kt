@@ -1,35 +1,43 @@
 package com.ismealdi.dactiv.activity
 
 import android.app.Activity
+import android.app.ActivityOptions
+import android.content.ClipDescription
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
 import android.view.MenuItem
+import android.view.View
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.R
+import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanActivity
 import com.ismealdi.dactiv.activity.signin.SignInActivity
 import com.ismealdi.dactiv.activity.profile.ProfileActivity
 import com.ismealdi.dactiv.base.AmDraftActivity
+import com.ismealdi.dactiv.components.AmTextView
 import com.ismealdi.dactiv.fragment.KegiatanFragment
 import com.ismealdi.dactiv.fragment.MainFragment
 import com.ismealdi.dactiv.fragment.ProfileFragment
 import com.ismealdi.dactiv.fragment.SatkerFragment
+import com.ismealdi.dactiv.interfaces.KegiatanListener
 import com.ismealdi.dactiv.model.*
 import com.ismealdi.dactiv.services.AmMessagingService
 import com.ismealdi.dactiv.services.AmTaskService
 import com.ismealdi.dactiv.util.*
 import kotlinx.android.synthetic.main.activity_main.*
-
+import android.support.v4.util.Pair as UtilPair
 
 /**
  * Created by Al on 10/10/2018
  */
 
-class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSelectedListener, KegiatanListener {
 
     private val mainFragment = MainFragment()
     private val kegiatanFragment = KegiatanFragment()
@@ -55,35 +63,30 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.home -> {
-                setTitle(getString(R.string.title_home))
                 mFragmentManager.beginTransaction().hide(activeFragment).show(mainFragment).commit()
                 activeFragment = mainFragment
 
                 return true
             }
             R.id.meeting -> {
-                setTitle(getString(R.string.title_kegiatan))
                 mFragmentManager.beginTransaction().hide(activeFragment).show(kegiatanFragment).commit()
                 activeFragment = kegiatanFragment
 
                 return true
             }
             R.id.event -> {
-                setTitle(getString(R.string.title_event))
                 mFragmentManager.beginTransaction().hide(activeFragment).show(eventFragment).commit()
                 activeFragment = eventFragment
 
                 return true
             }
             R.id.satker -> {
-                setTitle(getString(R.string.title_satker))
                 mFragmentManager.beginTransaction().hide(activeFragment).show(satkerFragment).commit()
                 activeFragment = satkerFragment
 
                 return true
             }
             R.id.profile -> {
-                setTitle(getString(R.string.title_profile), true)
                 mFragmentManager.beginTransaction().hide(activeFragment).show(profileFragment).commit()
                 activeFragment = profileFragment
 
@@ -100,8 +103,6 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         mFragmentManager.beginTransaction().add(R.id.frameLayout, eventFragment, Constants.FRAGMENT.EVENT.NAME).hide(eventFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, kegiatanFragment, Constants.FRAGMENT.MEETING.NAME).hide(kegiatanFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, mainFragment, Constants.FRAGMENT.MAIN.NAME).commit()
-
-        setTitle(getString(R.string.title_home))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -290,6 +291,25 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
             golonganSnapshot!!.remove()
         if(userSnapshot != null)
             userSnapshot!!.remove()
+    }
+
+    override fun goToDetail(kegiatan: Kegiatan, nameView: View, anggaranView: View) {
+        val mIntent = Intent(context, DetailKegiatanActivity::class.java)
+
+        mIntent.putExtra(Constants.INTENT.DETAIL_KEGIATAN, kegiatan)
+        mIntent.putExtra("nameView", ViewCompat.getTransitionName(nameView))
+        mIntent.putExtra("anggaranView", ViewCompat.getTransitionName(anggaranView))
+
+        val p1= UtilPair.create(nameView, ViewCompat.getTransitionName(nameView)!!)
+        val p2= UtilPair.create(anggaranView, ViewCompat.getTransitionName(anggaranView)!!)
+
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                p1,
+                p2)
+
+        startActivity(mIntent, options.toBundle())
+
     }
 
 }

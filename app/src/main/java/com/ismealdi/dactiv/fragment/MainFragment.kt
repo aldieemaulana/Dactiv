@@ -1,6 +1,5 @@
 package com.ismealdi.dactiv.fragment
 
-import kotlin.coroutines.*;
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -20,6 +19,7 @@ import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Constants.INTENT.SELECTED_DATE
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.list_kegiatan_add.*
+import kotlinx.android.synthetic.main.view_empty_state.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,8 +35,11 @@ class MainFragment : AmFragment() {
 
     internal var currentDay = 0
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        textTitleToolbar.text = getString(R.string.title_home)
 
         initList()
         initCalendar()
@@ -104,7 +107,7 @@ class MainFragment : AmFragment() {
     private fun initList() {
         mActivity.showProgress()
 
-        mKegiatanAdapter = KegiatanAdapter(activity!!, mKegiatansFiltered)
+        mKegiatanAdapter = KegiatanAdapter(activity!!, mKegiatansFiltered, listener = mActivity)
 
         recyclerView.layoutManager = LinearLayoutManager(context,
                 LinearLayout.VERTICAL, false)
@@ -175,4 +178,5 @@ class MainFragment : AmFragment() {
 
         filterList(currentDay)
     }
+
 }

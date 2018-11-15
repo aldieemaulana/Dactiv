@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.support.constraint.ConstraintLayout
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -15,21 +17,22 @@ import android.widget.RelativeLayout
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanActivity
 import com.ismealdi.dactiv.components.AmTextView
+import com.ismealdi.dactiv.interfaces.KegiatanListener
 import com.ismealdi.dactiv.model.Kegiatan
 import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_KEGIATAN
 import kotlinx.android.synthetic.main.list_kegiatan.view.*
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class KegiatanAdapter(private var context: Context, private var kegiatans: MutableList<Kegiatan>, private var isFirstOff: Boolean = false, private var isTitled: Boolean = false) : RecyclerView.Adapter<KegiatanAdapter.ViewHolder>() {
+
+class KegiatanAdapter(private var context: Context, private var kegiatans: MutableList<Kegiatan>, private var isFirstOff: Boolean = false, private var isTitled: Boolean = false, private var listener: KegiatanListener? = null) : RecyclerView.Adapter<KegiatanAdapter.ViewHolder>() {
 
     private var headOf = ""
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val description: AmTextView = itemView.textName
-        val name: AmTextView = itemView.textTime
+        val name: AmTextView = itemView.textName
+        val description: AmTextView = itemView.textDescription
         val category: AmTextView = itemView.textCategory
         val state: AmTextView = itemView.textState
         val layoutLine: LinearLayout = itemView.layoutLine
@@ -71,7 +74,7 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
                 holder.lineBottom.visibility = View.GONE
             }
 
-            holder.name.setTextFade(kegiatan.name)
+            holder.name.text = kegiatan.name
             holder.category.setTextFade(holder.format!!.format(kegiatan.anggaran))
             holder.frame.alpha = 1f
 
@@ -105,7 +108,10 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
                 }
 
                 holder.frame.setOnClickListener {
-                    detail(kegiatan)
+                    if(listener == null)
+                        detail(kegiatan)
+                    else
+                        listener!!.goToDetail(kegiatan, holder.name, holder.category)
                 }
             }
         }

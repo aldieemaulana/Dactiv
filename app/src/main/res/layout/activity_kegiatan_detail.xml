@@ -51,7 +51,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextNormal"
                         style="@style/AppTheme.Margin.Horizontal"
-                        android:text="@string/text_eselon"
                         android:textSize="@dimen/text_normal"
                         android:layout_marginBottom="@dimen/component_small"/>
 
@@ -62,7 +61,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextLight"
                         style="@style/AppTheme.Margin.Horizontal"
-                        android:text="@string/text_kode_kegiatan"
                         android:textSize="@dimen/text_tiny"
                         android:layout_marginBottom="@dimen/component_medium"/>
 
@@ -83,8 +81,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextLight"
                         style="@style/AppTheme.Margin.Horizontal"
-                        android:textSize="@dimen/text_tiny"
-                        android:text="12 October 2018"/>
+                        android:textSize="@dimen/text_tiny"/>
 
                     <com.ismealdi.dactiv.components.AmTextView
                         app:AmFont="R"
@@ -146,7 +143,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextNormal"
                     android:layout_centerVertical="true"
-                    android:text="Aldi Maulana"
                     android:layout_marginRight="@dimen/component_medium"
                     android:textSize="@dimen/text_small" />
 

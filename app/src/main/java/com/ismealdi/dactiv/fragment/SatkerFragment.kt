@@ -18,6 +18,7 @@ import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_SATKER
 import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_SATKER_BAGIAN
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.view_empty_state.*
 
 
 class SatkerFragment : AmFragment() {
@@ -29,6 +30,8 @@ class SatkerFragment : AmFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        textTitleToolbar.text = getString(R.string.title_satker)
 
         initGrid()
         listener()
