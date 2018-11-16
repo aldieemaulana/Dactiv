@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MotionEvent
 import android.widget.TextView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MessageActivity
 import com.ismealdi.dactiv.activity.NotificationActivity
@@ -18,6 +20,7 @@ import com.ismealdi.dactiv.interfaces.AmConnectionInterface
 import com.ismealdi.dactiv.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_primary.*
+import kotlinx.android.synthetic.main.view_loader_state.*
 
 
 /**
@@ -29,6 +32,8 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
 
     private var connectionReceiver : ConnectionReceiver? = null
     private var isRegisteredReceiver: Boolean = false
+
+    protected var db : FirebaseFirestore? = null
 
     internal fun setTitle(title: String, isPrimary: Boolean = false) {
         if(textTitleToolbar.text != title) {
@@ -86,6 +91,13 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
     }
 
     fun initData(receiver: AmConnectionInterface) {
+
+        if(App.fireBaseAuth.currentUser != null) {
+            db = App.fireStoreBase
+
+            handleOnNotified()
+        }
+
         if(connectionReceiver == null) {
             connectionReceiver = ConnectionReceiver()
             connectionReceiver!!.registerReceiver(receiver)
@@ -96,13 +108,18 @@ open class AmActivity : AppCompatActivity(), AmConnectionInterface {
             registerReceiver(connectionReceiver, mIntentFilter)
             isRegisteredReceiver = true
         }
-
-        handleOnNotified()
     }
 
     override fun onConnectionChange(message: String) {
         showSnackBar(message)
         Logs.e(message)
+
+        if(textLoader != null) {
+            if(message.contains(getString(R.string.text_no_internet)))
+                textLoader.setTextFade(getString(R.string.text_offline))
+            else
+                textLoader.setTextFade("")
+        }
     }
 
     fun String.toNumber(): String {

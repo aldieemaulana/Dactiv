@@ -11,138 +11,137 @@
 
     <include layout="@layout/toolbar_primary"/>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_primary"
+        tools:context=".fragment.SatkerFragment"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:layout_insetEdge="top"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/colorBackgroundPrimary">
 
+        <requestFocus />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".fragment.SatkerFragment"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:background="@color/colorBackgroundPrimary">
+            android:background="@drawable/background"
+            style="@style/AppTheme.Layout.Vertical"
+            android:paddingBottom="0dp">
 
-            <requestFocus />
+            <com.ismealdi.dactiv.components.AmTextView
+                app:AmFont="M"
+                android:id="@+id/textName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextNormal"
+                style="@style/AppTheme.Margin.Horizontal"
+                android:textSize="@dimen/text_normal"
+                android:layout_marginBottom="@dimen/component_small"/>
+
+            <com.ismealdi.dactiv.components.AmTextView
+                app:AmFont="R"
+                android:id="@+id/textKodeKegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextLight"
+                style="@style/AppTheme.Margin.Horizontal"
+                android:textSize="@dimen/text_tiny"
+                android:layout_marginBottom="@dimen/component_medium"/>
+
+            <com.ismealdi.dactiv.components.AmTextView
+                app:AmFont="R"
+                android:id="@+id/textDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextNormal"
+                style="@style/AppTheme.Margin.Horizontal"
+                android:textSize="@dimen/text_small"
+                android:layout_marginBottom="@dimen/component_medium" />
+
+            <com.ismealdi.dactiv.components.AmTextView
+                app:AmFont="R"
+                android:id="@+id/textDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextLight"
+                style="@style/AppTheme.Margin.Horizontal"
+                android:textSize="@dimen/text_tiny"
+                android:text="12 October 2018"
+                android:layout_marginBottom="@dimen/component_big"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:paddingTop="@dimen/component_medium"
+                android:paddingBottom="@dimen/component_medium"
                 android:background="@drawable/background"
-                style="@style/AppTheme.Layout.Vertical"
-                android:paddingBottom="0dp">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <com.ismealdi.dactiv.components.AmTextView
                     app:AmFont="M"
-                    android:id="@+id/textName"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextNormal"
-                    style="@style/AppTheme.Margin.Horizontal"
-                    android:textSize="@dimen/text_normal"
-                    android:layout_marginBottom="@dimen/component_small"/>
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="R"
-                    android:id="@+id/textKodeKegiatan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextLight"
-                    style="@style/AppTheme.Margin.Horizontal"
-                    android:textSize="@dimen/text_tiny"
-                    android:layout_marginBottom="@dimen/component_medium"/>
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="R"
-                    android:id="@+id/textDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/component_medium"
                     android:textColor="@color/colorTextNormal"
                     style="@style/AppTheme.Margin.Horizontal"
                     android:textSize="@dimen/text_small"
-                    android:layout_marginBottom="@dimen/component_medium" />
-
-                <com.ismealdi.dactiv.components.AmTextView
-                    app:AmFont="R"
-                    android:id="@+id/textDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextLight"
-                    style="@style/AppTheme.Margin.Horizontal"
-                    android:textSize="@dimen/text_tiny"
-                    android:text="12 October 2018"
-                    android:layout_marginBottom="@dimen/component_big"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/component_medium"
-                    android:paddingBottom="@dimen/component_medium"
-                    android:background="@drawable/background"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <com.ismealdi.dactiv.components.AmTextView
-                        app:AmFont="M"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/component_medium"
-                        android:textColor="@color/colorTextNormal"
-                        style="@style/AppTheme.Margin.Horizontal"
-                        android:textSize="@dimen/text_small"
-                        android:text="@string/text_eselon"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerViewEselon"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:elevation="0dp"
-                        android:scrollbars="none"
-                        android:nestedScrollingEnabled="false"
-                        android:isScrollContainer="false"
-                        tools:targetApi="lollipop"
-                        tools:ignore="RtlSymmetry"/>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutContent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/background_primary">
-
-                <include layout="@layout/view_empty_state"/>
+                    android:text="@string/text_eselon"/>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                    android:id="@+id/recyclerViewEselon"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:elevation="0dp"
                     android:scrollbars="none"
-                    style="@style/AppTheme.Layout.Vertical"
-                    android:paddingTop="@dimen/activity_vertical_margin_small"
-                    android:paddingLeft="@dimen/activity_horizontal_margin_small"
-                    android:paddingRight="@dimen/activity_horizontal_margin_small"
                     android:nestedScrollingEnabled="false"
                     android:isScrollContainer="false"
                     tools:targetApi="lollipop"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RtlSymmetry"/>
 
             </LinearLayout>
 
+
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:id="@+id/layoutContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_primary">
+
+            <include layout="@layout/view_empty_state"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="0dp"
+                android:fadingEdge="none"
+                android:scrollbars="none"
+                style="@style/AppTheme.Layout.Vertical"
+                android:paddingTop="@dimen/activity_vertical_margin_small"
+                android:paddingLeft="@dimen/activity_horizontal_margin_small"
+                android:paddingRight="@dimen/activity_horizontal_margin_small"
+                android:nestedScrollingEnabled="false"
+                android:isScrollContainer="false"
+                tools:targetApi="lollipop"
+                tools:ignore="RtlSymmetry" />
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/AppTheme.Margin.Small"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                layout="@layout/view_loader_state" android:id="@+id/viewLoader"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

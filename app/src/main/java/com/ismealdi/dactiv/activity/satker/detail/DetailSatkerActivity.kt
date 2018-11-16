@@ -2,15 +2,14 @@ package com.ismealdi.dactiv.activity.satker.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.content.ContextCompat
-import android.support.v4.util.Pair
-import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.text.format.DateFormat
 import android.view.View
 import android.widget.LinearLayout
+import com.google.firebase.firestore.ListenerRegistration
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MessageActivity
@@ -68,12 +67,14 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanLi
         setTitle(getString(R.string.title_detail))
         buttonBackToolbar.visibility = View.VISIBLE
         buttonMenuToolbar.visibility = View.VISIBLE
+        buttonAdd.visibility = View.GONE
         buttonMenuToolbar.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_plus))
 
         textName.text = mSatker.name
         textKodeKegiatan.text = Utils.stringKodeFormat(mSatker.kodeSatker)
         textDescription.text = mSatker.description
         textDate.text = DateFormat.format("d MMMM yyyy hh:mm", mSatker.createdOn.toDate()).toString()
+
     }
 
     private fun initList() {
@@ -95,9 +96,9 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanLi
         init()
     }
 
-    override fun populateList(mKegiatans: MutableList<Kegiatan>) {
-        mAdapter.updateData(mKegiatans)
-        showEmpty((mKegiatans.size == 0))
+    override fun populateList(kegiatans: MutableList<Kegiatan>) {
+        mAdapter.updateData(kegiatans)
+        showEmpty((kegiatans.size == 0), Constants.SHARED.defaultDelay)
     }
 
     override fun populateEselonList(eselons: MutableList<User>) {
@@ -124,7 +125,7 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanLi
         }
     }
 
-    private fun showEmpty(b: Boolean) {
+    private fun showEmpty(b: Boolean, delay: Int = 0) {
         if(b) {
             if(layoutEmpty != null) layoutEmpty.visibility = View.VISIBLE
             if(recyclerView != null) recyclerView.visibility = View.GONE
@@ -132,6 +133,10 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanLi
             if(layoutEmpty != null) layoutEmpty.visibility = View.GONE
             if(recyclerView != null) recyclerView.visibility = View.VISIBLE
         }
+
+        Handler().postDelayed({
+            loader(false)
+        }, delay.toLong())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -156,11 +161,6 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanLi
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        presenter.killSnapshot()
-    }
-
     override fun goToDetail(kegiatan: Kegiatan, nameView: View, anggaranView: View) {
         val mIntent = Intent(this, DetailKegiatanActivity::class.java)
 
@@ -179,6 +179,18 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanLi
         startActivity(mIntent, options.toBundle())*/
         startActivity(mIntent)
 
+    }
+
+    override fun loader(boolean: Boolean) {
+        if(viewLoader != null) {
+            if((viewLoader.visibility == View.GONE && boolean) || (viewLoader.visibility == View.VISIBLE && !boolean))
+                viewLoader.visibility = if (boolean) View.VISIBLE else View.GONE
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.killSnapshot()
     }
 
 }

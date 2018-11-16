@@ -25,6 +25,8 @@ interface DetailSatkerContract {
 
         fun populateEselonList(eselons: MutableList<User>)
 
+        fun loader(boolean: Boolean)
+
     }
 
     interface Presenter : AmPresenter {

@@ -32,7 +32,7 @@
     <string name="text_nip">NIP</string>
     <string name="text_nip_hint">Nomor Induk Pegawai</string>
     <string name="text_close">Close</string>
-    <string name="text_no_satker_data">We are not able to show any data for you because there is nothing to show</string>
+    <string name="text_no_satker_data">We not able to show any data for you because there is nothing to show</string>
     <string name="text_ooh">Ouuuh!</string>
     <string name="text_automatic_data">or</string>
     <string name="text_add">Add Record</string>
@@ -83,5 +83,6 @@
     <string name="text_kehadiran">Kehadiran</string>
     <string name="text_realisasi">Realisasi Anggaran</string>
     <string name="text_tanggal_pelaksanaan">Tanggal Pelaksanaan</string>
+    <string name="text_offline">No Internet, Don\'t worry we will try to catch the data from our secret place.</string>
 
 </resources>

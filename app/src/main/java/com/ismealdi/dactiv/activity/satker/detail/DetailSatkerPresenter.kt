@@ -41,7 +41,6 @@ class DetailSatkerPresenter(private val view: DetailSatkerContract.View, val con
             return
         }
 
-
         val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
 
         kegiatanSnapshot = database.kegiatan().whereEqualTo(kegiatanFields.satker, id).orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING).addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
