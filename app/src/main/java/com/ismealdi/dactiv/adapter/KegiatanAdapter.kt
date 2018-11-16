@@ -75,7 +75,7 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
             }
 
             holder.name.text = kegiatan.name
-            holder.category.setTextFade(holder.format!!.format(kegiatan.anggaran))
+            holder.category.text = holder.format!!.format(kegiatan.anggaran)
             holder.frame.alpha = 1f
 
             val day = DateFormat.format("d MMMM yyyy", kegiatan.jadwal)
@@ -83,7 +83,7 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
             if(isTitled && headOf != day) {
                 headOf = day.toString()
                 holder.layoutTitle.visibility = View.VISIBLE
-                holder.date.setTextFade(headOf)
+                holder.date.text = headOf
             }else{
                 holder.layoutTitle.visibility = View.GONE
             }
@@ -92,10 +92,10 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
             if(kegiatan.status == -1) {
                 holder.frame.alpha = .4f
                 holder.state.visibility = View.INVISIBLE
-                holder.description.setTextFade("Belum Terupload")
+                holder.description.text = "Belum Terupload"
             }else{
                 holder.state.visibility = View.VISIBLE
-                holder.description.setTextFade(status[kegiatan.status])
+                holder.description.text = status[kegiatan.status]
 
                 if(kegiatan.status == 2) {
                     holder.circle.background = ContextCompat.getDrawable(context, R.drawable.state_green)

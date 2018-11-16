@@ -29,7 +29,7 @@ class EselonAdapter(private var users: MutableList<User>, private var detailSatk
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = users[holder.adapterPosition]
 
-        holder.name.setTextFade(user.displayName)
+        holder.name.text = user.displayName
 
         holder.onlineState.visibility = if(user.onlineUser) View.VISIBLE else View.GONE
 

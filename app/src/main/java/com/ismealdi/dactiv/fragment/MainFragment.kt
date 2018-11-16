@@ -5,11 +5,11 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.LinearLayout
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MainActivity
@@ -35,10 +35,10 @@ class MainFragment : AmFragment() {
 
     private var mKegiatans : MutableList<Kegiatan> = mutableListOf()
     private var mKegiatansFiltered : MutableList<Kegiatan> = mutableListOf()
+    private var currentMonth = -1
+    private var currentYear = -1
 
     internal var currentDay = 0
-    internal var currentMonth = 0
-    internal var currentYear = 0
 
     private lateinit var datePicker: DatePickerDialog
 
@@ -106,6 +106,7 @@ class MainFragment : AmFragment() {
 
         mActivity.hideProgress()
 
+        filterList(currentDay)
         recyclerViewCalendar.scrollToPosition(currentDay - 1)
 
         initCalendarDialog()
@@ -177,7 +178,7 @@ class MainFragment : AmFragment() {
         startActivityForResult(intent, Constants.INTENT.ACTIVITY.ADD_KEGIATAN)
     }
 
-    private fun showEmpty(b: Boolean) {
+    private fun showEmpty(b: Boolean, delay: Int = 0) {
         if(b) {
             if(layoutEmpty != null) layoutEmpty.visibility = View.VISIBLE
             if(recyclerView != null) recyclerView.visibility = View.GONE
@@ -187,6 +188,11 @@ class MainFragment : AmFragment() {
             if(recyclerView != null) recyclerView.visibility = View.VISIBLE
             if(layoutAddMore != null) layoutAddMore.visibility = View.VISIBLE
         }
+
+        Handler().postDelayed({
+            loader(false)
+        }, delay.toLong())
+
     }
 
     override fun onAttach(context: Context?) {
@@ -203,7 +209,7 @@ class MainFragment : AmFragment() {
 
     private fun updateList() {
         mKegiatanAdapter.updateData(mKegiatansFiltered)
-        showEmpty((mKegiatansFiltered.size == 0))
+        showEmpty((mKegiatansFiltered.size == 0), Constants.SHARED.defaultDelay)
     }
 
     internal fun filterList(currentDay: Int, month: Int = -1, year: Int = -1) {
@@ -228,6 +234,8 @@ class MainFragment : AmFragment() {
 
         this.mKegiatansFiltered.clear()
         this.mKegiatansFiltered = mKegiatansFiltered
+
+
         updateList()
     }
 
@@ -236,6 +244,13 @@ class MainFragment : AmFragment() {
         this.mKegiatans = mKegiatans
 
         filterList(currentDay)
+    }
+
+    fun loader(b: Boolean) {
+        if(viewLoader != null) {
+            if((viewLoader.visibility == View.GONE && b) || (viewLoader.visibility == View.VISIBLE && !b))
+                viewLoader.visibility = if (b) View.VISIBLE else View.GONE
+        }
     }
 
 }

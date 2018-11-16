@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -65,8 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextDark"
-                        android:textSize="@dimen/text_medium"
-                        tools:text="@tools:sample/full_names"/>
+                        android:textSize="@dimen/text_medium"/>
                     <View
                         app:layout_constraintLeft_toRightOf="@id/textName"
                         android:layout_marginLeft="@dimen/component_small"
@@ -87,7 +86,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextDark"
                     android:textSize="@dimen/text_small"
-                    tools:text="@tools:sample/cities"
                     android:layout_marginBottom="@dimen/component_big"/>
 
                 <View  android:layout_gravity="center" android:layout_width="180dp" android:layout_height="@dimen/divider_half" android:background="@drawable/divider"
@@ -237,11 +235,10 @@
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
-                tools:src="@tools:sample/avatars"
                 android:src="@drawable/empty_circle"/>
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

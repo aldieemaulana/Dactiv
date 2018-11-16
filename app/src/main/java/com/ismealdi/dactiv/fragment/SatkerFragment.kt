@@ -3,6 +3,7 @@ package com.ismealdi.dactiv.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,8 @@ import com.ismealdi.dactiv.model.Satker
 import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_SATKER
 import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_SATKER_BAGIAN
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_satker.*
+import kotlinx.android.synthetic.main.toolbar_primary.*
 import kotlinx.android.synthetic.main.view_empty_state.*
 
 
@@ -70,7 +72,7 @@ class SatkerFragment : AmFragment() {
         updateStateOfUser(mCategory)
     }
 
-    private fun showEmpty(b: Boolean) {
+    private fun showEmpty(b: Boolean, delay: Int = 0) {
         if(b) {
             if(layoutEmpty != null) layoutEmpty.visibility = View.VISIBLE
             if(recyclerView != null) recyclerView.visibility = View.GONE
@@ -78,13 +80,18 @@ class SatkerFragment : AmFragment() {
             if(layoutEmpty != null) layoutEmpty.visibility = View.GONE
             if(recyclerView != null) recyclerView.visibility = View.VISIBLE
         }
+
+        Handler().postDelayed({
+            loader(false)
+        }, delay.toLong())
+
     }
 
     fun updateList(mSatkersNew: MutableList<Satker>) {
         mSatkers.clear()
         mSatkers.addAll(mSatkersNew)
         mAdapter.updateData(mSatkersNew)
-        showEmpty((mSatkers.size == 0))
+        showEmpty((mSatkers.size == 0), Constants.SHARED.defaultDelay)
     }
 
     fun updateStateOfUser(category: Int) {
@@ -101,6 +108,13 @@ class SatkerFragment : AmFragment() {
 
         startActivity(mIntent)
 
+    }
+
+    fun loader(b: Boolean) {
+        if(viewLoader != null) {
+            if((viewLoader.visibility == View.GONE && b) || (viewLoader.visibility == View.VISIBLE && !b))
+                viewLoader.visibility = if (b) View.VISIBLE else View.GONE
+        }
     }
 
 }

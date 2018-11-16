@@ -20,8 +20,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@drawable/shape_calendar"
-        android:textSize="@dimen/text_medium"
-        android:text="12"/>
+        android:textSize="@dimen/text_medium" />
 
     <com.ismealdi.dactiv.components.AmTextView
         app:AmFont="M"
@@ -31,7 +30,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@drawable/shape_calendar"
-        android:textSize="@dimen/text_tiny"
-        android:text="Sat"/>
+        android:textSize="@dimen/text_tiny" />
 
 </android.support.constraint.ConstraintLayout>

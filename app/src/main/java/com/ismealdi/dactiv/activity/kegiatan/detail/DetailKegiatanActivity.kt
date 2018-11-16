@@ -54,7 +54,6 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
     private lateinit var mAdapter : UserAdapter
     private var format: NumberFormat? = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
     private val request = 20
-    private var detector: BarcodeDetector? = null
     private val capture = 9001
 
     private lateinit var datePicker: DatePickerDialog
@@ -116,15 +115,14 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
     }
 
     override fun setData(kegiatan: Kegiatan) {
-        textName.setTextFade(kegiatan.name)
-        textKodeKegiatan.setTextFade(Utils.stringKodeFormat(kegiatan.kodeKegiatan))
-        textAnggaran.setTextFade(format!!.format(kegiatan.anggaran))
-        textDate.setTextFade(DateFormat.format("d MMMM yyyy hh:mm", kegiatan.jadwal).toString())
+        textName.text = kegiatan.name
+        textKodeKegiatan.text = Utils.stringKodeFormat(kegiatan.kodeKegiatan)
+        textAnggaran.text = format!!.format(kegiatan.anggaran)
+        textDate.text = DateFormat.format("d MMMM yyyy hh:mm", kegiatan.jadwal).toString()
+        buttonMessage.isEnabled = false
 
         val bitmap = QRCode.from(kegiatan.id).withSize(1000, 1000).bitmap()
         imageBarCode.setImageBitmap(bitmap)
-
-        checkState()
 
         if(App.fireBaseAuth.currentUser != null) {
 
@@ -138,23 +136,19 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
                 layoutDeskripsi.isEnabled = false
             }else if(kegiatan.status == 4){
                 textAlasan.visibility = View.VISIBLE
-                textAlasan.setTextFade(kegiatan.alasan)
+                textAlasan.text = kegiatan.alasan
                 val persentase = ((kegiatan.realisasi.toFloat() / kegiatan.anggaran.toFloat()) * 100)
-                textAnggaran.setTextFade(format!!.format(kegiatan.realisasi) + " (${String.format("%2.02f", persentase)}%) ")
-                textDate.setTextFade(DateFormat.format("d MMMM yyyy hh:mm", kegiatan.pelaksanaan).toString())
+                textAnggaran.text = format!!.format(kegiatan.realisasi) + " (${String.format("%2.02f", persentase)}%) "
+                textDate.text = DateFormat.format("d MMMM yyyy hh:mm", kegiatan.pelaksanaan).toString()
             }
 
-            buttonAlarm.isEnabled = false
-            buttonMessage.isEnabled = false
             presenter.penanggungJawab(kegiatan.penanggungJawab)
-
             mKegiatan = kegiatan
         }
 
     }
 
     private fun initList() {
-
         mAdapter = UserAdapter(mutableListOf(), mutableListOf())
         recyclerView.layoutManager = LinearLayoutManager(applicationContext,
                 LinearLayout.VERTICAL, false)
@@ -170,9 +164,6 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         if(mKegiatan.status != 1 || mKegiatan.attendent.any { x -> x.user == App.fireBaseAuth.currentUser!!.uid }) {
             buttonMenuToolbar.visibility = View.GONE
             layoutAdmin.visibility = View.GONE
-            buttonAlarm.isEnabled = false
-            buttonMessage.isEnabled = false
-
         }
     }
 
@@ -217,16 +208,14 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
                 callBarcode()
             }
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == capture) {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
-                    val barcode: Barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject)
-                    if(barcode != null) {
-                        presenter.doAttend(barcode.displayValue, mKegiatan)
+                    (data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject) as Barcode).let {
+                        presenter.doAttend(it.displayValue, mKegiatan)
                     }
                 }
             } else {
@@ -237,10 +226,11 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun displayPenanggunJawab(user: User) {
         if(App.fireBaseAuth.currentUser != null) {
             buttonMessage.isEnabled = true
-            textPenanggung.setTextFade(getString(R.string.text_admin) + ": ${user.displayName}")
+            textPenanggung.text = getString(R.string.text_admin) + ": ${user.displayName}"
             if (App.fireBaseAuth.currentUser!!.uid != user.uid) {
                 buttonMessage.setOnClickListener {
                     openMessage(user)
@@ -270,10 +260,12 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
 
     override fun onDoneAttend() {
         checkState()
+        //TODO when is attended
     }
 
     override fun onDoneKegiatan() {
         checkState()
+        //TODO when is done
     }
 
     private fun remindAll(kegiatan: String, penanggung: User) {

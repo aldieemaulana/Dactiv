@@ -64,4 +64,11 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/AppTheme.Margin.Small"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        layout="@layout/view_loader_state" android:id="@+id/viewLoader"/>
+
 </android.support.design.widget.CoordinatorLayout>

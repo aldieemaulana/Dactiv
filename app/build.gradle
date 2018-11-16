@@ -17,7 +17,7 @@ android {
         minSdkVersion rootProject.ext.minsdk_version
         targetSdkVersion rootProject.ext.targetsdk_version
         versionCode 1
-        versionName "0.0.5"
+        versionName "0.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }

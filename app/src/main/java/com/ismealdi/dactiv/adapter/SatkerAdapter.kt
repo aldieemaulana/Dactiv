@@ -40,9 +40,9 @@ class SatkerAdapter(private var satkers: MutableList<Satker>, private val contex
         if(satker.id != "0") {
             holder.frame.visibility = View.VISIBLE
             holder.more.visibility = View.GONE
-            holder.name.setTextFade(satker.name)
-            holder.description.setTextFade(satker.description)
-            holder.buttonMore.setTextFade(Utils.stringKodeFormat(satker.kodeSatker))
+            holder.name.text = satker.name
+            holder.description.text = satker.description
+            holder.buttonMore.text = Utils.stringKodeFormat(satker.kodeSatker)
             holder.frame.alpha = 1f
 
             if(satker.admin == "-1") {
@@ -56,8 +56,8 @@ class SatkerAdapter(private var satkers: MutableList<Satker>, private val contex
 
         }else{
             holder.frame.visibility = View.GONE
-            holder.name.setTextFade("")
-            holder.description.setTextFade("")
+            holder.name.text = ""
+            holder.description.text = ""
             holder.more.visibility = View.VISIBLE
             holder.buttonAdd.setOnClickListener {
                 context.buttonAdd.performClick()

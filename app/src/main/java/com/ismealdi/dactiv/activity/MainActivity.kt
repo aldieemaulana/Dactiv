@@ -1,17 +1,14 @@
 package com.ismealdi.dactiv.activity
 
 import android.app.Activity
-import android.app.ActivityOptions
-import android.content.ClipDescription
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewCompat
 import android.view.MenuItem
 import android.view.View
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
@@ -20,7 +17,6 @@ import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanActivity
 import com.ismealdi.dactiv.activity.signin.SignInActivity
 import com.ismealdi.dactiv.activity.profile.ProfileActivity
 import com.ismealdi.dactiv.base.AmDraftActivity
-import com.ismealdi.dactiv.components.AmTextView
 import com.ismealdi.dactiv.fragment.KegiatanFragment
 import com.ismealdi.dactiv.fragment.MainFragment
 import com.ismealdi.dactiv.fragment.ProfileFragment
@@ -28,7 +24,6 @@ import com.ismealdi.dactiv.fragment.SatkerFragment
 import com.ismealdi.dactiv.interfaces.KegiatanListener
 import com.ismealdi.dactiv.model.*
 import com.ismealdi.dactiv.services.AmMessagingService
-import com.ismealdi.dactiv.services.AmTaskService
 import com.ismealdi.dactiv.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.util.Pair as UtilPair
@@ -45,9 +40,9 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     private val satkerFragment = SatkerFragment()
     private val profileFragment = ProfileFragment()
     private var mRevealAnimation : RevealAnimation? = null
+    private var activeFragment : Fragment = mainFragment
 
     internal var mUser : User? = null
-    internal var activeFragment : Fragment = mainFragment
     internal val mFragmentManager = supportFragmentManager
 
     private var userSnapshot : ListenerRegistration? = null
@@ -162,10 +157,6 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
                     satkerFragment.updateStateOfUser(user.category)
                     msg!!.subscribeToTopic(user.bagian.toString())
 
-                    getRealTimeKegiatan()
-                    getRealTimeGolongan(user.golongan.toString())
-                    getRealTimeJabatan(user.bagian.toString())
-
                 }
             }
 
@@ -204,10 +195,26 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
 
         val mSatkers : MutableList<Satker> = mutableListOf()
 
+        if(Preferences(this).getFirstLoadSatker()) {
+            satkerFragment.loader(true)
+            Preferences(this).storeFirstLoadSatker(false)
+        }
+
         satkerSnapshot = db?.satker()?.orderBy(satkerFields.createdOn, Query.Direction.DESCENDING)!!.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, _ ->
 
             if (documentSnapshot != null) {
+
                 mSatkers.clear()
+
+                run loop@{
+                    documentSnapshot.documentChanges.forEach {
+                        if(it.type == DocumentChange.Type.ADDED) {
+                            satkerFragment.loader(true)
+
+                            return@loop
+                        }
+                    }
+                }
 
                 documentSnapshot.documents.forEach {
                     val mSatker = it.toObject(Satker::class.java)
@@ -233,13 +240,29 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     }
 
     private fun getRealTimeKegiatan() {
+        val mKegiatans : MutableList<Kegiatan> = mutableListOf()
 
-        val  mKegiatans : MutableList<Kegiatan> = mutableListOf()
+        if(Preferences(this).getFirstLoadKegiatan()) {
+            kegiatanFragment.loader(true)
+            mainFragment.loader(true)
+            Preferences(this).storeFirstLoadKegiatan(false)
+        }
 
         kegiatanSnapshot = db?.kegiatan()?.orderBy(kegiatanFields.jadwal, Query.Direction.DESCENDING)!!.addSnapshotListener(MetadataChanges.INCLUDE) { documentSnapshot, _ ->
 
             if (documentSnapshot != null) {
                 mKegiatans.clear()
+
+                run loop@{
+                    documentSnapshot.documentChanges.forEach {
+                        if(it.type == DocumentChange.Type.ADDED) {
+                            kegiatanFragment.loader(true)
+                            mainFragment.loader(true)
+
+                            return@loop
+                        }
+                    }
+                }
 
                 documentSnapshot.documents.forEach {
                     val mKegiatan = it.toObject(Kegiatan::class.java)
@@ -253,7 +276,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
                 }
 
                 mainFragment.resetList(mKegiatans)
-                kegiatanFragment.updateList(mKegiatans)
+                kegiatanFragment.resetList(mKegiatans)
             }
 
         }
@@ -297,18 +320,17 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         val mIntent = Intent(context, DetailKegiatanActivity::class.java)
 
         mIntent.putExtra(Constants.INTENT.DETAIL_KEGIATAN, kegiatan)
-        mIntent.putExtra("nameView", ViewCompat.getTransitionName(nameView))
+
+        /*mIntent.putExtra("nameView", ViewCompat.getTransitionName(nameView))
         mIntent.putExtra("anggaranView", ViewCompat.getTransitionName(anggaranView))
 
-        /*val p1= UtilPair.create(nameView, ViewCompat.getTransitionName(nameView)!!)
+        val p1= UtilPair.create(nameView, ViewCompat.getTransitionName(nameView)!!)
         val p2= UtilPair.create(anggaranView, ViewCompat.getTransitionName(anggaranView)!!)
 
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                this,
-                p1,
-                p2)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,p1,p2)
 
         startActivity(mIntent, options.toBundle())*/
+
         startActivity(mIntent)
 
     }

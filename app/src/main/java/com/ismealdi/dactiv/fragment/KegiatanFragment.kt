@@ -3,6 +3,7 @@ package com.ismealdi.dactiv.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -70,7 +71,7 @@ class KegiatanFragment : AmFragment() {
         startActivityForResult(Intent(context, AddKegiatanActivity::class.java), Constants.INTENT.ACTIVITY.ADD_KEGIATAN_MAIN)
     }
 
-    private fun showEmpty(b: Boolean) {
+    private fun showEmpty(b: Boolean, delay: Int = 0) {
         if(b) {
             if(layoutEmpty != null) layoutEmpty.visibility = View.VISIBLE
             if(recyclerView != null) recyclerView.visibility = View.GONE
@@ -80,6 +81,11 @@ class KegiatanFragment : AmFragment() {
             if(recyclerView != null) recyclerView.visibility = View.VISIBLE
             if(layoutAddMore != null) layoutAddMore.visibility = View.VISIBLE
         }
+
+        Handler().postDelayed({
+            loader(false)
+        }, delay.toLong())
+
     }
 
     override fun onAttach(context: Context?) {
@@ -88,8 +94,16 @@ class KegiatanFragment : AmFragment() {
         mActivity = activity as MainActivity
     }
 
-    internal fun updateList(mKegiatans: MutableList<Kegiatan>) {
+    internal fun resetList(mKegiatans: MutableList<Kegiatan>) {
         mAdapter.updateData(mKegiatans)
-        showEmpty((mKegiatans.size == 0))
+        showEmpty((mKegiatansFiltered.size == 0), Constants.SHARED.defaultDelay)
+    }
+
+
+    fun loader(b: Boolean) {
+        if(viewLoader != null) {
+            if((viewLoader.visibility == View.GONE && b) || (viewLoader.visibility == View.VISIBLE && !b))
+                viewLoader.visibility = if (b) View.VISIBLE else View.GONE
+        }
     }
 }

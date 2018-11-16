@@ -31,4 +31,27 @@ class Preferences(context: Context) {
     fun getUid() : String {
         return sharedPref.getString(Constants.SHARED.userUid, "")!!
     }
+
+    fun storeFirstLoadKegiatan(boolean: Boolean) {
+        with (sharedPref.edit()) {
+            putBoolean(Constants.SHARED.firstLoadKegiatan, boolean)
+            apply()
+        }
+    }
+
+    fun getFirstLoadKegiatan() : Boolean {
+        return sharedPref.getBoolean(Constants.SHARED.firstLoadKegiatan, false)
+    }
+
+    fun storeFirstLoadSatker(boolean: Boolean) {
+        with (sharedPref.edit()) {
+            putBoolean(Constants.SHARED.firstLoadSatker, boolean)
+            apply()
+        }
+    }
+
+    fun getFirstLoadSatker() : Boolean {
+        return sharedPref.getBoolean(Constants.SHARED.firstLoadSatker, false)
+    }
+
 }

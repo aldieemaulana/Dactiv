@@ -40,9 +40,9 @@ class UserAdapter(private var users: MutableList<Attendent>, private var mUsers:
             }
 
             if (DateFormat.format("d MMMM yyyy", user.attendOn.toDate()) != DateFormat.format("d MMMM yyyy", Calendar.getInstance())) {
-                holder.time.setTextFade(DateFormat.format("d MMMM hh:mm", user.attendOn.toDate()).toString())
+                holder.time.text = DateFormat.format("d MMMM hh:mm", user.attendOn.toDate()).toString()
             }else{
-                holder.time.setTextFade(DateFormat.format("hh:mm", user.attendOn.toDate()).toString())
+                holder.time.text = DateFormat.format("hh:mm", user.attendOn.toDate()).toString()
             }
 
             holder.frame.setOnClickListener {

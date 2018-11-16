@@ -73,6 +73,9 @@ open class Constants {
     object SHARED {
         const val pushToken = "SHARED_PUSH_TOKEN"
         const val userUid = "SHARED_UID"
+        const val firstLoadKegiatan = "SHARED_FIRST_LOAD_KEGIATAN"
+        const val firstLoadSatker = "SHARED_FIRST_LOAD_SATKER"
         const val user = "SHARED_USER"
+        const val defaultDelay = 1500
     }
 }

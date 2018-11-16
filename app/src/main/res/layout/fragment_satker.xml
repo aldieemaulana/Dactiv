@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundPrimary">
 
     <include layout="@layout/toolbar_primary"/>
 
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".fragment.SatkerFragment"
@@ -48,8 +49,14 @@
                     tools:ignore="RtlSymmetry" />
 
             </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/AppTheme.Margin.Small"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        layout="@layout/view_loader_state" android:id="@+id/viewLoader"/>
 
 </android.support.design.widget.CoordinatorLayout>

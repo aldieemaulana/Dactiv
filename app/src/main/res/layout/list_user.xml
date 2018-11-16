@@ -29,6 +29,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="1dp"
         android:layout_height="6dp"
-        android:background="@drawable/label_cancelled"/>
+        android:background="@drawable/label_cancelled"
+        android:layout_marginStart="@dimen/component_small" />
 
 </LinearLayout>

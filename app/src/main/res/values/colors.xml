@@ -21,6 +21,7 @@
 
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorWhiteSmoke">#F2F2F2</color>
+    <color name="colorWhiteTransparent">#d7ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorTransparent">#00ffffff</color>
 

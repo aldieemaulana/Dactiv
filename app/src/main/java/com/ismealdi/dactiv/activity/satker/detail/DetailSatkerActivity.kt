@@ -70,10 +70,10 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanLi
         buttonMenuToolbar.visibility = View.VISIBLE
         buttonMenuToolbar.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_plus))
 
-        textName.setTextFade(mSatker.name)
-        textKodeKegiatan.setTextFade(Utils.stringKodeFormat(mSatker.kodeSatker))
-        textDescription.setTextFade(mSatker.description)
-        textDate.setTextFade(DateFormat.format("d MMMM yyyy hh:mm", mSatker.createdOn.toDate()).toString())
+        textName.text = mSatker.name
+        textKodeKegiatan.text = Utils.stringKodeFormat(mSatker.kodeSatker)
+        textDescription.text = mSatker.description
+        textDate.text = DateFormat.format("d MMMM yyyy hh:mm", mSatker.createdOn.toDate()).toString()
     }
 
     private fun initList() {
@@ -165,10 +165,10 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanLi
         val mIntent = Intent(this, DetailKegiatanActivity::class.java)
 
         mIntent.putExtra(Constants.INTENT.DETAIL_KEGIATAN, kegiatan)
-        mIntent.putExtra("nameView", ViewCompat.getTransitionName(nameView))
-        mIntent.putExtra("anggaranView", ViewCompat.getTransitionName(anggaranView))
+        /*mIntent.putExtra("nameView", ViewCompat.getTransitionName(nameView))
+        mIntent.putExtra("anggaranView", ViewCompat.getTransitionName(anggaranView))*/
 
-        val p1= Pair.create(nameView, ViewCompat.getTransitionName(nameView)!!)
+        /*val p1= Pair.create(nameView, ViewCompat.getTransitionName(nameView)!!)
         val p2= Pair.create(anggaranView, ViewCompat.getTransitionName(anggaranView)!!)
 
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
@@ -176,7 +176,8 @@ class DetailSatkerActivity : AmActivity(), DetailSatkerContract.View, KegiatanLi
                 p1,
                 p2)
 
-        startActivity(mIntent, options.toBundle())
+        startActivity(mIntent, options.toBundle())*/
+        startActivity(mIntent)
 
     }
 

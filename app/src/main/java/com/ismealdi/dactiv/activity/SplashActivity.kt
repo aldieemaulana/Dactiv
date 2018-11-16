@@ -16,10 +16,6 @@ import com.ismealdi.dactiv.util.Constants
 import com.ismealdi.dactiv.util.Preferences
 import com.ismealdi.dactiv.util.RevealAnimation
 import kotlinx.android.synthetic.main.activity_splash.*
-import com.google.firebase.messaging.RemoteMessage
-import com.google.firebase.messaging.FirebaseMessaging
-
-
 
 
 /**
@@ -36,12 +32,9 @@ class SplashActivity : AmDraftActivity() {
     }
 
     private fun handler(duration: Long) {
-        val mHandler = Handler()
-        val mRunnable = Runnable {
+        Handler().postDelayed({
             startAnActivity(layoutParent)
-        }
-
-        mHandler.postDelayed(mRunnable, duration)
+        }, duration)
     }
 
     private fun startAnActivity(v: View) {
@@ -57,6 +50,9 @@ class SplashActivity : AmDraftActivity() {
             AmMessagingService().storeOnline(true)
             startService(Intent(baseContext, AmTaskService::class.java))
 
+            Preferences(this).storeFirstLoadKegiatan(true)
+            Preferences(this).storeFirstLoadSatker(true)
+
             if(this.intent.extras != null) {
                 if(!this.intent.getStringExtra("google.delivered_priority").isNullOrEmpty() &&
                         this.intent.getStringExtra("title").isNotEmpty()) {
@@ -68,6 +64,8 @@ class SplashActivity : AmDraftActivity() {
                     intent.putExtra(Constants.INTENT.LOGIN.PUSH.ID, this.intent.getStringExtra("google.message_id"))
                 }
             }
+
+
         }else{
             msg!!.unsubscribeFromTopic(getString(R.string.default_channel))
         }

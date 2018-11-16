@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -50,7 +52,8 @@ public final class BarcodeCaptureActivity extends AmActivity implements BarcodeG
     private CameraSource.Builder builder;
     boolean useFlash = false;
 
-    AppCompatImageButton buttonFlash, buttonSearch;
+    AppCompatImageButton buttonSearch, buttonBack;
+    ToggleButton buttonFlash;
 
     /**
      * Initializes the UI and creates the detector pipeline.
@@ -60,11 +63,12 @@ public final class BarcodeCaptureActivity extends AmActivity implements BarcodeG
         super.onCreate(icicle);
         setContentView(R.layout.activity_barcode_capture);
 
-        mPreview = (CameraSourcePreview) findViewById(R.id.preview);
-        mGraphicOverlay = (GraphicOverlay<BarcodeGraphic>) findViewById(R.id.graphicOverlay);
+        mPreview = findViewById(R.id.preview);
+        mGraphicOverlay = findViewById(R.id.graphicOverlay);
         //AppCompatImageButton buttonBackToolbar = (AppCompatImageButton) findViewById(R.id.buttonBackToolbar);
-        buttonSearch = (AppCompatImageButton) findViewById(R.id.buttonSearch);
-        buttonFlash = (AppCompatImageButton) findViewById(R.id.buttonFlash);
+        buttonSearch = findViewById(R.id.buttonSearch);
+        buttonBack = findViewById(R.id.buttonBack);
+        buttonFlash = findViewById(R.id.buttonFlash);
 
         boolean autoFocus = getIntent().getBooleanExtra(AutoFocus, true);
         final boolean useFlash = getIntent().getBooleanExtra(UseFlash, false);
@@ -83,6 +87,17 @@ public final class BarcodeCaptureActivity extends AmActivity implements BarcodeG
         );*/
 
         buttonSearch.setEnabled(false);
+        buttonFlash.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(mCameraSource.getFlashMode() != null) {
+                    mCameraSource.setFlashMode((mCameraSource.getFlashMode().equals(Camera.Parameters.FLASH_MODE_TORCH)) ? Camera.Parameters.FLASH_MODE_OFF : Camera.Parameters.FLASH_MODE_TORCH);
+                }else{
+                    buttonFlash.setChecked(false);
+                }
+            }
+        });
+
         buttonSearch.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -92,11 +107,10 @@ public final class BarcodeCaptureActivity extends AmActivity implements BarcodeG
                 }
         );
 
-        buttonFlash.setOnClickListener(new View.OnClickListener() {
+        buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCameraSource.setFlashMode((mCameraSource.getFlashMode().equals(Camera.Parameters.FLASH_MODE_TORCH)) ? Camera.Parameters.FLASH_MODE_OFF : Camera.Parameters.FLASH_MODE_TORCH);
-
+                finish();
             }
         });
 
