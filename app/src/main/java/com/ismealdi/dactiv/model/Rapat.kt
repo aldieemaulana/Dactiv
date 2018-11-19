@@ -8,10 +8,14 @@ import java.util.*
 @Parcelize
 data class Rapat(
     var id: String = "",
+    var code: Int = (0..99999).random(),
     var agendaRapat: String = "",
     var notulenRapat: String = "",
     var tindakLanjut: Int = 0,
     var tanggalBatasTindakLanjut: Date = Date(),
+    var keteranganTindakLanjut: String = "",
+    var alasan: String = "",
+    var tanggalTindakLanjut: Date = Date(),
     var tanggalRapat: Date = Date(),
     var status: Int = 0,
     var admin: String = "",
@@ -19,3 +23,5 @@ data class Rapat(
     var createdOn: Date = Timestamp.now().toDate(),
     var lastUpdated: Date = Timestamp.now().toDate()
 ) : Parcelable
+
+fun IntRange.random() = (Math.random() * ((endInclusive + 1) - start) + start).toInt()

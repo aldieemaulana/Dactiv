@@ -85,5 +85,16 @@
     <string name="text_tanggal_pelaksanaan">Tanggal Pelaksanaan</string>
     <string name="text_offline">No Internet, Don\'t worry we will try to catch the data from our secret place.</string>
     <string name="text_no_attendent">No one here</string>
+    <string name="title_rapat">Rapat</string>
+    <string name="text_agenda_rapat">Agenda Rapat</string>
+    <string name="text_agenda_rapat_hint">Agenda</string>
+    <string name="text_jadwal_rapat">Jadwal Rapat</string>
+    <string name="title_add_rapat">Rapat</string>
+    <string name="text_tanggal_batas_tindak_lanjut">Tanggal Batas Tindak Lanjut</string>
+    <string name="text_no_tulen">No Tulen</string>
+    <string name="text_no_tulen_hint">Keterangan Hasil Rapat</string>
+    <string name="text_tanggal_tindak_lanjut">Tanggal Tindak Lanjut</string>
+    <string name="text_alasan">Alasan Keterlambatan</string>
+    <string name="text_alasan_hint">Alasan</string>
 
 </resources>

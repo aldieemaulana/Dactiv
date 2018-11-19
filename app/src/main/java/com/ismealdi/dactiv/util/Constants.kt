@@ -29,6 +29,7 @@ open class Constants {
             const val ADD_KEGIATAN = 1015
             const val ADD_KEGIATAN_MAIN = 1016
             const val REQUEST_WRITE_PERMISSION = 1017
+            const val ADD_RAPAT_MAIN = 1018
         }
 
         const val NOTIFICATION = "intentNotification"
@@ -36,6 +37,7 @@ open class Constants {
         const val DETAIL_SATKER = "intentDetailSatker"
         const val DETAIL_SATKER_BAGIAN = "intentDetailSatkerBagian"
         const val DETAIL_KEGIATAN = "intentDetailKegiatan"
+        const val DETAIL_RAPAT = "intentDetailRapat"
 
         const val SUCCESS = 101
         const val FAILED = 102
@@ -73,6 +75,7 @@ open class Constants {
     object SHARED {
         const val pushToken = "SHARED_PUSH_TOKEN"
         const val userUid = "SHARED_UID"
+        const val firstLoadRapat = "SHARED_FIRST_LOAD_RAPAT"
         const val firstLoadKegiatan = "SHARED_FIRST_LOAD_KEGIATAN"
         const val firstLoadSatker = "SHARED_FIRST_LOAD_SATKER"
         const val user = "SHARED_USER"

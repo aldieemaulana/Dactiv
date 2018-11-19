@@ -7,21 +7,15 @@ import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.MenuItem
-import android.view.View
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.MetadataChanges
 import com.google.firebase.firestore.Query
 import com.ismealdi.dactiv.R
-import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanActivity
 import com.ismealdi.dactiv.activity.signin.SignInActivity
 import com.ismealdi.dactiv.activity.profile.ProfileActivity
 import com.ismealdi.dactiv.base.AmDraftActivity
-import com.ismealdi.dactiv.fragment.KegiatanFragment
-import com.ismealdi.dactiv.fragment.MainFragment
-import com.ismealdi.dactiv.fragment.ProfileFragment
-import com.ismealdi.dactiv.fragment.SatkerFragment
-import com.ismealdi.dactiv.listener.KegiatanListener
+import com.ismealdi.dactiv.fragment.*
 import com.ismealdi.dactiv.model.*
 import com.ismealdi.dactiv.services.AmMessagingService
 import com.ismealdi.dactiv.util.*
@@ -36,7 +30,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
 
     private val mainFragment = MainFragment()
     private val kegiatanFragment = KegiatanFragment()
-    private val eventFragment = Fragment()
+    private val rapatFragment = RapatFragment()
     private val satkerFragment = SatkerFragment()
     private val profileFragment = ProfileFragment()
     private var mRevealAnimation : RevealAnimation? = null
@@ -50,6 +44,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     private var jabatanSnapshot : ListenerRegistration? = null
     private var satkerSnapshot : ListenerRegistration? = null
     private var kegiatanSnapshot : ListenerRegistration? = null
+    private var rapatSnapshot : ListenerRegistration? = null
 
     override fun onConnectionChange(message: String) {
         showSnackBar(layoutSnackBar, message, Snackbar.LENGTH_SHORT, 850)
@@ -70,8 +65,8 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
                 return true
             }
             R.id.event -> {
-                mFragmentManager.beginTransaction().hide(activeFragment).show(eventFragment).commit()
-                activeFragment = eventFragment
+                mFragmentManager.beginTransaction().hide(activeFragment).show(rapatFragment).commit()
+                activeFragment = rapatFragment
 
                 return true
             }
@@ -95,7 +90,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
     private fun setFragment() {
         mFragmentManager.beginTransaction().add(R.id.frameLayout, profileFragment, Constants.FRAGMENT.PROFILE.NAME).hide(profileFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, satkerFragment, Constants.FRAGMENT.SATKER.NAME).hide(satkerFragment).commit()
-        mFragmentManager.beginTransaction().add(R.id.frameLayout, eventFragment, Constants.FRAGMENT.EVENT.NAME).hide(eventFragment).commit()
+        mFragmentManager.beginTransaction().add(R.id.frameLayout, rapatFragment, Constants.FRAGMENT.EVENT.NAME).hide(rapatFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, kegiatanFragment, Constants.FRAGMENT.MEETING.NAME).hide(kegiatanFragment).commit()
         mFragmentManager.beginTransaction().add(R.id.frameLayout, mainFragment, Constants.FRAGMENT.MAIN.NAME).commit()
     }
@@ -117,6 +112,7 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         getRealTimeProfile()
         getRealTimeSatker()
         getRealTimeKegiatan()
+        getRealTimeRapat()
         hideProgress()
 
         if((auth?.currentUser?.displayName).isNullOrEmpty()) {
@@ -285,6 +281,44 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
         }
     }
 
+    private fun getRealTimeRapat() {
+        val mRapats : MutableList<Rapat> = mutableListOf()
+
+        if(Preferences(this).getFirstLoadRapat()) {
+            rapatFragment.loader(true)
+            Preferences(this).storeFirstLoadRapat(false)
+        }
+
+        rapatSnapshot = db?.rapat()?.orderBy(rapatFields.tanggalRapat, Query.Direction.DESCENDING)!!.addSnapshotListener(MetadataChanges.INCLUDE) { documentSnapshot, _ ->
+
+            if (documentSnapshot != null) {
+                mRapats.clear()
+
+                run loop@{
+                    documentSnapshot.documentChanges.forEach {
+                        if(it.type == DocumentChange.Type.ADDED) {
+                            rapatFragment.loader(true)
+
+                            return@loop
+                        }
+                    }
+                }
+
+                documentSnapshot.documents.forEach {
+                    val mRapat = it.toObject(Rapat::class.java)
+
+                    if (mRapat != null) {
+                        mRapat.status = if(it.metadata.hasPendingWrites()) -1 else mRapat.status
+                        mRapats.add(mRapat)
+                    }
+                }
+
+                rapatFragment.resetList(mRapats)
+            }
+
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -317,6 +351,8 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
             golonganSnapshot!!.remove()
         if(userSnapshot != null)
             userSnapshot!!.remove()
+        if(rapatSnapshot != null)
+            rapatSnapshot!!.remove()
     }
 
 }

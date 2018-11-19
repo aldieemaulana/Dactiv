@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutParent"
+    android:background="@color/colorBackgroundPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?attr/actionBarSize"
+    tools:context=".activity.rapat.add.AddRapatActivity">
+
+    <include layout="@layout/toolbar_primary"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_primary"
+        app:layout_insetEdge="top"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:focusable="true"
+            style="@style/AppTheme.Layout.Parent"
+            android:focusableInTouchMode="true">
+
+            <requestFocus />
+
+            <LinearLayout
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmEdit="@id/textAgendaRapat"
+                    app:AmFont="M"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_agenda_rapat" />
+
+                <com.ismealdi.dactiv.components.AmEditText
+                    style="@style/AppTheme.TextInput"
+                    app:AmFont="R"
+                    android:id="@+id/textAgendaRapat"
+                    android:hint="@string/text_agenda_rapat_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxLength="30"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutTanggalRapat"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmFont="M"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_jadwal_rapat" />
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextInput"
+                    app:AmFont="R"
+                    android:id="@+id/textJadwalPelaksana"
+                    android:hint="@string/text_jadwal_pelaksana_hint"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:maxLength="20"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <com.ismealdi.dactiv.components.AmLinearLayout
+                android:id="@+id/layoutAdmin"
+                app:AmDialog="true"
+                app:AmEdit="@id/textAdmin"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:background="@drawable/input_primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/component_medium"
+                android:orientation="vertical">
+                <com.ismealdi.dactiv.components.AmTextView
+                    style="@style/AppTheme.TextLabelInput"
+                    app:AmFont="M"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_admin" />
+
+                <com.ismealdi.dactiv.components.AmTextView
+                    app:AmFont="R"
+                    app:AmLayout="@id/layoutAdmin"
+                    android:id="@+id/textAdmin"
+                    style="@style/AppTheme.TextInput"
+                    android:hint="@string/text_admin_hint"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"/>
+            </com.ismealdi.dactiv.components.AmLinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

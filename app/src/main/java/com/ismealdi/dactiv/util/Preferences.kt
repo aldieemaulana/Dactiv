@@ -32,6 +32,17 @@ class Preferences(context: Context) {
         return sharedPref.getString(Constants.SHARED.userUid, "")!!
     }
 
+    fun storeFirstLoadRapat(boolean: Boolean) {
+        with (sharedPref.edit()) {
+            putBoolean(Constants.SHARED.firstLoadRapat, boolean)
+            apply()
+        }
+    }
+
+    fun getFirstLoadRapat() : Boolean {
+        return sharedPref.getBoolean(Constants.SHARED.firstLoadRapat, false)
+    }
+
     fun storeFirstLoadKegiatan(boolean: Boolean) {
         with (sharedPref.edit()) {
             putBoolean(Constants.SHARED.firstLoadKegiatan, boolean)

@@ -31,6 +31,7 @@ import com.ismealdi.dactiv.model.Alert
 import com.ismealdi.dactiv.model.Attendent
 import com.ismealdi.dactiv.model.User
 import com.ismealdi.dactiv.util.*
+import com.ismealdi.dactiv.util.Utils.getImageQrCode
 import com.ismealdi.dactiv.util.barcode.BarcodeCaptureActivity
 import com.ismealdi.dactiv.watcher.AmCurrencyWatcher
 import net.glxn.qrgen.android.QRCode
@@ -44,20 +45,20 @@ import java.util.*
  */
 class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
 
-    internal lateinit var mKegiatan : Kegiatan
-
     override lateinit var presenter: DetailKegiatanContract.Presenter
     override lateinit var progress: KProgressHUD
+
     override var mUsers : MutableList<User> = mutableListOf()
     override var mAttendents : MutableList<Attendent> = mutableListOf()
 
-    private lateinit var mAdapter : UserAdapter
     private var format: NumberFormat? = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
     private val request = 20
     private val capture = 9001
-
-    private lateinit var datePicker: DatePickerDialog
     private var isDeskripsi = false
+
+    private lateinit var mAdapter : UserAdapter
+    private lateinit var mKegiatan : Kegiatan
+    private lateinit var datePicker: DatePickerDialog
 
 
     fun init() {
@@ -76,7 +77,7 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
 
         setTitle(getString(R.string.title_kegiatan))
         buttonBackToolbar.visibility = View.VISIBLE
-        buttonMenuToolbar.visibility = View.VISIBLE
+        buttonMenuToolbar.visibility = View.GONE
         buttonMenuToolbar.setPadding(10,10,10,10)
         buttonMenuToolbar.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_qr_code))
 
@@ -118,8 +119,7 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         buttonAlarm.isEnabled = false
         layoutAdmin.visibility = View.GONE
 
-        val bitmap = QRCode.from(kegiatan.id).withSize(1000, 1000).bitmap()
-        imageBarCode.setImageBitmap(bitmap)
+        getImageQrCode(imageBarCode, kegiatan.id)
 
         if(App.fireBaseAuth.currentUser != null) {
 
@@ -170,6 +170,8 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         if(mKegiatan.status != 1 || mKegiatan.attendent.any { x -> x.user == App.fireBaseAuth.currentUser!!.uid && DateFormat.format("dd/MM/yyyy", x.attendOn.toDate()) == DateFormat.format("dd/MM/yyyy", Calendar.getInstance()) }) {
             buttonMenuToolbar.visibility = View.GONE
             layoutAdmin.visibility = View.GONE
+        }else{
+            buttonMenuToolbar.visibility = View.VISIBLE
         }
     }
 
@@ -342,6 +344,8 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
 
                     if(dat.time < jad.time) {
                         setLayoutDeskripsi(true)
+                    }else{
+                        setLayoutDeskripsi(false)
                     }
                 }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true)
 

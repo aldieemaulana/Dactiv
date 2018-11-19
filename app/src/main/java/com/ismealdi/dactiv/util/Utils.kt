@@ -10,6 +10,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
 import java.io.ByteArrayOutputStream
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -78,6 +82,18 @@ object Utils {
         val duration = end - start
 
         return TimeUnit.MILLISECONDS.toDays(duration)
+    }
+
+    fun getImageQrCode(imageView: ImageView, text: String, width: Int = 1000, height: Int = 1000) {
+        val multiFormatWriter = MultiFormatWriter()
+
+        try {
+            val bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
+            val barcodeEncoder = BarcodeEncoder()
+            imageView.setImageBitmap(barcodeEncoder.createBitmap(bitMatrix))
+        } catch (e: WriterException) {
+            e.printStackTrace()
+        }
     }
 
 }
