@@ -1,7 +1,9 @@
 package com.ismealdi.dactiv.util
 
+import android.os.Parcel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ismealdi.dactiv.structure.*
+import java.util.*
 
 /**
  * Created by Al on 17/10/2018
@@ -30,3 +32,6 @@ fun FirebaseFirestore.message(uid: String) = collection(Message.Path.Name).docum
 
 fun FirebaseFirestore.alert() = collection(Alert.Path.Name)
 fun FirebaseFirestore.alert(uid: String) = collection(Alert.Path.Name).document(uid)
+
+fun Parcel.writeDate(date: Date?) = writeLong(date?.time ?: -1)
+fun Parcel.readDate(): Date? = if (readLong() != -1L) Date(readLong()) else null

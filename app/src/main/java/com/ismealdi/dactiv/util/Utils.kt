@@ -13,6 +13,8 @@ import android.widget.EditText
 import java.io.ByteArrayOutputStream
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 object Utils {
 
@@ -69,6 +71,13 @@ object Utils {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val path = MediaStore.Images.Media.insertImage(context.contentResolver, inImage, "DactivFoto", null)
         return Uri.parse(path)
+    }
+
+    fun numberOfDays(end: Long) : Long {
+        val start = Calendar.getInstance().timeInMillis
+        val duration = end - start
+
+        return TimeUnit.MILLISECONDS.toDays(duration)
     }
 
 }

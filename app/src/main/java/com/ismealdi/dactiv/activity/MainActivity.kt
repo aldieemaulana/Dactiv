@@ -21,7 +21,7 @@ import com.ismealdi.dactiv.fragment.KegiatanFragment
 import com.ismealdi.dactiv.fragment.MainFragment
 import com.ismealdi.dactiv.fragment.ProfileFragment
 import com.ismealdi.dactiv.fragment.SatkerFragment
-import com.ismealdi.dactiv.interfaces.KegiatanListener
+import com.ismealdi.dactiv.listener.KegiatanListener
 import com.ismealdi.dactiv.model.*
 import com.ismealdi.dactiv.services.AmMessagingService
 import com.ismealdi.dactiv.util.*
@@ -32,7 +32,7 @@ import android.support.v4.util.Pair as UtilPair
  * Created by Al on 10/10/2018
  */
 
-class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSelectedListener, KegiatanListener {
+class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private val mainFragment = MainFragment()
     private val kegiatanFragment = KegiatanFragment()
@@ -156,6 +156,9 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
                     profileFragment.setData(user)
                     satkerFragment.updateStateOfUser(user.category)
                     msg!!.subscribeToTopic(user.bagian.toString())
+
+                    getRealTimeGolongan(user.golongan.toString())
+                    getRealTimeJabatan(user.bagian.toString())
 
                 }
             }
@@ -314,25 +317,6 @@ class MainActivity : AmDraftActivity(), BottomNavigationView.OnNavigationItemSel
             golonganSnapshot!!.remove()
         if(userSnapshot != null)
             userSnapshot!!.remove()
-    }
-
-    override fun goToDetail(kegiatan: Kegiatan, nameView: View, anggaranView: View) {
-        val mIntent = Intent(context, DetailKegiatanActivity::class.java)
-
-        mIntent.putExtra(Constants.INTENT.DETAIL_KEGIATAN, kegiatan)
-
-        /*mIntent.putExtra("nameView", ViewCompat.getTransitionName(nameView))
-        mIntent.putExtra("anggaranView", ViewCompat.getTransitionName(anggaranView))
-
-        val p1= UtilPair.create(nameView, ViewCompat.getTransitionName(nameView)!!)
-        val p2= UtilPair.create(anggaranView, ViewCompat.getTransitionName(anggaranView)!!)
-
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,p1,p2)
-
-        startActivity(mIntent, options.toBundle())*/
-
-        startActivity(mIntent)
-
     }
 
 }

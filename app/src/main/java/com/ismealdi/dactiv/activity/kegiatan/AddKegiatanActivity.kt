@@ -91,7 +91,7 @@ class AddKegiatanActivity : AmDraftActivity() {
             data.jadwal = formatter.parse(jadwalPelaksana.toString())
             data.penanggungJawab = mUsers[layoutPenanggung.getDialogSelected()]!!.uid
             data.bagian = mUsers[user?.uid]!!.bagian.toString()
-            data.satker = if(intent.getParcelableExtra<Satker>(DETAIL_SATKER) != null) intent.getParcelableExtra<Satker>(DETAIL_SATKER).id else mSatkers[layoutSatker.getDialogSelected()]!!.id
+            data.satker = if(intent.getParcelableExtra<Satker>(DETAIL_SATKER) != null) (intent.getParcelableExtra<Satker>(DETAIL_SATKER) as Satker).id else mSatkers[layoutSatker.getDialogSelected()]!!.id
 
             addKegiatan(data)
 
@@ -139,7 +139,7 @@ class AddKegiatanActivity : AmDraftActivity() {
         initView()
 
         if(intent.getParcelableExtra<Satker>(DETAIL_SATKER) != null) {
-            textSatker.text = intent.getParcelableExtra<Satker>(DETAIL_SATKER).name
+            textSatker.text = (intent.getParcelableExtra<Satker>(DETAIL_SATKER)).name
             layoutSatker.isClickable = false
             layoutSatker.isEnabled = false
             textSatker.isClickable = false

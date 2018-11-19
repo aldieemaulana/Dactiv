@@ -32,6 +32,8 @@ interface DetailKegiatanContract {
 
         fun setData(kegiatan: Kegiatan)
 
+        fun loader(boolean: Boolean)
+
     }
 
     interface Presenter : AmPresenter {

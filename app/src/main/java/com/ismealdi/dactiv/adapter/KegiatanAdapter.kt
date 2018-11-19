@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.support.constraint.ConstraintLayout
-import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -17,13 +15,13 @@ import android.widget.RelativeLayout
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanActivity
 import com.ismealdi.dactiv.components.AmTextView
-import com.ismealdi.dactiv.interfaces.KegiatanListener
+import com.ismealdi.dactiv.listener.KegiatanListener
 import com.ismealdi.dactiv.model.Kegiatan
 import com.ismealdi.dactiv.util.Constants.INTENT.DETAIL_KEGIATAN
+import com.ismealdi.dactiv.util.Utils.numberOfDays
 import kotlinx.android.synthetic.main.list_kegiatan.view.*
 import java.text.NumberFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 class KegiatanAdapter(private var context: Context, private var kegiatans: MutableList<Kegiatan>, private var isFirstOff: Boolean = false, private var isTitled: Boolean = false, private var listener: KegiatanListener? = null) : RecyclerView.Adapter<KegiatanAdapter.ViewHolder>() {
@@ -93,6 +91,7 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
                 holder.frame.alpha = .4f
                 holder.state.visibility = View.INVISIBLE
                 holder.description.text = "Belum Terupload"
+                holder.frame.setOnClickListener(null)
             }else{
                 holder.state.visibility = View.VISIBLE
                 holder.description.text = status[kegiatan.status]
@@ -154,13 +153,6 @@ class KegiatanAdapter(private var context: Context, private var kegiatans: Mutab
         notifyDataSetChanged()
 
         headOf = ""
-    }
-
-    private fun numberOfDays(end: Long) : Long {
-        val start = Calendar.getInstance().time.time
-        val duration = end - start
-
-        return TimeUnit.MILLISECONDS.toDays(duration)
     }
 
 }

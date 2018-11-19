@@ -1,4 +1,4 @@
-package com.ismealdi.dactiv.interfaces
+package com.ismealdi.dactiv.listener
 
 import android.view.View
 import com.ismealdi.dactiv.components.AmTextView

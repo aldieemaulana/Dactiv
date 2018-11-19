@@ -16,8 +16,12 @@ import java.util.*
 
 class UserAdapter(private var users: MutableList<Attendent>, private var mUsers: MutableList<User>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
+    private var attendentPosition = ""
+    private val dateFormat = "d MMMM yyyy"
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: AmTextView = itemView.textName
+        val number: AmTextView = itemView.textPosition
         val time: AmTextView = itemView.textTime
         val frame: LinearLayout = itemView.layoutFrame
     }
@@ -31,6 +35,9 @@ class UserAdapter(private var users: MutableList<Attendent>, private var mUsers:
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = users[holder.adapterPosition]
 
+        if(position == 0)
+            this.attendentPosition = ""
+
         if(mUsers.size > 0) {
             val userd = mUsers.find { it.uid == user.user }
             if(userd != null && userd.displayName != "") {
@@ -39,12 +46,18 @@ class UserAdapter(private var users: MutableList<Attendent>, private var mUsers:
                 holder.name.setTextFade("...")
             }
 
-            if (DateFormat.format("d MMMM yyyy", user.attendOn.toDate()) != DateFormat.format("d MMMM yyyy", Calendar.getInstance())) {
-                holder.time.text = DateFormat.format("d MMMM hh:mm", user.attendOn.toDate()).toString()
+            val attendOn = DateFormat.format(dateFormat, user.attendOn.toDate()).toString()
+
+            if(this.attendentPosition != attendOn) {
+                this.attendentPosition = attendOn
+
+                holder.number.setTextFade(this.attendentPosition)
+                holder.number.visibility = View.VISIBLE
             }else{
-                holder.time.text = DateFormat.format("hh:mm", user.attendOn.toDate()).toString()
+                holder.number.visibility = View.GONE
             }
 
+            holder.time.text = DateFormat.format("hh:mm", user.attendOn.toDate()).toString()
             holder.frame.setOnClickListener {
 
             }

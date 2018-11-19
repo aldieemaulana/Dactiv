@@ -67,7 +67,7 @@ class SatkerFragment : AmFragment() {
 
         mActivity.hideProgress()
 
-        showEmpty((mAdapter.itemCount == 0))
+        //showEmpty((mAdapter.itemCount == 0))
 
         updateStateOfUser(mCategory)
     }

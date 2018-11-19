@@ -76,6 +76,6 @@ open class Constants {
         const val firstLoadKegiatan = "SHARED_FIRST_LOAD_KEGIATAN"
         const val firstLoadSatker = "SHARED_FIRST_LOAD_SATKER"
         const val user = "SHARED_USER"
-        const val defaultDelay = 1500
+        const val defaultDelay = 500
     }
 }

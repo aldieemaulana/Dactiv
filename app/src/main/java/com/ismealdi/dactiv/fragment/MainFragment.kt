@@ -118,7 +118,7 @@ class MainFragment : AmFragment() {
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
 
-        datePicker = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { time, y, m, d ->
+        datePicker = DatePickerDialog(context, DatePickerDialog.OnDateSetListener { _, y, m, d ->
             val calendar = Calendar.getInstance()
             calendar.set(y, m, d)
 
@@ -161,7 +161,7 @@ class MainFragment : AmFragment() {
     private fun initList() {
         mActivity.showProgress()
 
-        mKegiatanAdapter = KegiatanAdapter(activity!!, mKegiatansFiltered, listener = mActivity)
+        mKegiatanAdapter = KegiatanAdapter(activity!!, mKegiatansFiltered)
 
         recyclerView.layoutManager = LinearLayoutManager(context,
                 LinearLayout.VERTICAL, false)
@@ -169,7 +169,7 @@ class MainFragment : AmFragment() {
 
         mActivity.hideProgress()
 
-        showEmpty((mKegiatanAdapter.itemCount == 0))
+        //showEmpty((mKegiatanAdapter.itemCount == 0))
     }
 
     private fun doAdd() {

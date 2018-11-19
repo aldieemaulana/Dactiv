@@ -27,6 +27,7 @@
             android:orientation="vertical"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:layout_marginBottom="@dimen/activity_vertical_margin_big"
             android:background="@color/colorBackgroundPrimary">
 
             <requestFocus />
@@ -289,34 +290,48 @@
                 </com.ismealdi.dactiv.components.AmLinearLayout>
             </LinearLayout>
 
-            <com.ismealdi.dactiv.components.AmTextView
-                app:AmFont="S"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_small"
-                app:textAllCaps="true"
-                android:text="@string/text_kehadiran"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                style="@style/AppTheme.Layout.Horizontal"/>
+                android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="0dp"
-                android:scrollbars="none"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:nestedScrollingEnabled="false"
-                android:isScrollContainer="false"
-                tools:targetApi="lollipop"
-                tools:ignore="RtlSymmetry" />
+                <include android:id="@+id/layoutEmpty"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    layout="@layout/view_empty_attendent_state"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="0dp"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_small"
+                    android:nestedScrollingEnabled="false"
+                    android:isScrollContainer="false"
+                    tools:targetApi="lollipop"
+                    tools:ignore="RtlSymmetry" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/AppTheme.Margin.Small"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        layout="@layout/view_loader_state" android:id="@+id/viewLoader"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

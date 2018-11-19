@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.format.DateFormat
 import android.view.View
 import android.widget.LinearLayout
-import com.google.firebase.firestore.ListenerRegistration
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.R
 import com.ismealdi.dactiv.activity.MessageActivity
@@ -18,7 +17,7 @@ import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanActivity
 import com.ismealdi.dactiv.adapter.EselonAdapter
 import com.ismealdi.dactiv.adapter.KegiatanAdapter
 import com.ismealdi.dactiv.base.AmActivity
-import com.ismealdi.dactiv.interfaces.KegiatanListener
+import com.ismealdi.dactiv.listener.KegiatanListener
 import com.ismealdi.dactiv.model.Kegiatan
 import com.ismealdi.dactiv.model.Satker
 import com.ismealdi.dactiv.model.User

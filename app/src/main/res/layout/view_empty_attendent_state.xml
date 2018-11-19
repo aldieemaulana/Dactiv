@@ -9,12 +9,11 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:background="@drawable/shape_card"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/component_super"
     android:paddingBottom="@dimen/component_super"
     android:layout_marginLeft="@dimen/activity_horizontal_margin"
     android:layout_marginRight="@dimen/activity_horizontal_margin"
-    style="@style/AppTheme.Layout.Parent">
+    style="@style/AppTheme.Layout.Parent.Small">
 
     <com.ismealdi.dactiv.components.AmTextView
         app:AmFont="S"
@@ -23,31 +22,19 @@
         android:textColor="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_ooh"
-        android:layout_marginBottom="@dimen/component_big"/>
+        android:text="@string/text_ooh"/>
 
     <com.ismealdi.dactiv.components.AmTextView
         app:AmFont="R"
         android:gravity="center"
         android:textSize="@dimen/text_normal"
         android:textColor="@color/colorTextNormal"
-        android:text="@string/text_no_satker_data"
+        android:text="@string/text_no_attendent"
         android:layout_width="match_parent"
         style="@style/AppTheme.Layout.Parent.Small"
         android:paddingLeft="@dimen/component_small"
         android:paddingRight="@dimen/component_small"
         android:layout_height="wrap_content"/>
 
-    <com.ismealdi.dactiv.components.AmButton
-        app:AmFont="S"
-        android:id="@+id/buttonAdd"
-        style="@style/AppTheme.ButtonInput.Round"
-        android:text="@string/text_add"
-        android:layout_marginTop="@dimen/component_super"
-        android:layout_gravity="center|bottom"
-        android:gravity="center"
-        android:textSize="@dimen/text_small"
-        android:layout_width="140dp"
-        android:layout_height="40dp"/>
 
 </LinearLayout>

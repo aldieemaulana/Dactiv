@@ -28,7 +28,7 @@
                 android:orientation="vertical"
                 android:background="@drawable/background_primary">
 
-                <include layout="@layout/view_empty_state"/>
+                <include layout="@layout/view_empty_state" android:visibility="gone"/>
 
                 <LinearLayout
                     android:visibility="gone"
@@ -43,6 +43,7 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:elevation="0dp"

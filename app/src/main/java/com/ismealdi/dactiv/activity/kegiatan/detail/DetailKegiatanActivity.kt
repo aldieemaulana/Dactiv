@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -23,7 +24,6 @@ import android.text.format.DateFormat
 import android.widget.LinearLayout
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
-import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.ismealdi.dactiv.App
 import com.ismealdi.dactiv.activity.MessageActivity
 import com.ismealdi.dactiv.adapter.UserAdapter
@@ -63,11 +63,6 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
     fun init() {
 
         mKegiatan = intent.getParcelableExtra(DETAIL_KEGIATAN)
-
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            textName.transitionName = intent.getStringExtra("nameView")
-            textAnggaran.transitionName = intent.getStringExtra("anggaranView")
-        }*/
 
         progress = Dialogs.initProgressDialog(this)
         presenter = DetailKegiatanPresenter(this, this)
@@ -114,29 +109,38 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun setData(kegiatan: Kegiatan) {
         textName.text = kegiatan.name
         textKodeKegiatan.text = Utils.stringKodeFormat(kegiatan.kodeKegiatan)
         textAnggaran.text = format!!.format(kegiatan.anggaran)
         textDate.text = DateFormat.format("d MMMM yyyy hh:mm", kegiatan.jadwal).toString()
-        buttonMessage.isEnabled = false
+        buttonAlarm.isEnabled = false
+        layoutAdmin.visibility = View.GONE
 
         val bitmap = QRCode.from(kegiatan.id).withSize(1000, 1000).bitmap()
         imageBarCode.setImageBitmap(bitmap)
 
         if(App.fireBaseAuth.currentUser != null) {
 
+            checkState()
+
             if (kegiatan.penanggungJawab == App.fireBaseAuth.currentUser!!.uid && DateFormat.format("d MMMM yyyy", kegiatan.jadwal) == DateFormat.format("d MMMM yyyy", Calendar.getInstance())) {
                 imageOverlay.visibility = View.GONE
+                if(kegiatan.status == 1) {
+                    layoutAdmin.visibility = View.VISIBLE
+                }
             }
 
             if(kegiatan.status == 1) {
-                layoutAdmin.visibility = View.VISIBLE
                 layoutDeskripsi.isClickable = false
                 layoutDeskripsi.isEnabled = false
-            }else if(kegiatan.status == 4){
-                textAlasan.visibility = View.VISIBLE
-                textAlasan.text = kegiatan.alasan
+            }else {
+                if(kegiatan.status == 4){
+                    textAlasan.visibility = View.VISIBLE
+                    textAlasan.text = kegiatan.alasan
+                }
+
                 val persentase = ((kegiatan.realisasi.toFloat() / kegiatan.anggaran.toFloat()) * 100)
                 textAnggaran.text = format!!.format(kegiatan.realisasi) + " (${String.format("%2.02f", persentase)}%) "
                 textDate.text = DateFormat.format("d MMMM yyyy hh:mm", kegiatan.pelaksanaan).toString()
@@ -153,15 +157,17 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
         recyclerView.layoutManager = LinearLayoutManager(applicationContext,
                 LinearLayout.VERTICAL, false)
         recyclerView.adapter = mAdapter
+        showEmpty(true)
 
     }
 
-    override fun populateAttendent(mUsers: MutableList<User>) {
-        mAdapter.updateUser(mUsers)
+    override fun populateAttendent(users: MutableList<User>) {
+        mAdapter.updateUser(users)
+        checkState()
     }
 
     private fun checkState() {
-        if(mKegiatan.status != 1 || mKegiatan.attendent.any { x -> x.user == App.fireBaseAuth.currentUser!!.uid }) {
+        if(mKegiatan.status != 1 || mKegiatan.attendent.any { x -> x.user == App.fireBaseAuth.currentUser!!.uid && DateFormat.format("dd/MM/yyyy", x.attendOn.toDate()) == DateFormat.format("dd/MM/yyyy", Calendar.getInstance()) }) {
             buttonMenuToolbar.visibility = View.GONE
             layoutAdmin.visibility = View.GONE
         }
@@ -282,8 +288,33 @@ class DetailKegiatanActivity : AmActivity(), DetailKegiatanContract.View {
     }
 
     override fun reloadAttendent(mAttendents: MutableList<Attendent>) {
-        this.mAttendents = mAttendents
-        mAdapter.updateData(mAttendents)
+        val sortedList = mAttendents.sortedWith(compareBy({ it.attendanceNumber }, { it.attendanceNumber })).toMutableList().asReversed()
+        this.mAttendents = sortedList
+        mAdapter.updateData(sortedList)
+        showEmpty((sortedList.size == 0), Constants.SHARED.defaultDelay)
+
+    }
+
+    private fun showEmpty(b: Boolean, delay: Int = 0) {
+        if(b) {
+            if(layoutEmpty != null) layoutEmpty.visibility = View.VISIBLE
+            if(recyclerView != null) recyclerView.visibility = View.GONE
+        }else{
+            if(layoutEmpty != null) layoutEmpty.visibility = View.GONE
+            if(recyclerView != null) recyclerView.visibility = View.VISIBLE
+        }
+
+        Handler().postDelayed({
+            loader(false)
+        }, delay.toLong())
+
+    }
+
+    override fun loader(boolean: Boolean) {
+        if(viewLoader != null) {
+            if((viewLoader.visibility == View.GONE && boolean) || (viewLoader.visibility == View.VISIBLE && !boolean))
+                viewLoader.visibility = if (boolean) View.VISIBLE else View.GONE
+        }
     }
 
     override fun onDestroy() {

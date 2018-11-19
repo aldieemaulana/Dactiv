@@ -10,6 +10,7 @@ import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Comp
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.USER_SUCCESS_ATTEND
 import com.ismealdi.dactiv.activity.kegiatan.detail.DetailKegiatanPresenter.Companion.INFO.USER_SUCCESS_DONE
 import com.ismealdi.dactiv.model.*
+import com.ismealdi.dactiv.util.Utils
 import com.ismealdi.dactiv.util.alert
 import com.ismealdi.dactiv.util.kegiatan
 import com.ismealdi.dactiv.util.user
@@ -24,7 +25,6 @@ import java.util.concurrent.TimeUnit
 
 class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val context: Context) : DetailKegiatanContract.Presenter {
 
-    private var database = App.fireStoreBase
     private val user = App.fireBaseAuth.currentUser
     private var kegiatanSnapshot : ListenerRegistration? = null
     private var userSnapshot : ListenerRegistration? = null
@@ -39,7 +39,7 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
             return
         }
 
-        val userDocument = database.user(penanggungJawab)
+        val userDocument = App.fireStoreBase.user(penanggungJawab)
         val  mUsers : MutableList<User> = mutableListOf()
 
         userDocument.addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
@@ -71,6 +71,13 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
 
         val attendents = kegiatan.attendent.toMutableList()
         val attender = Attendent(user.uid, barcode)
+
+        val cal = Calendar.getInstance()
+        cal.time = kegiatan.jadwal
+        cal.add(Calendar.DATE, kegiatan.durasi)
+
+        val numberOfAttend = (kegiatan.durasi) - Utils.numberOfDays(cal.timeInMillis) + 1
+        attender.attendanceNumber = numberOfAttend.toInt()
 
         attendents.add(attender)
 
@@ -127,22 +134,16 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
         }
     }
 
-    private fun numberOfDays(start: Long, end: Long) : Long {
-        val duration = end - start
-
-        return TimeUnit.MILLISECONDS.toDays(duration)
-    }
-
     override fun users(bagian: String) {
         if (user == null){
             view.onError(DB_USER_DETAIL_NOT_FOUND)
             return
         }
 
-        view.progress.show()
+        view.loader(true)
 
         val  mUsers : MutableList<User> = mutableListOf()
-        userSnapshot = database.user().addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
+        userSnapshot = App.fireStoreBase.user().addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
 
             if (documentSnapshot != null && e == null) {
                 mUsers.clear()
@@ -160,7 +161,7 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
                     view.populateAttendent(mUsers)
                 }
 
-                view.progress.dismiss()
+                view.loader(false)
             }
 
         }
@@ -172,10 +173,10 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
             return
         }
 
-        view.progress.show()
+        view.loader(true)
 
         val  mUsers : MutableList<Attendent> = mutableListOf()
-        kegiatanSnapshot = database.kegiatan(kegiatan.id).addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
+        kegiatanSnapshot = App.fireStoreBase.kegiatan(kegiatan.id).addSnapshotListener (MetadataChanges.INCLUDE) { documentSnapshot, e ->
 
             if (documentSnapshot != null && e == null) {
                 val kegiatan = documentSnapshot.toObject(Kegiatan::class.java)
@@ -184,16 +185,14 @@ class DetailKegiatanPresenter(private val view: DetailKegiatanContract.View, val
                     mUsers.clear()
 
                     kegiatan.attendent.forEach { att: Attendent ->
-                        if (att != null) {
-                            mUsers.add(att)
-                        }
+                        mUsers.add(att)
                     }
 
                     view.mAttendents = mUsers
                     view.reloadAttendent(mUsers)
                 }
 
-                view.progress.dismiss()
+                view.loader(false)
             }
 
         }

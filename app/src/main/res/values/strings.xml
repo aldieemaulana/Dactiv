@@ -84,5 +84,6 @@
     <string name="text_realisasi">Realisasi Anggaran</string>
     <string name="text_tanggal_pelaksanaan">Tanggal Pelaksanaan</string>
     <string name="text_offline">No Internet, Don\'t worry we will try to catch the data from our secret place.</string>
+    <string name="text_no_attendent">No one here</string>
 
 </resources>

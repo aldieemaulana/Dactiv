@@ -92,16 +92,30 @@
                     android:textSize="@dimen/text_small"
                     android:text="@string/text_eselon"/>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerViewEselon"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="0dp"
-                    android:scrollbars="none"
-                    android:nestedScrollingEnabled="false"
-                    android:isScrollContainer="false"
-                    tools:targetApi="lollipop"
-                    tools:ignore="RtlSymmetry"/>
+                    android:layout_height="wrap_content">
+
+                    <ProgressBar
+                        android:id="@+id/progressLoader"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:indeterminateTint="@color/colorPrimary"
+                        android:layout_centerVertical="true"
+                        tools:targetApi="lollipop" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:background="@color/colorWhite"
+                        android:id="@+id/recyclerViewEselon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:scrollbars="none"
+                        android:nestedScrollingEnabled="false"
+                        android:isScrollContainer="false"
+                        tools:targetApi="lollipop"
+                        tools:ignore="RtlSymmetry"/>
+                </RelativeLayout>
 
             </LinearLayout>
 
