@@ -47,7 +47,7 @@ object Logs {
 
     fun db(msg: String) {
         if (BuildConfig.DEBUG) {
-            Log.e("AmDatabase","$msg")
+            Log.e("AmDatabase", msg)
         }
     }
 }
